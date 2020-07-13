@@ -34,7 +34,7 @@ def checkout_git(url, rev):
 def fetch_metadata(filename):
     metadata = {}
 
-    lineage_build_targets_str = urllib.request.urlopen("https://github.com/LineageOS/hudson/raw/master/lineage-build-targets").read().decode()
+    lineage_build_targets_str = urllib.request.urlopen("https://github.com/atemu/hudson/raw/master/lineage-build-targets").read().decode()
     for line in lineage_build_targets_str.split("\n"):
         line = line.strip()
         if line == "":
@@ -50,7 +50,7 @@ def fetch_metadata(filename):
 
     ###
 
-    devices = json.load(urllib.request.urlopen("https://github.com/LineageOS/hudson/raw/master/updater/devices.json"))
+    devices = json.load(urllib.request.urlopen("https://github.com/atemu/hudson/raw/master/updater/devices.json"))
     for data in devices:
         if data['model'] not in metadata:
             continue
@@ -63,7 +63,7 @@ def fetch_metadata(filename):
 
     ###
 
-    device_deps = json.load(urllib.request.urlopen("https://github.com/LineageOS/hudson/raw/master/updater/device_deps.json"))
+    device_deps = json.load(urllib.request.urlopen("https://github.com/atemu/hudson/raw/master/updater/device_deps.json"))
     for model, deps in device_deps.items():
         if model not in metadata:
             continue
