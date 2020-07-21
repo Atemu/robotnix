@@ -98,10 +98,10 @@
     "url": "https://github.com/TheMuppets/proprietary_vendor_samsung"
   },
   "vendor/sony": {
-    "date": "2020-06-26T12:41:24+02:00",
+    "date": "2020-07-21T01:39:42+02:00",
     "fetchSubmodules": false,
-    "rev": "9560c4ddd16ed161b52b1ceab24289503c5ba261",
-    "sha256": "0yy5wajjz4hqvfg0rp5b8ip4y6rrjbnjbj653q5spwjqlpvq9p0m",
+    "rev": "78bffd7abba2acd11bfa359c5756c568d4fb76ba",
+    "sha256": "0vfal4vrb9fwhiwvialm0bc4nklhqfnj2j4hz3xiaahrqf679mk0",
     "url": "https://github.com/TheMuppets/proprietary_vendor_sony"
   },
   "vendor/wileyfox": {

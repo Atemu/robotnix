@@ -782,9 +782,9 @@
     "groups": [
       "pdk"
     ],
-    "rev": "8a8cec316e7ceda84514005ca4eb7d02672a02c2",
+    "rev": "f05c347d88eb60d37b83a51c08b10f31b00ce9b0",
     "revisionExpr": "master",
-    "sha256": "0rdjnvsbpf4bsdqf76yxwgl1gqq4q12cqg4g7by3c029jyg39k9a",
+    "sha256": "1m4kb1fxxgckbaan19lavi0ivj1wfw69gnx32a463qm9gg2hmbzw",
     "url": "https://github.com/LineageOS/android_external_chromium-webview"
   },
   "external/clang": {
@@ -3799,9 +3799,9 @@
       "pdk-cw-fs",
       "pdk-fs"
     ],
-    "rev": "5af935ce42e1741071729adc0a61047d76ad8d5f",
+    "rev": "63f827f0a7505d527500f7f9ad3723c019831c87",
     "revisionExpr": "refs/heads/lineage-17.1",
-    "sha256": "0m74ji44ac0fsckmqv48vd90pcj2vp1mbx8kn8yjzvz7glwjbv1x",
+    "sha256": "1ilp7ygl9raf66sny2zsgx372j28m0qdm326z4jxzx9qdaihbkrj",
     "url": "https://github.com/LineageOS/android_frameworks_base"
   },
   "frameworks/compile/libbcc": {
@@ -5193,9 +5193,9 @@
     "groups": [
       "tools"
     ],
-    "rev": "0b193a874e19f0f64e9b4baf199a72fcffee19dc",
+    "rev": "961ad2b7fca512193365d654e3fafd0eae83b2e5",
     "revisionExpr": "master",
-    "sha256": "07q9p1ak3z1yppfs4iknnwyjyz67gg1wy8gx7jp6plg2rpv7bpac",
+    "sha256": "1nxliff1zhxk3gqy2k2sd7v7k4xpcq86dxby2xpyrz1xj133h0dr",
     "url": "https://github.com/LineageOS/scripts"
   },
   "lineage/slackbot": {
@@ -7531,9 +7531,9 @@
   },
   "vendor/lineage": {
     "groups": [],
-    "rev": "99228d6db70e632cf66a24c1c65a06d5aa1a8478",
+    "rev": "7d6601cf02601a502d8ea09db3f821fdfcb0098b",
     "revisionExpr": "refs/heads/lineage-17.1",
-    "sha256": "0d2m6vqzgy1zdq5f2rcgp7rlpiclhhl1pz4zliq0870w1kb2mfq2",
+    "sha256": "0hg9z7ankc6b5ani2mgiv636hj0hbfywsmhvl1frnb4sxqs9j5gw",
     "url": "https://github.com/LineageOS/android_vendor_lineage"
   },
   "vendor/nxp/opensource/commonsys/external/libnfc-nci": {
