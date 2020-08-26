@@ -454,6 +454,13 @@
     "sha256": "065bwbqkc905jzzdf5282pax542d8c2fwipg0ng51mxsfcnbbmfb",
     "url": "https://github.com/LineageOS/android_device_oneplus_bacon"
   },
+  "device/oneplus/cheeseburger": {
+    "date": "2019-12-24T13:09:36+01:00",
+    "fetchSubmodules": false,
+    "rev": "f7f486953c4501298f6088edcd3b14059c8e7697",
+    "sha256": "0s2j54vx21y0b10wls9k2rssyxd93w17j95b0lpizi8b11kvkq31",
+    "url": "https://github.com/LineageOS/android_device_oneplus_cheeseburger"
+  },
   "device/oneplus/common": {
     "date": "2020-01-31T11:00:34+08:00",
     "fetchSubmodules": false,
@@ -488,6 +495,13 @@
     "rev": "35c863ae245ef2d12147110818477a37c4177877",
     "sha256": "1vvz55r1wiavl8kwrv9nnc7v7jiwinsdqklfb5fl3zsav582vd6b",
     "url": "https://github.com/LineageOS/android_device_oneplus_guacamoleb"
+  },
+  "device/oneplus/msm8998-common": {
+    "date": "2020-05-19T23:19:21-07:00",
+    "fetchSubmodules": false,
+    "rev": "af4c57354dc99d990c4ba9ad36f95e777f082c38",
+    "sha256": "0nx6z8735p9vv3zyjyfqykskdv2v5piprdwgc9dhzxzq58n2dlfs",
+    "url": "https://github.com/LineageOS/android_device_oneplus_msm8998-common"
   },
   "device/oneplus/oneplus2": {
     "date": "2020-08-07T13:44:03+08:00",
@@ -1209,6 +1223,13 @@
     "rev": "b300683353a6d90034ad7fee22d93618356bd304",
     "sha256": "1cja3dzrky5nydplhj327lrfvz5r4jpa83hm7cfr4lx03qgfjk9s",
     "url": "https://github.com/LineageOS/android_kernel_oneplus_msm8996"
+  },
+  "kernel/oneplus/msm8998": {
+    "date": "2020-04-27T18:52:00-07:00",
+    "fetchSubmodules": false,
+    "rev": "88829cdfd21c6ded72d0463ee5fe98c322e5ac1f",
+    "sha256": "1askhrrqplxkk2mjh64ijcisrdl5p2dbd9ssk2xwk409gzng6v7f",
+    "url": "https://github.com/LineageOS/android_kernel_oneplus_msm8998"
   },
   "kernel/oneplus/sdm845": {
     "date": "2020-07-14T15:56:00+02:00",
