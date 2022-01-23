@@ -24,7 +24,7 @@ Robotnix orchestrates the diverse build systems across these multiple projects u
 
 Robotnix includes a NixOS-style module system which allows users to easily customize various aspects of the their builds.
 Some optional modules include:
- - Vanilla Android 10 AOSP support (for Pixel devices)
+ - Vanilla Android 12 AOSP support (for Pixel devices)
  - [GrapheneOS](https://grapheneos.org/) support
  - Experimental [LineageOS](https://lineageos.org/) support
  - Signed builds for verified boot (dm-verity/AVB) and re-locking the bootloader with a user-specified key
@@ -32,14 +32,12 @@ Some optional modules include:
  - Browser / Webview: [Chromium](https://www.chromium.org/Home), [Bromite](https://www.bromite.org/), [Vanadium](https://github.com/GrapheneOS/Vanadium)
  - [Seamless OTA updates](https://github.com/GrapheneOS/platform_packages_apps_Updater)
  - [MicroG](https://microg.org/)
- - Certain Google apps (currently just stuff for Google Fi)
  - Easily setting various framework configuration settings such as those found [here](https://android.googlesource.com/platform/frameworks/base/+/master/core/res/res/values/config.xml)
  - Custom built kernels
  - Custom `/etc/hosts` file
  - Extracting vendor blobs from Google's images using [android-prepare-vendor](https://github.com/anestisb/android-prepare-vendor)
 
 ## Documentation
-
 More detailed robotnix documentation is available at [https://docs.robotnix.org](https://docs.robotnix.org), and should be consulted before use.
 
 Robotnix was presented at Nixcon 2020, and a recording of the talk is available [here](https://youtu.be/7sQa04olUA0?t=22314).

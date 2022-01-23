@@ -3,7 +3,7 @@
 
 { configuration,
   pkgs ? (import ./pkgs {}),
-  lib ? pkgs.stdenv.lib
+  lib ? pkgs.lib
 }:
 
 let
@@ -30,9 +30,15 @@ let
         };
       })
       configuration
+      ./flavors/anbox
       ./flavors/grapheneos
+      ./flavors/grapheneos/kernel.nix
       ./flavors/lineageos
       ./flavors/vanilla
+      ./flavors/vanilla/10
+      ./flavors/vanilla/11
+      ./flavors/vanilla/11/kernel
+      ./flavors/vanilla/12
       ./modules/10
       ./modules/11
       ./modules/12
@@ -43,18 +49,19 @@ let
       ./modules/apps/prebuilt.nix
       ./modules/apps/seedvault.nix
       ./modules/apps/updater.nix
-      ./modules/apv.nix
+      ./modules/apv
       ./modules/assertions.nix
       ./modules/base.nix
       ./modules/emulator.nix
       ./modules/envpackages.nix
       ./modules/etc.nix
       ./modules/framework.nix
-      ./modules/google.nix
       ./modules/hosts.nix
       ./modules/kernel.nix
       ./modules/microg.nix
       ./modules/pixel
+      ./modules/pixel/active-edge.nix
+      ./modules/pixel/driver-binaries.nix
       ./modules/release.nix
       ./modules/resources.nix
       ./modules/signing.nix
@@ -78,7 +85,7 @@ in {
   # in the future:
   inherit (config.build)
     targetFiles unsignedTargetFiles signedTargetFiles
-    ota incrementalOta img factoryImg bootImg otaDir
+    ota incrementalOta img factoryImg bootImg recoveryImg otaDir
     releaseScript generateKeysScript verifyKeysScript
     emulator;
 }

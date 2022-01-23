@@ -10,7 +10,7 @@ let
   fakeuser = pkgs.callPackage ./fakeuser {};
 
   # Taken from https://github.com/edolstra/flake-compat/
-  # Format number of seconds in the Unix epoch as %Y.%m.%d.%H
+  # Format number of seconds in the Unix epoch as %Y%m%d%H
   formatSecondsSinceEpoch = t:
     let
       rem = x: y: x - x / y * y;
@@ -33,7 +33,7 @@ let
       y' = y + (if m <= 2 then 1 else 0);
 
       pad = s: if builtins.stringLength s < 2 then "0" + s else s;
-    in "${toString y'}.${pad (toString m)}.${pad (toString d)}.${pad (toString hours)}";
+    in "${toString y'}${pad (toString m)}${pad (toString d)}${pad (toString hours)}";
 in
 {
   options = {
@@ -69,13 +69,13 @@ in
 
     arch = mkOption {
       default = "arm64";
-      type = types.strMatching "(arm64|arm|x86_64|x86)";
+      type = types.enum [ "arm64" "arm" "x86_64" "x86" ];
       description = "Architecture of phone, usually set automatically by device";
     };
 
     variant = mkOption {
       default = "user";
-      type = types.strMatching "(user|userdebug|eng)";
+      type = types.enum [ "user" "userdebug" "eng" ];
       description = ''
         `user` has limited access and is suited for production.
         `userdebug` is like user but with root access and debug capability.
@@ -98,7 +98,7 @@ in
 
     buildType = mkOption {
       default = "release";
-      type = types.strMatching "(release|debug)";
+      type = types.enum [ "release" "debug" ];
       description = "one of \"release\", \"debug\"";
     };
 
@@ -106,35 +106,43 @@ in
       type = types.str;
       description = ''
         Set this to something meaningful to identify the build.
-        Defaults to `YYYY.MM.DD.HH` based on `buildDateTime`.
-        Should be unique for each build used for disambiguation.
+        Defaults to `YYYYMMDDHH` based on `buildDateTime`.
+        Should be unique for each build for disambiguation.
       '';
-      example = "2019.08.12.1";
+      example = "201908121";
     };
 
     buildDateTime = mkOption {
-      default = 1;
       type = types.int;
       description = ''
-        Seconds since the epoch that this build is taking place.
+        Unix time (seconds since the epoch) that this build is taking place.
         Needs to be monotonically increasing for each build if you use the over-the-air (OTA) update mechanism.
         e.g. output of `date +%s`
         '';
       example = 1565645583;
+      default = with lib; foldl' max 1 (mapAttrsToList (n: v: if v.enable then v.dateTime else 1) config.source.dirs);
+      defaultText = "*maximum of source.dirs.<name>.dateTime*";
     };
 
     androidVersion = mkOption {
-      default = 11;
+      default = 12;
       type = types.int;
       description = "Used to select which Android version to use";
     };
 
-    apiLevel = mkOption {
-      default = 30;
-      type = types.int;
+    flavorVersion = mkOption {
+      type = types.str;
       internal = true;
+      description = "Version used by this flavor of Android";
     };
 
+    apiLevel = mkOption {
+      type = types.int;
+      internal = true;
+      readOnly = true;
+    };
+
+    # TODO: extract system/product/vendor options into a submodule
     system.additionalProductPackages = mkOption {
       default = [];
       type = types.listOf types.str;
@@ -145,6 +153,12 @@ in
       default = [];
       type = types.listOf types.str;
       description = "`PRODUCT_PACKAGES` to add under `product` partition.";
+    };
+
+    vendor.additionalProductPackages = mkOption {
+      default = [];
+      type = types.listOf types.str;
+      description = "`PRODUCT_PACKAGES` to add under `vendor` partition.";
     };
 
     removedProductPackages = mkOption {
@@ -164,6 +178,13 @@ in
       default = "";
       type = types.lines;
       description = "Additional configuration to be included in product .mk file";
+      internal = true;
+    };
+
+    vendor.extraConfig = mkOption {
+      default = "";
+      type = types.lines;
+      description = "Additional configuration to be included in vendor .mk file";
       internal = true;
     };
 
@@ -202,12 +223,24 @@ in
     deviceFamily = mkDefault "generic";
   })
   {
+    apiLevel = {
+      # TODO: If we start building older androids and need the distinction
+      # between 7 and 7.1, we should probably switch to a string androidVersion
+      "7" = 25; # Assuming 7.1
+      "8" = 27; # Assuming 8.1
+      "9" = 28;
+      "10" = 29;
+      "11" = 30;
+      "12" = 31;
+    }.${builtins.toString config.androidVersion} or 30;
+
     buildNumber = mkOptionDefault (formatSecondsSinceEpoch config.buildDateTime);
 
     productName = mkIf (config.device != null) (mkOptionDefault "${config.productNamePrefix}${config.device}");
 
     system.extraConfig = lib.concatMapStringsSep "\n" (name: "PRODUCT_PACKAGES += ${name}") config.system.additionalProductPackages;
     product.extraConfig = lib.concatMapStringsSep "\n" (name: "PRODUCT_PACKAGES += ${name}") config.product.additionalProductPackages;
+    vendor.extraConfig = lib.concatMapStringsSep "\n" (name: "PRODUCT_PACKAGES += ${name}") config.vendor.additionalProductPackages;
 
     # TODO: The " \\" in the below sed is a bit flaky, and would require the line to end in " \\"
     # come up with something more robust.
@@ -216,19 +249,25 @@ in
     '' + (if (config.androidVersion >= 10) then ''
       echo "\$(call inherit-product-if-exists, robotnix/config/system.mk)" >> target/product/handheld_system.mk
       echo "\$(call inherit-product-if-exists, robotnix/config/product.mk)" >> target/product/handheld_product.mk
-    '' else ''
+      echo "\$(call inherit-product-if-exists, robotnix/config/vendor.mk)" >> target/product/handheld_vendor.mk
+    '' else if (config.androidVersion >= 8) /* FIXME Unclear if android 8 has these... */ then ''
       echo "\$(call inherit-product-if-exists, robotnix/config/system.mk)" >> target/product/core.mk
       echo "\$(call inherit-product-if-exists, robotnix/config/product.mk)" >> target/product/core.mk
+      echo "\$(call inherit-product-if-exists, robotnix/config/vendor.mk)" >> target/product/core.mk
+    '' else ''
+      # no-op as it's not present in android 7 and under?
     '');
 
     source.dirs."robotnix/config".src = let
       systemMk = pkgs.writeTextFile { name = "system.mk"; text = config.system.extraConfig; };
       productMk = pkgs.writeTextFile { name = "product.mk"; text = config.product.extraConfig; };
+      vendorMk = pkgs.writeTextFile { name = "vendor.mk"; text = config.vendor.extraConfig; };
     in
       pkgs.runCommand "robotnix-config" {} ''
         mkdir -p $out
         cp ${systemMk} $out/system.mk
         cp ${productMk} $out/product.mk
+        cp ${vendorMk} $out/vendor.mk
       '';
 
     envVars = mkMerge [
@@ -259,8 +298,7 @@ in
           srcs = [];
 
           # TODO: Clean this stuff up. unshare / robotnix-build could probably be combined into a single utility.
-          builder = pkgs.writeScript "builder.sh" ''
-            #!${pkgs.runtimeShell}
+          builder = pkgs.writeShellScript "builder.sh" ''
             export SAVED_UID=$(${pkgs.coreutils}/bin/id -u)
             export SAVED_GID=$(${pkgs.coreutils}/bin/id -g)
 
@@ -273,6 +311,8 @@ in
 
           inherit outputs;
 
+          requiredSystemFeatures = [ "big-parallel" ];
+
           nativeBuildInputs = [ config.build.env fakeuser ];
 
           unpackPhase = ''
@@ -280,7 +320,7 @@ in
             source ${config.build.unpackScript}
           '';
 
-          configurePhase = ":";
+          dontConfigure = true;
 
           # This was originally in the buildPhase, but building the sdk / atree would complain for unknown reasons when it was set
           # export OUT_DIR=$rootDir/out
@@ -289,6 +329,12 @@ in
             ${pkgs.toybox}/bin/cat << 'EOF2' | fakeuser $SAVED_UID $SAVED_GID robotnix-build
             set -e -o pipefail
 
+            ${lib.optionalString (config.androidVersion >= 6 && config.androidVersion <= 8) ''
+            # Needed for the jack compilation server
+            # https://source.android.com/setup/build/jack
+            mkdir -p $HOME
+            export USER=foo
+            ''}
             source build/envsetup.sh
             choosecombo ${config.buildType} ${config.productName} ${config.variant}
 
@@ -333,6 +379,43 @@ in
         '';
       };
 
+      moduleInfo = mkAndroid {
+        name = "robotnix-module-info-${config.device}-${config.buildNumber}.json";
+        # Can't use absolute path from $ANDROID_PRODUCT_OUT here since make needs a relative path
+        makeTargets = [ "$(get_build_var PRODUCT_OUT)/module-info.json" ];
+        installPhase = ''
+          cp $ANDROID_PRODUCT_OUT/module-info.json $out
+        '';
+      };
+
+      # Save significant build time by building components simultaneously.
+      mkAndroidComponents = targets: mkAndroid {
+        name = "robotnix-android-components";
+        makeTargets = targets ++ [ "$(get_build_var PRODUCT_OUT)/module-info.json" ];
+        installPhase = ''
+          ${pkgs.python3.interpreter} - "$out" "$ANDROID_PRODUCT_OUT/module-info.json" ${lib.escapeShellArgs targets} << EOF
+          import json
+          import os
+          import shutil
+          import sys
+          outdir = sys.argv[1]
+          module_info = json.load(open(sys.argv[2]))
+          targets = sys.argv[3:]
+          for target in targets:
+              if target in module_info:
+                  for item in module_info[target]['installed']:
+                      if item.startswith('out/'):
+                          output = outdir + item[3:]
+                      else:
+                          output = outdir + '/' + item
+                      os.makedirs(os.path.dirname(output), exist_ok=True)
+                      shutil.copyfile(item, output)
+          EOF
+        '';
+      };
+
+      mkAndroidComponent = target: (mkAndroidComponents [ target ]).overrideAttrs (_: { name=target; });
+
       otaTools = fixOtaTools "${config.build.android}/otatools.zip";
 
       # Also make a version without building all of target-files-package.  This
@@ -353,113 +436,45 @@ in
         sourceRoot = ".";
         nativeBuildInputs = with pkgs; [ unzip pythonPackages.pytest ];
         buildInputs = [ (pkgs.python.withPackages (p: [ p.protobuf ])) ];
-        postPatch = let
-          # Android 11 uses JDK 9, but jre9 is not in nixpkgs anymore
-          jre = if (config.androidVersion >= 11) then pkgs.jdk11_headless else pkgs.jre8_headless;
-        in ''
-          ${lib.optionalString (config.androidVersion >= 11) "cp bin/debugfs_static bin/debugfs"}
-
-          for file in bin/{boot_signer,verity_signer}; do
-            substituteInPlace $file --replace "java " "${lib.getBin jre}/bin/java "
-          done
-
+        postPatch = lib.optionalString (config.androidVersion == 11) ''
+          cp bin/debugfs_static bin/debugfs
+        '' + lib.optionalString (config.androidVersion <= 10) ''
           substituteInPlace releasetools/common.py \
             --replace 'self.search_path = platform_search_path.get(sys.platform)' "self.search_path = \"$out\"" \
-            --replace 'self.java_path = "java"' 'self.java_path = "${lib.getBin jre}/bin/java"' \
-            --replace '"zip"' '"${lib.getBin pkgs.zip}/bin/zip"' \
-            --replace '"unzip"' '"${lib.getBin pkgs.unzip}/bin/unzip"'
-
-          substituteInPlace bin/lib/shflags/shflags \
-            --replace "FLAGS_GETOPT_CMD:-getopt" "FLAGS_GETOPT_CMD:-${pkgs.getopt}/bin/getopt"
-
-          substituteInPlace bin/brillo_update_payload \
-            --replace "which delta_generator" "${pkgs.which}/bin/which delta_generator" \
-            --replace "python " "${pkgs.python}/bin/python " \
-            --replace "xxd " "${lib.getBin pkgs.toybox}/bin/xxd " \
-            --replace "cgpt " "${lib.getBin pkgs.vboot_reference}/bin/cgpt " \
-            --replace "look " "${lib.getBin pkgs.utillinux}/bin/look " \
-            --replace "unzip " "${lib.getBin pkgs.unzip}/bin/unzip "
-
-          for file in releasetools/{check_ota_package_signature,sign_target_files_apks,test_common,common,test_ota_from_target_files,ota_from_target_files,check_target_files_signatures}.py; do
-            substituteInPlace "$file" \
-              --replace "'openssl'" "'${lib.getBin pkgs.openssl}/bin/openssl'" \
-              --replace "\"openssl\"" "\"${lib.getBin pkgs.openssl}/bin/openssl\""
-          done
-          for file in releasetools/testdata/{payload_signer,signing_helper}.sh; do
-            substituteInPlace "$file" \
-              --replace "openssl" "${lib.getBin pkgs.openssl}/bin/openssl"
-          done
-
-          for file in releasetools/test_*.py; do
-            substituteInPlace "$file" \
-              --replace "@test_utils.SkipIfExternalToolsUnavailable()" ""
-          done
-
-          # This test is broken
-          substituteInPlace releasetools/test_sign_target_files_apks.py \
-            --replace test_ReadApexKeysInfo_presignedKeys skip_test_ReadApexKeysInfo_presignedKeys
-
-          # These tests are too slow
-          substituteInPlace releasetools/test_common.py \
-            --replace test_ZipWrite skip_test_zipWrite
         '';
 
         dontBuild = true;
 
-        installPhase = let
-          # Patchelf breaks the executables with embedded python interpreters
-          # Instead, we just wrap all the binaries with a chrootenv. This is ugly.
-          env = pkgs.buildFHSUserEnv {
-            name = "otatools-env";
-            targetPkgs = p: with p; [ openssl ]; # for bin/avbtool
-            runScript = pkgs.writeScript "run" ''
-              #!${pkgs.runtimeShell}
-              run="$1"
-              shift
-              exec -- "$run" "$@"
-            '';
-          };
-        in ''
-          while read -r file; do
-            # isELF is provided by stdenv
+        installPhase = ''
+          for file in bin/*; do
             isELF "$file" || continue
-
-            mv "$file" "bin/.$(basename $file)"
-            echo "#!${pkgs.runtimeShell}" > $file
-            echo "exec ${env}/bin/otatools-env $out/bin/.$(basename $file) \"\$@\"" >> $file
-            chmod +x $file
-          done < <(find ./bin -type f -maxdepth 1 -executable)
-
+            bash ${../scripts/patchelf-prefix.sh} "$file" "${pkgs.stdenv.cc.bintools.dynamicLinker}" || continue
+          done
+        '' + ''
           mkdir -p $out
           cp --reflink=auto -r * $out/
+        '' + lib.optionalString (config.androidVersion <= 10) ''
+          ln -s $out/releasetools/sign_target_files_apks.py $out/bin/sign_target_files_apks
+          ln -s $out/releasetools/img_from_target_files.py $out/bin/img_from_target_files
+          ln -s $out/releasetools/ota_from_target_files.py $out/bin/ota_from_target_files
         '';
+
         # Since we copy everything from build dir into $out, we don't want
         # env-vars file which contains a bunch of references we don't need
         noDumpEnvVars = true;
 
-        # See patchelf note above
+        # This breaks the executables with embedded python interpreters
         dontStrip = true;
-        dontPatchELF = true;
-
-        # TODO: Fix with android 11
-        doInstallCheck = config.androidVersion <= 10;
-        installCheckPhase = ''
-          cd $out/releasetools
-          export PATH=$out/bin:$PATH
-          export EXT2FS_NO_MTAB_OK=yes
-          pytest
-        '';
       };
 
       # Just included for convenience when building outside of nix.
       # TODO: Better way than creating all these scripts and feeding with init-file?
 #        debugUnpackScript = config.build.debugUnpackScript;
 #        debugPatchScript = config.build.debugPatchScript;
-      debugEnterEnv = pkgs.writeScript "debug-enter-env.sh" ''
-        #!${pkgs.runtimeShell}
+      debugEnterEnv = pkgs.writeShellScript "debug-enter-env.sh" ''
         export SAVED_UID=$(${pkgs.coreutils}/bin/id -u)
         export SAVED_GID=$(${pkgs.coreutils}/bin/id -g)
-        ${pkgs.utillinux}/bin/unshare -m -r ${pkgs.writeScript "debug-enter-env2.sh" ''
+        ${pkgs.utillinux}/bin/unshare -m -r ${pkgs.writeShellScript "debug-enter-env2.sh" ''
         export rootDir=$PWD
         source ${config.build.unpackScript}
         ${lib.concatStringsSep "\n" (lib.mapAttrsToList (name: value: "export ${name}=${value}") config.envVars)}
@@ -469,7 +484,30 @@ in
         ''}
       '';
 
-      env = pkgs.buildFHSUserEnv {
+      env = let
+        # Ugly workaround needed in Android >= 12
+        patchedPkgs = pkgs.extend
+          (self: super: {
+            bashInteractive = super.bashInteractive.overrideAttrs (attrs: {
+              # Removed:
+              # -DDEFAULT_PATH_VALUE="/no-such-path"
+              # -DSTANDARD_UTILS_PATH="/no-such-path"
+              # This creates a bash closer to a normal FHS distro bash.
+              # Somewhere in the android build system >= android 12, bash starts
+              # inside an environment with PATH unset, and it gets "/no-such-path"
+              # Command: env -i bash -c 'echo $PATH'
+              # On NixOS/nixpkgs it outputs:  /no-such-path
+              # On normal distros it outputs: /usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:.
+              NIX_CFLAGS_COMPILE = ''
+                -DSYS_BASHRC="/etc/bashrc"
+                -DSYS_BASH_LOGOUT="/etc/bash_logout"
+                -DNON_INTERACTIVE_LOGIN_SHELLS
+                -DSSH_SOURCE_BASHRC
+              '';
+            });
+          });
+        buildFHSUserEnv = if (config.androidVersion >= 12) then patchedPkgs.buildFHSUserEnv else pkgs.buildFHSUserEnv;
+      in buildFHSUserEnv {
         name = "robotnix-build";
         targetPkgs = pkgs: config.envPackages;
         multiPkgs = pkgs: with pkgs; [ zlib ];

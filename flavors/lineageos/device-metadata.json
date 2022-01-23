@@ -6,33 +6,26 @@
     "variant": "userdebug",
     "vendor": "yandex"
   },
+  "DRG": {
+    "branch": "lineage-18.1",
+    "lineage_recovery": true,
+    "name": "6.1 Plus",
+    "variant": "userdebug",
+    "vendor": "nokia"
+  },
   "FP2": {
-    "branch": "lineage-17.1",
+    "branch": "lineage-18.1",
     "lineage_recovery": true,
     "name": "Fairphone 2",
     "variant": "userdebug",
     "vendor": "fairphone"
   },
   "FP3": {
-    "branch": "lineage-17.1",
+    "branch": "lineage-18.1",
     "lineage_recovery": true,
     "name": "Fairphone 3",
     "variant": "userdebug",
     "vendor": "fairphone"
-  },
-  "I001D": {
-    "branch": "lineage-17.1",
-    "lineage_recovery": true,
-    "name": "ROG Phone 2 (ZS660KL)",
-    "variant": "userdebug",
-    "vendor": "asus"
-  },
-  "I01WD": {
-    "branch": "lineage-17.1",
-    "lineage_recovery": true,
-    "name": "Zenfone 6 (ZS630KL)",
-    "variant": "userdebug",
-    "vendor": "asus"
   },
   "PL2": {
     "branch": "lineage-18.1",
@@ -47,6 +40,13 @@
     "name": "2 Pro",
     "variant": "userdebug",
     "vendor": "realme"
+  },
+  "X00P": {
+    "branch": "lineage-18.1",
+    "lineage_recovery": true,
+    "name": "Zenfone Max M1",
+    "variant": "userdebug",
+    "vendor": "asus"
   },
   "X00TD": {
     "branch": "lineage-18.1",
@@ -105,7 +105,7 @@
     "vendor": "samsung"
   },
   "a5y17lte": {
-    "branch": "lineage-17.1",
+    "branch": "lineage-18.1",
     "lineage_recovery": true,
     "name": "Galaxy A5 (2017)",
     "variant": "userdebug",
@@ -119,7 +119,7 @@
     "vendor": "samsung"
   },
   "a7y17lte": {
-    "branch": "lineage-17.1",
+    "branch": "lineage-18.1",
     "lineage_recovery": true,
     "name": "Galaxy A7 (2017)",
     "variant": "userdebug",
@@ -146,12 +146,47 @@
     "variant": "userdebug",
     "vendor": "sony"
   },
+  "alioth": {
+    "branch": "lineage-18.1",
+    "lineage_recovery": true,
+    "name": "POCO F3 / Redmi K40 / Mi 11X",
+    "variant": "userdebug",
+    "vendor": "xiaomi"
+  },
+  "apollon": {
+    "branch": "lineage-18.1",
+    "lineage_recovery": true,
+    "name": "Mi 10T / Mi 10T Pro / Redmi K30S Ultra",
+    "variant": "userdebug",
+    "vendor": "xiaomi"
+  },
+  "aura": {
+    "branch": "lineage-18.1",
+    "lineage_recovery": true,
+    "name": "Phone 2",
+    "variant": "userdebug",
+    "vendor": "razer"
+  },
+  "aurora": {
+    "branch": "lineage-18.1",
+    "lineage_recovery": true,
+    "name": "Xperia XZ2 Premium",
+    "variant": "userdebug",
+    "vendor": "sony"
+  },
   "avicii": {
     "branch": "lineage-17.1",
     "lineage_recovery": true,
     "name": "Nord",
     "variant": "userdebug",
     "vendor": "oneplus"
+  },
+  "axolotl": {
+    "branch": "lineage-18.1",
+    "lineage_recovery": true,
+    "name": "SHIFT6mq",
+    "variant": "userdebug",
+    "vendor": "shift"
   },
   "bacon": {
     "branch": "lineage-18.1",
@@ -160,15 +195,22 @@
     "variant": "userdebug",
     "vendor": "oneplus"
   },
+  "barbet": {
+    "branch": "lineage-18.1",
+    "lineage_recovery": true,
+    "name": "Pixel 5a",
+    "variant": "userdebug",
+    "vendor": "google"
+  },
   "bardock": {
-    "branch": "lineage-17.1",
+    "branch": "lineage-18.1",
     "lineage_recovery": true,
     "name": "Aquaris X",
     "variant": "userdebug",
     "vendor": "bq"
   },
   "bardockpro": {
-    "branch": "lineage-17.1",
+    "branch": "lineage-18.1",
     "lineage_recovery": true,
     "name": "Aquaris X Pro",
     "variant": "userdebug",
@@ -187,6 +229,34 @@
     "name": "Poco F1",
     "variant": "userdebug",
     "vendor": "xiaomi"
+  },
+  "beyond0lte": {
+    "branch": "lineage-18.1",
+    "lineage_recovery": true,
+    "name": "Galaxy S10e",
+    "variant": "userdebug",
+    "vendor": "samsung"
+  },
+  "beyond1lte": {
+    "branch": "lineage-18.1",
+    "lineage_recovery": true,
+    "name": "Galaxy S10",
+    "variant": "userdebug",
+    "vendor": "samsung"
+  },
+  "beyond2lte": {
+    "branch": "lineage-18.1",
+    "lineage_recovery": true,
+    "name": "Galaxy S10+",
+    "variant": "userdebug",
+    "vendor": "samsung"
+  },
+  "beyondx": {
+    "branch": "lineage-18.1",
+    "lineage_recovery": true,
+    "name": "Galaxy S10 5G",
+    "variant": "userdebug",
+    "vendor": "samsung"
   },
   "blueline": {
     "branch": "lineage-18.1",
@@ -213,6 +283,13 @@
     "branch": "lineage-17.1",
     "lineage_recovery": true,
     "name": "Xperia Tablet Z2 LTE",
+    "variant": "userdebug",
+    "vendor": "sony"
+  },
+  "castor_windy": {
+    "branch": "lineage-17.1",
+    "lineage_recovery": true,
+    "name": "Xperia Tablet Z2 Wi-Fi",
     "variant": "userdebug",
     "vendor": "sony"
   },
@@ -278,6 +355,27 @@
     "name": "Pixel 3 XL",
     "variant": "userdebug",
     "vendor": "google"
+  },
+  "d1": {
+    "branch": "lineage-18.1",
+    "lineage_recovery": true,
+    "name": "Galaxy Note10",
+    "variant": "userdebug",
+    "vendor": "samsung"
+  },
+  "d2s": {
+    "branch": "lineage-18.1",
+    "lineage_recovery": true,
+    "name": "Galaxy Note10+",
+    "variant": "userdebug",
+    "vendor": "samsung"
+  },
+  "d2x": {
+    "branch": "lineage-18.1",
+    "lineage_recovery": true,
+    "name": "Galaxy Note10+ 5G",
+    "variant": "userdebug",
+    "vendor": "samsung"
   },
   "d800": {
     "branch": "lineage-18.1",
@@ -412,6 +510,20 @@
     "variant": "userdebug",
     "vendor": "asus"
   },
+  "foster": {
+    "branch": "lineage-17.1",
+    "lineage_recovery": true,
+    "name": "Shield TV (2015 / 2015 Pro / 2017) / Jetson TX1 [Android TV]",
+    "variant": "userdebug",
+    "vendor": "nvidia"
+  },
+  "foster_tab": {
+    "branch": "lineage-17.1",
+    "lineage_recovery": true,
+    "name": "Shield TV (2015 / 2015 Pro / 2017) / Jetson TX1 [Tablet]",
+    "variant": "userdebug",
+    "vendor": "nvidia"
+  },
   "gemini": {
     "branch": "lineage-18.1",
     "lineage_recovery": true,
@@ -458,13 +570,6 @@
     "branch": "lineage-18.1",
     "lineage_recovery": true,
     "name": "7 Pro",
-    "variant": "userdebug",
-    "vendor": "oneplus"
-  },
-  "guacamoleb": {
-    "branch": "lineage-17.1",
-    "lineage_recovery": true,
-    "name": "7",
     "variant": "userdebug",
     "vendor": "oneplus"
   },
@@ -516,6 +621,13 @@
     "name": "Moto G4 Play",
     "variant": "userdebug",
     "vendor": "motorola"
+  },
+  "heart": {
+    "branch": "lineage-18.1",
+    "lineage_recovery": true,
+    "name": "Z5 Pro GT",
+    "variant": "userdebug",
+    "vendor": "lenovo"
   },
   "hlte": {
     "branch": "lineage-18.1",
@@ -625,7 +737,7 @@
   "jfltexx": {
     "branch": "lineage-18.1",
     "lineage_recovery": true,
-    "name": "Galaxy S4 (GT-I9505/G,SGH-I337M,SGH-M919)",
+    "name": "Galaxy S4 (GT-I9505,SGH-I337M,SGH-M919)",
     "variant": "userdebug",
     "vendor": "samsung"
   },
@@ -635,6 +747,13 @@
     "name": "Galaxy S4 Value Edition (GT-I9515/L)",
     "variant": "userdebug",
     "vendor": "samsung"
+  },
+  "kane": {
+    "branch": "lineage-18.1",
+    "lineage_recovery": true,
+    "name": "Moto One Vision",
+    "variant": "userdebug",
+    "vendor": "motorola"
   },
   "kebab": {
     "branch": "lineage-18.1",
@@ -721,7 +840,7 @@
     "vendor": "samsung"
   },
   "kuntao": {
-    "branch": "lineage-17.1",
+    "branch": "lineage-18.1",
     "lineage_recovery": true,
     "name": "P2 (P2a42 Intl)",
     "variant": "userdebug",
@@ -741,10 +860,24 @@
     "variant": "userdebug",
     "vendor": "xiaomi"
   },
+  "lemonadep": {
+    "branch": "lineage-18.1",
+    "lineage_recovery": true,
+    "name": "9 Pro",
+    "variant": "userdebug",
+    "vendor": "oneplus"
+  },
   "lithium": {
     "branch": "lineage-18.1",
     "lineage_recovery": true,
     "name": "Mi MIX",
+    "variant": "userdebug",
+    "vendor": "xiaomi"
+  },
+  "lmi": {
+    "branch": "lineage-18.1",
+    "lineage_recovery": true,
+    "name": "POCO F2 Pro / Redmi K30 Pro / Redmi K30 Pro Zoom Edition",
     "variant": "userdebug",
     "vendor": "xiaomi"
   },
@@ -768,6 +901,13 @@
     "name": "Moto X Play",
     "variant": "userdebug",
     "vendor": "motorola"
+  },
+  "m20lte": {
+    "branch": "lineage-18.1",
+    "lineage_recovery": true,
+    "name": "Galaxy M20",
+    "variant": "userdebug",
+    "vendor": "samsung"
   },
   "m8": {
     "branch": "lineage-17.1",
@@ -797,6 +937,20 @@
     "variant": "userdebug",
     "vendor": "essential"
   },
+  "mdarcy": {
+    "branch": "lineage-17.1",
+    "lineage_recovery": true,
+    "name": "Shield TV 2019 Pro [Android TV]",
+    "variant": "userdebug",
+    "vendor": "nvidia"
+  },
+  "mdarcy_tab": {
+    "branch": "lineage-17.1",
+    "lineage_recovery": true,
+    "name": "Shield TV 2019 Pro [Tablet]",
+    "variant": "userdebug",
+    "vendor": "nvidia"
+  },
   "merlin": {
     "branch": "lineage-17.1",
     "lineage_recovery": true,
@@ -810,6 +964,20 @@
     "name": "Xperia 10 Plus",
     "variant": "userdebug",
     "vendor": "sony"
+  },
+  "miatoll": {
+    "branch": "lineage-18.1",
+    "lineage_recovery": true,
+    "name": "POCO M2 Pro / Redmi Note 9S / Redmi Note 9 Pro / Redmi Note 9 Pro Max",
+    "variant": "userdebug",
+    "vendor": "xiaomi"
+  },
+  "monet": {
+    "branch": "lineage-18.1",
+    "lineage_recovery": true,
+    "name": "Mi 10 Lite 5G",
+    "variant": "userdebug",
+    "vendor": "xiaomi"
   },
   "montana": {
     "branch": "lineage-18.1",
@@ -839,6 +1007,13 @@
     "variant": "userdebug",
     "vendor": "nubia"
   },
+  "obiwan": {
+    "branch": "lineage-18.1",
+    "lineage_recovery": true,
+    "name": "ROG Phone 3",
+    "variant": "userdebug",
+    "vendor": "asus"
+  },
   "ocean": {
     "branch": "lineage-18.1",
     "lineage_recovery": true,
@@ -852,13 +1027,6 @@
     "name": "Redmi 7",
     "variant": "userdebug",
     "vendor": "xiaomi"
-  },
-  "oneplus2": {
-    "branch": "lineage-17.1",
-    "lineage_recovery": true,
-    "name": "2",
-    "variant": "userdebug",
-    "vendor": "oneplus"
   },
   "oneplus3": {
     "branch": "lineage-18.1",
@@ -902,12 +1070,40 @@
     "variant": "userdebug",
     "vendor": "xiaomi"
   },
+  "porg": {
+    "branch": "lineage-17.1",
+    "lineage_recovery": true,
+    "name": "Jetson (Nano / Nano 2GB) [Android TV]",
+    "variant": "userdebug",
+    "vendor": "nvidia"
+  },
+  "porg_tab": {
+    "branch": "lineage-17.1",
+    "lineage_recovery": true,
+    "name": "Jetson (Nano / Nano 2GB) [Tablet]",
+    "variant": "userdebug",
+    "vendor": "nvidia"
+  },
   "pro1": {
     "branch": "lineage-18.1",
     "lineage_recovery": true,
     "name": "Pro1",
     "variant": "userdebug",
     "vendor": "fxtec"
+  },
+  "quill": {
+    "branch": "lineage-17.1",
+    "lineage_recovery": true,
+    "name": "Jetson (TX2 / TX2 NX) [Android TV]",
+    "variant": "userdebug",
+    "vendor": "nvidia"
+  },
+  "quill_tab": {
+    "branch": "lineage-17.1",
+    "lineage_recovery": true,
+    "name": "Jetson (TX2 / TX2 NX) [Tablet]",
+    "variant": "userdebug",
+    "vendor": "nvidia"
   },
   "racer": {
     "branch": "lineage-17.1",
@@ -952,21 +1148,21 @@
     "vendor": "leeco"
   },
   "s3ve3gds": {
-    "branch": "lineage-17.1",
+    "branch": "lineage-18.1",
     "lineage_recovery": true,
     "name": "Galaxy S III Neo (Dual SIM)",
     "variant": "userdebug",
     "vendor": "samsung"
   },
   "s3ve3gjv": {
-    "branch": "lineage-17.1",
+    "branch": "lineage-18.1",
     "lineage_recovery": true,
     "name": "Galaxy S III Neo (Samsung Camera)",
     "variant": "userdebug",
     "vendor": "samsung"
   },
   "s3ve3gxx": {
-    "branch": "lineage-17.1",
+    "branch": "lineage-18.1",
     "lineage_recovery": true,
     "name": "Galaxy S III Neo (Sony Camera)",
     "variant": "userdebug",
@@ -993,6 +1189,13 @@
     "variant": "userdebug",
     "vendor": "google"
   },
+  "sake": {
+    "branch": "lineage-18.1",
+    "lineage_recovery": true,
+    "name": "ZenFone 8",
+    "variant": "userdebug",
+    "vendor": "asus"
+  },
   "sargo": {
     "branch": "lineage-18.1",
     "lineage_recovery": true,
@@ -1014,6 +1217,13 @@
     "variant": "userdebug",
     "vendor": "moto"
   },
+  "sirius": {
+    "branch": "lineage-18.1",
+    "lineage_recovery": true,
+    "name": "Xperia Z2",
+    "variant": "userdebug",
+    "vendor": "sony"
+  },
   "sunfish": {
     "branch": "lineage-18.1",
     "lineage_recovery": true,
@@ -1028,6 +1238,13 @@
     "variant": "userdebug",
     "vendor": "motorola"
   },
+  "surya": {
+    "branch": "lineage-18.1",
+    "lineage_recovery": true,
+    "name": "POCO X3 NFC",
+    "variant": "userdebug",
+    "vendor": "xiaomi"
+  },
   "taimen": {
     "branch": "lineage-18.1",
     "lineage_recovery": true,
@@ -1036,14 +1253,21 @@
     "vendor": "google"
   },
   "tissot": {
-    "branch": "lineage-17.1",
+    "branch": "lineage-18.1",
     "lineage_recovery": true,
     "name": "Mi A1",
     "variant": "userdebug",
     "vendor": "xiaomi"
   },
+  "troika": {
+    "branch": "lineage-18.1",
+    "lineage_recovery": true,
+    "name": "Moto One Action",
+    "variant": "userdebug",
+    "vendor": "motorola"
+  },
   "twolip": {
-    "branch": "lineage-17.1",
+    "branch": "lineage-18.1",
     "lineage_recovery": true,
     "name": "Redmi Note 6 Pro",
     "variant": "userdebug",
@@ -1055,6 +1279,13 @@
     "name": "V20 (GSM Unlocked)",
     "variant": "userdebug",
     "vendor": "lge"
+  },
+  "vayu": {
+    "branch": "lineage-18.1",
+    "lineage_recovery": true,
+    "name": "POCO X3 Pro",
+    "variant": "userdebug",
+    "vendor": "xiaomi"
   },
   "victara": {
     "branch": "lineage-18.1",
@@ -1092,7 +1323,7 @@
     "vendor": "google"
   },
   "wayne": {
-    "branch": "lineage-17.1",
+    "branch": "lineage-18.1",
     "lineage_recovery": true,
     "name": "Mi 6X",
     "variant": "userdebug",
@@ -1127,21 +1358,21 @@
     "vendor": "sony"
   },
   "z2_plus": {
-    "branch": "lineage-17.1",
+    "branch": "lineage-18.1",
     "lineage_recovery": true,
     "name": "Zuk Z2 Plus",
     "variant": "userdebug",
     "vendor": "zuk"
   },
   "z3": {
-    "branch": "lineage-17.1",
+    "branch": "lineage-18.1",
     "lineage_recovery": true,
     "name": "Xperia Z3",
     "variant": "userdebug",
     "vendor": "sony"
   },
   "z3c": {
-    "branch": "lineage-17.1",
+    "branch": "lineage-18.1",
     "lineage_recovery": true,
     "name": "Xperia Z3 Compact",
     "variant": "userdebug",

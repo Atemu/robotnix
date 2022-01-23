@@ -4,13 +4,13 @@
 { chromium, fetchFromGitHub, git, python3 }:
 
 let
-  version = "91.0.4472.50";
+  version = "96.0.4664.54";
 
   bromite_src = fetchFromGitHub {
     owner = "bromite";
     repo = "bromite";
     rev = version;
-    sha256 = "0k8j49svid44x4m7svlvbzjgxw16vl76xkhgwgprgkkvcrymd89s";
+    sha256 = "0r3ns2qdpsjhlzddrhl68ncyv98k1w1z8bf0hcladh9ygp1ykg0j";
   };
 
 in (chromium.override {
@@ -26,6 +26,7 @@ in (chromium.override {
     dfmify_dev_ui=false;
     disable_android_lint=true;
     disable_autofill_assistant_dfm=true;
+    disable_fieldtrial_testing_config=true;
     disable_tab_ui_dfm=true;
     enable_av1_decoder=true;
     enable_dav1d_decoder=true;
@@ -39,11 +40,10 @@ in (chromium.override {
     enable_platform_dolby_vision=true;
     enable_platform_hevc=true;
     enable_remoting=false;
-    enable_reporting=true;
+    enable_reporting=false;
     enable_vr=false;
     exclude_unwind_tables=false;
     ffmpeg_branding="Chrome";
-    fieldtrial_testing_like_official_build=true;
     icu_use_data_file=true;
     is_component_build=false;
     is_debug=false;
@@ -68,7 +68,9 @@ in (chromium.override {
 }).overrideAttrs (attrs: {
   postPatch = ''
     ( cd src
-      cat ${bromite_src}/build/bromite_patches_list.txt | while read patchfile; do
+      # Auto updater only set up to work with official builds
+      sed '/Bromite-auto-updater/d' ${bromite_src}/build/bromite_patches_list.txt > bromite_patches_list.txt
+      cat bromite_patches_list.txt | while read patchfile; do
         echo Applying $patchfile
         ${git}/bin/git apply --unsafe-paths "${bromite_src}/build/patches/$patchfile"
       done

@@ -1,5 +1,4 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i bash -p simg2img e2fsprogs
+#!/usr/bin/env bash
 # SPDX-FileCopyrightText: 2021 Daniel Fullmer and robotnix contributors
 # SPDX-License-Identifier: MIT
 
@@ -9,22 +8,13 @@
 
 set -euo pipefail
 
-BUILD_NUMBER=$1
-DEVICE=redfin
-FACTORY_IMG=${DEVICE}-factory-${BUILD_NUMBER}
+cd "$(dirname "${BASH_SOURCE[0]}")"
 
-tmp_dir=$(mktemp -d)
-pushd "${tmp_dir}" >/dev/null
-trap 'rm -rf ${tmp_dir}' EXIT
+DEVICE=sunfish
+CHANNEL=beta
 
-curl -O "https://releases.grapheneos.org/${FACTORY_IMG}.zip"
-bsdtar xf "${FACTORY_IMG}.zip"
-cd "${FACTORY_IMG}"
-bsdtar xf "image-${DEVICE}-${BUILD_NUMBER}.zip"
-simg2img system.img system.raw
-debugfs system.raw -R "dump system/build.prop build.prop"
-BUILD_DATETIME=$(grep ro.build.date.utc build.prop | cut -d= -f2)
-
-popd >/dev/null
+METADATA=$(curl https://releases.grapheneos.org/${DEVICE}-${CHANNEL})
+BUILD_NUMBER=$(echo "$METADATA" | cut -d" " -f1)
+BUILD_DATETIME=$(echo "$METADATA" | cut -d" " -f2)
 
 echo "{ buildNumber = \"${BUILD_NUMBER}\"; buildDateTime = ${BUILD_DATETIME}; }" > upstream-params.nix

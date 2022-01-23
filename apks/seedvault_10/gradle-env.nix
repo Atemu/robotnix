@@ -48,7 +48,7 @@ let
     filter sort replaceStrings attrValues match fromJSON
     concatStringsSep;
 
-  inherit (stdenv.lib)
+  inherit (lib)
     versionOlder unique mapAttrs last concatMapStringsSep removeSuffix
     optionalString groupBy' readFile hasSuffix;
 
@@ -236,13 +236,7 @@ let
 
   mkGradle = gradleSpec:
     gradleGen.gradleGen {
-      inherit (gradleSpec) nativeVersion;
-
-      name = "gradle-${gradleSpec.version}-${gradleSpec.type}";
-
-      src = fetchurl {
-        inherit (gradleSpec) url sha256;
-      };
+      inherit (gradleSpec) nativeVersion version sha256;
     };
 
   mkProjectEnv = projectSpec: {

@@ -1,5 +1,5 @@
 <!--
-SPDX-FileCopyrightText: 2020 Daniel Fullmer and robotnix contributors
+SPDX-FileCopyrightText: 2021 Daniel Fullmer
 SPDX-License-Identifier: MIT
 -->
 
@@ -8,13 +8,118 @@ changes occur which require user intervention / configuration changes.  These
 are highlights since the last update, and are not meant to be an exhaustive
 listing of changes. See the git commit log for additional details.
 
-# 2021-06-xx
+# 2022-01-08
+- Updated vanilla flavor to 2022010819. Pixel 6 / `raviole` devices are still on `SQ1D.211205`.
+- Updated GrapheneOS flavor to 2022010500
+- Updated LineageOS flavor to 2022010122 (thanks @samueldr)
+- Updated Chromium/Vanadium to 97.0.4692.70
+- Fixed error with MicroG module for Android < 12
+- Added working fingerprint support for Pixel 6 / `raviole` (thanks @zhaofengli)
+- Fixed dependency on `signedTargetFiles` when building LineageOS `releaseScript` (thanks @ajs124)
 
-# Highlights:
-- Fixed building outside Nix sandbox (e.g. in Docker) by introducing `signing.buildTimeKeyStorePath` option.
+There are no intentional backward incompatible changes since the last release.
 
-## Backwards incompatible changes
+# 2021-12-08
+- Experimental support for Pixel 6 (Pro) (`raven`/`oriole`) for vanilla flavor [PR #131](https://github.com/danielfullmer/robotnix/pull/131) (thanks @zhaofengli)
+- Updated nixpkgs to 21.11 channel
+- Updated vanilla flavor to 2021120720
+- Updated GrapheneOS flavor to 2021120717 (thanks @yu-re-ka)
+- Updated Chromium to 96.0.4664.92, Vanadium to 96.0.4664.45, and Bromite to 96.0.4664.54
+- Added `vendor.*` partition options
+- Set `PRODUCT_BRAND` name for vanilla flavor (thanks @zhaofengli)
+- Fix `SystemUIGoogle` patching for vanilla flavor
+- New configuration options: `apps.prebuilt.<name>.{modulePrefix,moduleName,usesLibrares}` (thanks @zhaofengli)
+
+There are no intentional backward incompatible changes since the last release.
+
+# 2021-11-07
+- Switch to Trichrome by default for chromium/webview variants
+- Updated vanilla flavor to 2021110203
+- Updated GrapheneOS flavor to 2021110617
+- Updated Chromium / Vanadium to 95.0.4638.74, Bromite to 95.0.4638.78
+- Added Android 12 support for `pixel.activeEdge` module
+- Various fixes for vanilla flavor
+
+## Backward-incompatible changes
+- Pixel 3 (XL) devices (`crosshatch` and `blueline`) are no longer receiving monthly vendor updates from Google.
+
+# 2021-10-24
+## Highlights:
+- Android 12 support for `vanilla` and `grapheneos` flavors. Set default `androidVersion = 12`.
+- New LineageOS-flavored updater module [PR #90](https://github.com/danielfullmer/robotnix/pull/90) (thanks @ajs124)
+- New Active Edge module for Pixel devices [PR #125](https://github.com/danielfullmer/robotnix/pull/125) (thanks @zhaofengli)
+- New `pixel.useUpstreamDriverBinaries` option to use binaries from [here](https://developers.google.com/android/drivers) instead of android-prepare-vendor. (Only recommended for testing)
+- Updated vanilla flavor to SP1A.210812
+- Updated GrapheneOS flavor to 2021102300
+- Updated LineageOS flavor to 2021102406
+- Updated Chromium / Vanadium to 95.0.4638.50, Bromite to 94.0.4606.102
+- Updated Seedvault to 11-2.3 tag for Android 11, 2021-10-23 for Android 12
+- Added microG patches for Android 12
+- Updated Updater to 2021-10-22
+- Refactor and separate kernel building for vanilla and GrapheneOS
+- Now set default `buildDateTime` automatically based on maximal `source.dirs.<relpath>.dateTime`, as fallback in case there is not a better way to set it.
+
+There are no intentional backward incompatible changes since the last release.
+
+# 2021-09-09
+## Highlights:
+- Added support for new device, "barbet" (Pixel 5a), on vanilla and GrapheneOS flavors.
+- Updated vanilla flavor to RQ3A.210905
+- Updated GrapheneOS flavor to 2021090819
+- Updated LineageOS flavor to 2021.08.10.22
+- Updated Auditor / AttestationServer to 29 / 2021-09-08
+- Updated Chromium / Vanadium to 93.0.4577.62, Bromite to 92.0.4515.134
+- Updated Updater to 2021-08-25
+- Updated MicroG to 0.2.22.212658
+- Installation documentation improvements (thanks @mschwaig)
+- Significant code-quality improvements (enabled tests, various checks) to update scripts
+- Added `--cache-search-path` and `--local_manifest` options to `mk_repo_file.py`
+
+There are no intentional backward incompatible changes since the last release.
+
+We have (hopefully temporarily) switched back to prebuilt kernels for redfin and related devices (bramble and barbet) in the vanilla flavor.
+Re-adding support for building these kernels in robotnix will likely require resolving [#116](https://github.com/danielfullmer/robotnix/issues/116).
+
+# 2021-08-03
+## Highlights:
+- Updated vanilla flavor to RQ3A.210805
+- Updated vanilla beta (Android 12) to android-s-beta-3
+- Updated GrapheneOS flavor to 2021.08.03.03
+- Updated Lineageos flavor to 2021.07.12.17
+- Added ROBOTNIX_GIT_MIRRORS environment variable (See [documentation](https://docs.robotnix.org/development.html#git-mirrors))
+- Updated Chromium / Vanadium to 92.0.4515.115, Bromite to 92.0.4515.125
+- Updated Updater to 2021-08-02
+
+There are no intentional backward incompatible changes since the last release.
+
+Between commits on Aug 2-3 there was brief period where the robotnix would not correctly include the Update package for the GrapheneOS flavor.
+If you have already updated your device with a build produced during this interval, and you don't see "System updates" under "Settings", you can still update your device by sideloading, [instructions here](https://docs.robotnix.org/installation.html#updating-by-sideloading-ota-files).
+
+# 2021-07-07
+## Highlights:
+- Added experimental Anbox flavor (thanks @samueldr) (See initial docs [here](https://docs.robotnix.org/modules/flavors.html#anbox))
+- Updated vanilla flavor to RQ3A.210705
+- Updated GrapheneOS flavor to 2021.07.07.19
+- Updated LineageOS flavor to 2021.06.21.20 (thanks @Kranzes)
+- Updated F-Droid to 1.12.1, F-Droid privileged extension to 0.2.12
+- Updated MicroG to 0.2.21.212158
+- Updated Chromium / Vanadium to 91.0.4472.134, Bromite to 91.0.4472.102
+
+There are no intentional backward incompatible changes since the last release.
+
+# 2021-06-09
+## Highlights:
+- Updated LineageOS flavor from 17.1 to 18.1 (up-to-date as of 2021-05-22) [PR #96](https://github.com/danielfullmer/robotnix/pull/96) (thanks @hmenke).
+- Updated vanilla flavor to RQ3A.210605
+- Updated GrapheneOS flavor to 2021.06.08.06
+- Updated Auditor / AttestationServer to 27 / 2021-05-19
+- Updated Chromium to 91.0.4472.88
+- Updated MicroG to 0.2.19.211515
+- Fixed building outside Nix sandbox by introducing `signing.buildTimeKeyStorePath` option.
+
+## Backward-incompatible changes
 - Renamed `keyStorePath` to `signing.keyStorePath`.
+- Removed flaky `google.*` module options.  Moved to `robotnixModules.google` flake output under [danielfullmer/robotnix-personal](https://github.com/danielfullmer/robotnix-personal).
 
 # 2021-05-04
 ## Highlights:
@@ -35,7 +140,7 @@ There are no intentional backward incompatible changes since the last release.
 - Updated Auditor / AttestationServer to 26 /  2021-03-19.
 - Updated Seedvault to 11-1.1
 
-## Backward incompatible changes
+## Backward-incompatible changes
 - Renamed `kernel.useCustom` to `kernel.enable`.
 
 # 2021-03-02
@@ -52,7 +157,7 @@ There are no intentional backward incompatible changes since the last release.
 - Updated Auditor / AttestationServer to latest versions to support redfin/bramble
 - Updated Seedvault backup app to 2021-01-19
 
-## Backward incompatible changes
+## Backward-incompatible changes
 - The `resourceTypeOverrides` option was replaced with `resources.<package>.<name>.type`.
 
 # 2021-02-02

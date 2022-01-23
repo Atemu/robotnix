@@ -1,0 +1,11 @@
+{
+  "url": "https://android.googlesource.com/platform/packages/providers/TelephonyProvider",
+  "rev": "69a564f5878c491c0be9765a32527e4f0bc18929",
+  "date": "2022-01-15T06:10:25+00:00",
+  "path": "/nix/store/jzzp1qzardga2cqd4x6gx51f9pn6c724-TelephonyProvider",
+  "sha256": "086h288cbgy6slr3jfmn3bqqr3pp04k4xwjzz1nb9afzp9ii41gy",
+  "fetchLFS": false,
+  "fetchSubmodules": false,
+  "deepClone": false,
+  "leaveDotGit": false
+}

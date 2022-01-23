@@ -11,16 +11,17 @@ let
   # TODO: Find a better way to do this?
   putInStore = path: if (lib.hasPrefix builtins.storeDir path) then path else (/. + path);
 
-  keysToGenerate = lib.unique (
+  keysToGenerate = lib.unique (lib.flatten (
                     map (key: "${config.device}/${key}") [ "releasekey" "platform" "shared" "media" ]
                     ++ (lib.optional (config.signing.avb.mode == "verity_only") "${config.device}/verity")
                     ++ (lib.optionals (config.androidVersion >= 10) [ "${config.device}/networkstack" ])
                     ++ (lib.optionals (config.androidVersion >= 11) [ "com.android.hotspot2.osulogin" "com.android.wifi.resources" ])
+                    ++ (lib.optionals (config.androidVersion >= 12) [ "com.android.connectivity.resources" ])
                     ++ (lib.optional config.signing.apex.enable config.signing.apex.packageNames)
                     ++ (lib.mapAttrsToList
                         (name: prebuilt: prebuilt.certificate)
-                        (lib.filterAttrs (name: prebuilt: prebuilt.certificate != "PRESIGNED") config.apps.prebuilt))
-                    );
+                        (lib.filterAttrs (name: prebuilt: prebuilt.enable && prebuilt.certificate != "PRESIGNED") config.apps.prebuilt))
+                    ));
 in
 {
   options = {
@@ -37,12 +38,21 @@ in
         internal = true;
       };
 
+      prebuiltImages = mkOption {
+        default = [];
+        type = types.listOf types.str;
+        internal = true;
+        description = ''
+          A list of prebuilt images to be added to target-files.
+        '';
+      };
+
       avb = {
         enable = mkEnableOption "AVB signing";
 
         # TODO: Refactor
         mode = mkOption {
-          type = types.strMatching "(verity_only|vbmeta_simple|vbmeta_chained|vbmeta_chained_v2)";
+          type = types.enum [ "verity_only" "vbmeta_simple" "vbmeta_chained" "vbmeta_chained_v2" ];
           default  = "vbmeta_chained";
           description = "Mode of AVB signing to use.";
         };
@@ -90,6 +100,13 @@ in
   config = let
     testKeysStorePath = config.source.dirs."build/make".src + /target/product/security;
   in {
+    assertions = [
+      {
+        assertion = (builtins.length cfg.prebuiltImages) != 0 -> config.androidVersion == 12;
+        message = "The --prebuilt-image patch is only applied to Android 12";
+      }
+    ];
+
     signing.keyStorePath = mkIf (!config.signing.enable) (mkDefault testKeysStorePath);
     signing.buildTimeKeyStorePath = mkMerge [
       (mkIf config.signing.enable (mkDefault "/keys"))
@@ -101,16 +118,22 @@ in
     signing.avb.verityCert = mkIf config.signing.enable (mkOptionDefault (putInStore "${config.signing.keyStorePath}/${config.device}/verity.x509.pem"));
 
     signing.apex.enable = mkIf (config.androidVersion >= 10) (mkDefault true);
+    # TODO: Some of these apex packages share the same underlying keys. We should try to match that. See META/apexkeys.txt from  target-files
     signing.apex.packageNames = map (s: "com.android.${s}") (
-      lib.optionals (config.androidVersion == 10) [ "runtime.release" ]
-      ++ lib.optionals (config.androidVersion >= 10) [
+      lib.optionals (config.androidVersion == 10) [
+        "runtime.release"
+      ] ++ lib.optionals (config.androidVersion >= 10) [
         "conscrypt" "media" "media.swcodec" "resolv" "tzdata"
-      ]
-      ++ lib.optionals (config.androidVersion >= 11) [
-        "adbd" "art.release" "cellbroadcast" "extservices" "i18n"
-        "ipsec" "mediaprovider" "neuralnetworks" "os.statsd" "runtime"
-        "permission" "sdkext" "telephony" "tethering" "wifi"
-        "vndk.current" "vndk.v27" "vndk.v28" "vndk.v29"
+      ] ++ lib.optionals (config.androidVersion == 11) [
+        "art.release" "vndk.v27"
+      ] ++ lib.optionals (config.androidVersion >= 11) [
+        "adbd" "cellbroadcast" "extservices" "i18n" "ipsec" "mediaprovider"
+        "neuralnetworks" "os.statsd" "permission" "runtime" "sdkext"
+        "telephony" "tethering" "wifi" "vndk.current" "vndk.v28" "vndk.v29"
+      ] ++ lib.optionals (config.androidVersion >= 12) [
+        "appsearch" "art" "art.debug" "art.host" "art.testing" "compos" "geotz"
+        "scheduling" "support.apexer" "tethering.inprocess" "virt"
+        "vndk.current.on_vendor" "vndk.v30"
       ]
     );
 
@@ -149,9 +172,15 @@ in
       // lib.optionalAttrs (config.androidVersion >= 10) {
         "build/make/target/product/security/networkstack" = "${config.device}/networkstack";
       }
-      // lib.optionalAttrs (config.androidVersion >= 11) {
+      // lib.optionalAttrs (config.androidVersion == 11) {
         "frameworks/base/packages/OsuLogin/certs/com.android.hotspot2.osulogin" = "com.android.hotspot2.osulogin";
         "frameworks/opt/net/wifi/service/resources-certs/com.android.wifi.resources" = "com.android.wifi.resources";
+      }
+      // lib.optionalAttrs (config.androidVersion >= 12) {
+        # Paths to OsuLogin and com.android.wifi have changed
+        "packages/modules/Wifi/OsuLogin/certs/com.android.hotspot2.osulogin" = "com.android.hotspot2.osulogin";
+        "packages/modules/Wifi/service/ServiceWifiResources/resources-certs/com.android.wifi.resources" = "com.android.wifi.resources";
+        "packages/modules/Connectivity/service/ServiceConnectivityResources/resources-certs/com.android.connectivity.resources" = "com.android.connectivity.resources";
       }
       # App-specific keys
       // lib.mapAttrs'
@@ -160,7 +189,8 @@ in
     in
       lib.mapAttrsToList (from: to: "--key_mapping ${from}=$KEYSDIR/${to}") keyMappings
       ++ lib.optionals cfg.avb.enable avbFlags
-      ++ lib.optionals cfg.apex.enable (map (k: "--extra_apks ${k}.apex=$KEYSDIR/${k} --extra_apex_payload_key ${k}.apex=$KEYSDIR/${k}.pem") cfg.apex.packageNames);
+      ++ lib.optionals cfg.apex.enable (map (k: "--extra_apks ${k}.apex=$KEYSDIR/${k} --extra_apex_payload_key ${k}.apex=$KEYSDIR/${k}.pem") cfg.apex.packageNames)
+      ++ lib.optionals (builtins.length cfg.prebuiltImages != 0) (map (image: "--prebuilt_image ${image}") cfg.prebuiltImages);
 
     otaArgs =
       if config.signing.enable
@@ -169,7 +199,7 @@ in
 
     build.generateKeysScript = let
       # Get a bunch of utilities to generate keys
-      keyTools = pkgs.runCommandCC "android-key-tools" { buildInputs = [ pkgs.python ]; } ''
+      keyTools = pkgs.runCommandCC "android-key-tools" { buildInputs = [ (if config.androidVersion >= 12 then pkgs.python3 else pkgs.python2) ]; } ''
         mkdir -p $out/bin
 
         cp ${config.source.dirs."development".src}/tools/make_key $out/bin/make_key
@@ -177,7 +207,7 @@ in
 
         cc -o $out/bin/generate_verity_key \
           ${config.source.dirs."system/extras".src}/verity/generate_verity_key.c \
-          ${config.source.dirs."system/core".src}/libcrypto_utils/android_pubkey.c \
+          ${config.source.dirs."system/core".src}/libcrypto_utils/android_pubkey.c${lib.optionalString (config.androidVersion >= 12) "pp"} \
           -I ${config.source.dirs."system/core".src}/libcrypto_utils/include/ \
           -I ${pkgs.boringssl}/include ${pkgs.boringssl}/lib/libssl.a ${pkgs.boringssl}/lib/libcrypto.a -lpthread
 
@@ -187,8 +217,7 @@ in
       '';
     # TODO: avbkey is not encrypted. Can it be? Need to get passphrase into avbtool
     # Generate either verity or avb--not recommended to use same keys across devices. e.g. attestation relies on device-specific keys
-    in pkgs.writeScript "generate_keys.sh" ''
-      #!${pkgs.runtimeShell}
+    in pkgs.writeShellScript "generate_keys.sh" ''
       set -euo pipefail
 
       if [[ "$#" -ne 1 ]]; then
@@ -213,7 +242,7 @@ in
           # make_key exits with unsuccessful code 1 instead of 0
           make_key "$key" "/CN=Robotnix ''${key/\// }/" && exit 1
         else
-          echo "Skipping generating $key since it is already exists"
+          echo "Skipping generating $key key since it is already exists"
         fi
       done
 
@@ -247,8 +276,7 @@ in
 
     # Check that all needed keys are available.
     # TODO: Remove code duplicated with generate_keys.sh
-    build.verifyKeysScript = pkgs.writeScript "verify_keys.sh" ''
-      #!${pkgs.runtimeShell}
+    build.verifyKeysScript = pkgs.writeShellScript "verify_keys.sh" ''
       set -euo pipefail
 
       if [[ "$#" -ne 1 ]]; then
@@ -295,9 +323,7 @@ in
         echo Certain keys were missing from KEYSDIR. Have you run generateKeysScript?
         echo Additionally, some robotnix configuration options require that you re-run
         echo generateKeysScript to create additional new keys.  This should not overwrite
-        echo existing keys. If you have previously generated keys and see this message
-        echo after recent changes in early December 2020, please read the release notes
-        echo in NEWS.md.
+        echo existing keys.
       fi
       exit $RETVAL
     '';

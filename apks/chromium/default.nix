@@ -2,9 +2,10 @@
 # SPDX-License-Identifier: MIT
 
 { pkgs, callPackage, stdenv, stdenvNoCC, lib, fetchgit, fetchurl, fetchcipd, runCommand, symlinkJoin, writeScript, buildFHSUserEnv, autoPatchelfHook, buildPackages
-, python2, ninja, llvmPackages_11, nodejs, jre8, bison, gperf, pkg-config, protobuf, bsdiff
+, python2, python3, ninja, llvmPackages_11, nodejs, jre8, bison, gperf, pkg-config, protobuf, bsdiff
 , dbus, systemd, glibc, at-spi2-atk, atk, at-spi2-core, nspr, nss, pciutils, utillinux, kerberos, gdk-pixbuf
-, glib, gtk3, alsaLib, pulseaudio, xdg_utils, libXScrnSaver, libXcursor, libXtst, libXdamage, libxkbcommon
+, glib, gtk3, alsaLib, pulseaudio, xdg_utils, libXScrnSaver, libXcursor, libXtst, libXdamage
+, libdrm, libxkbcommon
 , zlib, ncurses5, libxml2, binutils, perl
 , substituteAll, fetchgerritpatchset
 
@@ -17,7 +18,7 @@
 , packageName ? "org.chromium.chrome"
 , webviewPackageName ? "com.android.webview"
 , trichromeLibraryPackageName ? "org.chromium.trichromelibrary"
-, version ? "90.0.4430.210"
+, version ? "97.0.4692.87"
 , versionCode ? null
 # Potential buildTargets:
 # chrome_modern_public_bundle + system_webview_apk
@@ -62,6 +63,8 @@ let
 
     is_official_build = true;
     is_debug = false;
+
+    disable_fieldtrial_testing_config = true;
 
     enable_nacl = false;
     is_component_build = false;
@@ -144,7 +147,8 @@ in stdenvNoCC.mkDerivation rec {
     # Android stuff (from src/build/install-build-deps-android.sh)
     # Including some of the stuff from src/.vpython as well
     [ bsdiff
-      (python2.withPackages (p: with p; [ six setuptools ]))
+      (python2.withPackages (p: with p; [ ply setuptools ]))
+      (python3.withPackages (p: with p; [ ply jinja2 setuptools ]))
       binutils # Needs readelf
       perl # Used by //third_party/libvpx
       buildenv
@@ -154,17 +158,12 @@ in stdenvNoCC.mkDerivation rec {
   buildInputs = [
     dbus at-spi2-atk atk at-spi2-core nspr nss pciutils utillinux kerberos libxkbcommon
     gdk-pixbuf glib gtk3 alsaLib libXScrnSaver libXcursor libXtst libXdamage
+    libdrm
   ];
 
-  patches =
-    lib.optional enableRebranding
-      (substituteAll {
-        src = if lib.versionAtLeast version "87"
-          then ./rebranding-87.patch
-          else ./rebranding.patch;
-        inherit displayName;
-      })
-    ++ lib.optional ((lib.versionAtLeast version "84") && (lib.versionOlder version "85"))
+  requiredSystemFeatures = [ "big-parallel" ];
+
+  patches = lib.optional ((lib.versionAtLeast version "84") && (lib.versionOlder version "85"))
       # https://chromium-review.googlesource.com/c/chromium/src/+/2214390
       (fetchgerritpatchset {
         domain = "chromium-review.googlesource.com";
@@ -181,8 +180,15 @@ in stdenvNoCC.mkDerivation rec {
   postPatch = lib.optionalString (lib.versionAtLeast version "91") ''
     ( cd src
       # Required for patchShebangs (unsupported)
-      chmod -x third_party/webgpu-cts/src/tools/deno
+      chmod -x third_party/webgpu-cts/src/tools/${lib.optionalString (lib.versionAtLeast version "96") "run_"}deno
     )
+  ''
+  # Work around missing library when building md5sum_bin and monochrome. TODO: Hack
+  + lib.optionalString (lib.versionAtLeast version "97") ''
+    cp src/third_party/android_ndk/toolchains/llvm/prebuilt/linux-x86_64/aarch64-linux-android/lib64/libatomic.a src/third_party/android_ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/aarch64-linux-android/libatomic.a
+    cp src/third_party/android_ndk/toolchains/llvm/prebuilt/linux-x86_64/arm-linux-androideabi/lib/libatomic.a src/third_party/android_ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/arm-linux-androideabi/libatomic.a
+    cp src/third_party/android_ndk/toolchains/llvm/prebuilt/linux-x86_64/x86_64-linux-android/lib64/libatomic.a src/third_party/android_ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/x86_64-linux-android/libatomic.a
+    cp src/third_party/android_ndk/toolchains/llvm/prebuilt/linux-x86_64/i686-linux-android/lib/libatomic.a src/third_party/android_ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/i686-linux-android/libatomic.a
   '' + ''
     ( cd src
 
@@ -208,13 +214,17 @@ in stdenvNoCC.mkDerivation rec {
       echo 'checkout_openxr = false'                  >> build/config/gclient_args.gni
       echo 'checkout_aemu = false'                    >> build/config/gclient_args.gni
       echo 'checkout_libaom = false'                  >> build/config/gclient_args.gni
+      # Added sometime between 91.0.4472.120 and 91.0.4472.143
+      echo 'generate_location_tags = false'           >> build/config/gclient_args.gni
     )
   '' + lib.optionalString enableRebranding ''
     ( cd src
       # Example from Vanadium's string-rebranding patch
-      sed -ri 's/(Google )?Chrom(e|ium)/${displayName}/g' chrome/browser/touch_to_fill/android/internal/java/strings/android_touch_to_fill_strings.grd chrome/browser/ui/android/strings/android_chrome_strings.grd components/components_chromium_strings.grd components/new_or_sad_tab_strings.grdp components/security_interstitials_strings.grdp
+      sed -ri 's/(Google )?Chrom(e|ium)/${displayName}/g' chrome/browser/touch_to_fill/android/internal/java/strings/android_touch_to_fill_strings.grd chrome/browser/ui/android/strings/android_chrome_strings.grd components/components_chromium_strings.grd components/new_or_sad_tab_strings.grdp components/security_interstitials_strings.grdp chrome/android/java/res_chromium_base/values/channel_constants.xml
       find components/strings/ -name '*.xtb' -exec sed -ri 's/(Google )?Chrom(e|ium)/${displayName}/g' {} +
       find chrome/browser/ui/android/strings/translations -name '*.xtb' -exec sed -ri 's/(Google )?Chrom(e|ium)/${displayName}/g' {} +
+
+      sed -ri 's/Android System WebView/${displayName} Webview/g' android_webview/nonembedded/java/AndroidManifest.xml
     )
   '';
 

@@ -8,16 +8,16 @@ let
     elem mapAttrs mapAttrs' nameValuePair filterAttrs
     attrNames getAttrs flatten remove
     mkIf mkMerge mkDefault mkForce
-    importJSON toLower;
+    importJSON toLower hasPrefix removePrefix;
 
   androidVersionToLineageBranch = {
     "10" = "lineage-17.1";
     "11" = "lineage-18.1";
+    "12" = "lineage-19.0";
   };
   lineageBranchToAndroidVersion = mapAttrs' (name: value: nameValuePair value name) androidVersionToLineageBranch;
 
   deviceMetadata = lib.importJSON ./device-metadata.json;
-  defaultBranch = deviceMetadata.${config.device}.branch;
   LineageOSRelease = androidVersionToLineageBranch.${builtins.toString config.androidVersion};
   repoDirs = lib.importJSON (./. + "/${LineageOSRelease}/repo.json");
   _deviceDirs = importJSON (./. + "/${LineageOSRelease}/device-dirs.json");
@@ -53,23 +53,29 @@ let
     "kernel/yandex/sdm660"
     "kernel/zuk/msm8996"
   ];
-  deviceDirs =
-    if config.useReproducibilityFixes
-    then mapAttrs' (n: v: nameValuePair n (v // (optionalAttrs (elem n kernelsNeedFix) { postPatch = dtbReproducibilityFix; }))) _deviceDirs
-    else _deviceDirs;
+  # Patch kernels
+  patchKernelDir = n: v: v // (optionalAttrs (hasPrefix "kernel/" n) {
+    patches = config.kernel.patches;
+    postPatch = config.kernel.postPatch
+      + optionalString (config.useReproducibilityFixes && (elem n kernelsNeedFix)) ("\n" + dtbReproducibilityFix);
+  });
+  deviceDirs = mapAttrs patchKernelDir _deviceDirs;
 
   supportedDevices = attrNames deviceMetadata;
 
   # TODO: Move this filtering into vanilla/graphene
-  filterDirAttrs = dir: filterAttrs (n: v: elem n ["rev" "sha256" "url" "postPatch"]) dir;
+  filterDirAttrs = dir: filterAttrs (n: v: elem n ["rev" "sha256" "url" "patches" "postPatch"]) dir;
   filterDirsAttrs = dirs: mapAttrs (n: v: filterDirAttrs v) dirs;
 in mkIf (config.flavor == "lineageos")
 {
-  androidVersion = mkDefault (lib.toInt lineageBranchToAndroidVersion.${defaultBranch});
+  androidVersion = let
+      defaultBranch = deviceMetadata.${config.device}.branch;
+    in mkIf (deviceMetadata ? ${config.device}) (mkDefault (lib.toInt lineageBranchToAndroidVersion.${defaultBranch}));
+  flavorVersion = removePrefix "lineage-" androidVersionToLineageBranch.${toString config.androidVersion};
 
   productNamePrefix = "lineage_"; # product names start with "lineage_"
 
-  buildDateTime = mkDefault 1621661044;
+  buildDateTime = mkDefault 1641700800;
 
   # LineageOS uses this by default. If your device supports it, I recommend using variant = "user"
   variant = mkDefault "userdebug";
@@ -79,7 +85,7 @@ in mkIf (config.flavor == "lineageos")
       !(elem config.device supportedDevices) &&
       (config.deviceFamily != "generic")
     )
-    "${config.device} is not a supported device for LineageOS";
+    "${config.device} is not an officially-supported device for LineageOS";
 
   source.dirs = mkMerge ([
     repoDirs
@@ -141,8 +147,13 @@ in mkIf (config.flavor == "lineageos")
   webview.prebuilt.availableByDefault = mkDefault true;
   removedProductPackages = [ "webview" ];
 
+  apps.updater.flavor = mkDefault "lineageos";
+  apps.updater.includedInFlavor = mkDefault true;
+  apps.seedvault.includedInFlavor = mkDefault true;
+  pixel.activeEdge.includedInFlavor = mkDefault true;
+
   # Needed by included kernel build for some devices (pioneer at least)
-  envPackages = [ pkgs.openssl.dev ] ++ optionals (config.androidVersion == 11) [ pkgs.gcc.cc pkgs.glibc.dev ];
+  envPackages = [ pkgs.openssl.dev ] ++ optionals (config.androidVersion >= 11) [ pkgs.gcc.cc pkgs.glibc.dev ];
 
   envVars.RELEASE_TYPE = mkDefault "EXPERIMENTAL";  # Other options are RELEASE NIGHTLY SNAPSHOT EXPERIMENTAL
 

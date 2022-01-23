@@ -4,12 +4,12 @@
 { config, pkgs, lib, ... }:
 
 let
-  inherit (lib) mkIf mkDefault mkEnableOption;
+  inherit (lib) mkIf mkDefault mkEnableOption mkMerge;
 
   version = {
-    part1 = "0.2.19";
-    part2 = "211515";
-    part3 = "038";
+    part1 = "0.2.22";
+    part2 = "212658";
+    part3 = "044";
   };
   verifyApk = apk: pkgs.robotnix.verifyApk {
     inherit apk;
@@ -22,15 +22,38 @@ in
   };
 
   config = mkIf config.microg.enable {
-    # Uses better patch for microg that hardcodes the fake google signature and only allows microg apps to use it
-    source.dirs."frameworks/base".patches =
-      if (config.androidVersion >= 11)
-      then [ ./microg-android11.patch ]
-      else [ (pkgs.fetchpatch {
-        name = "microg.patch";
-        url = "https://gitlab.com/calyxos/platform_frameworks_base/commit/dccce9d969f11c1739d19855ade9ccfbacf8ef76.patch";
-        sha256 = "15c2i64dz4i0i5xv2cz51k08phlkhhg620b06n25bp2x88226m06";
-      }) ];
+    source.dirs = mkMerge [
+      (mkIf (config.androidVersion >= 12) {
+        # From: https://github.com/microg/GmsCore/pull/1586
+        "frameworks/base".patches = [
+          (pkgs.fetchpatch {
+            name = "microg-12.patch";
+            url = "https://github.com/ProtonAOSP/android_frameworks_base/commit/0deff13d05e451fbe3803f66be73853237c6729c.patch";
+            sha256 = "0gcwb5811wv5fz4vjavljcbw9m5rplrd3fc7d51w3r4w4vv0yl4c";
+          })
+        ];
+        "packages/modules/Permission".patches =
+          lib.optional (config.flavor == "grapheneos") (pkgs.fetchpatch {
+            name = "fake-package-signature.patch";
+            url = "https://github.com/ProtonAOSP/android_packages_modules_Permission/commit/de7846184379955956021b6e7b1730b24c8f4802.patch";
+            sha256 = "1644nh8fnf5nxawdfqixxsf786s1fhx6jp42awjiii98nkc8pg6d";
+          })
+          ++ lib.optional (config.flavor != "grapheneos") ./microg-android12-permission.patch;
+      })
+      (mkIf (config.androidVersion == 11) {
+        # Uses better patch for microg that hardcodes the fake google signature and only allows microg apps to use it
+        "frameworks/base".patches = [ ./microg-android11.patch ];
+      })
+      (mkIf (config.androidVersion == 10) {
+        "frameworks/base".patches = [
+          (pkgs.fetchpatch {
+            name = "microg.patch";
+            url = "https://gitlab.com/calyxos/platform_frameworks_base/commit/dccce9d969f11c1739d19855ade9ccfbacf8ef76.patch";
+            sha256 = "15c2i64dz4i0i5xv2cz51k08phlkhhg620b06n25bp2x88226m06";
+          })
+        ];
+      })
+    ];
 
     resources."frameworks/base/packages/SettingsProvider".def_location_providers_allowed = mkIf (config.androidVersion == 9) (mkDefault "gps,network");
 
@@ -40,15 +63,16 @@ in
     # TODO: Preferably build this stuff ourself.
     # Used https://github.com/lineageos4microg/android_prebuilts_prebuiltapks as source for Android.mk options
     apps.prebuilt = {
-      GmsCore = { 
+      GmsCore = {
         apk = verifyApk (pkgs.fetchurl {
           url = "https://github.com/microg/GmsCore/releases/download/v${version.part1}.${version.part2}/com.google.android.gms-${version.part2}${version.part3}.apk";
-          sha256 = "1pcm7shjmgjh7z57nbh3knhbiw6nzsm8q5awyg436lrraf7d2ias";
+          sha256 = "1gj8hi6mfa2p7z91k9zw0fg40s1v25kwcw8p5srw4fx2xsxjrblr";
         });
         packageName = "com.google.android.gms";
         privileged = true;
         privappPermissions = [ "FAKE_PACKAGE_SIGNATURE" "INSTALL_LOCATION_PROVIDER" "CHANGE_DEVICE_IDLE_TEMP_WHITELIST" "UPDATE_APP_OPS_STATS" ];
         defaultPermissions = [ "FAKE_PACKAGE_SIGNATURE" ];
+        usesLibraries = [ "com.android.location.provider" ];
         allowInPowerSave = true;
         certificate = "microg";
       };

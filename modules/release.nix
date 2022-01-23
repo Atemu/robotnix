@@ -4,12 +4,18 @@
 { config, pkgs, lib, ... }:
 
 let
-  inherit (lib) mkIf mkDefault mkOption types;
+  inherit (lib) mkIf mkDefault mkOption types optional optionalString;
 
   otaTools = config.build.otaTools;
 
-  wrapScript = { commands, keysDir }: ''
-    export PATH=${otaTools}/bin:$PATH
+  wrapScript = { commands, keysDir }: let
+    jre = if (config.androidVersion >= 11) then pkgs.jdk11_headless else pkgs.jre8_headless;
+    deps = with pkgs;
+      [ otaTools openssl jre zip unzip pkgs.getopt which toybox vboot_reference utillinux
+        python # ota_from_target_files invokes, brillo_update_payload which has "truncate_file" which invokes python
+      ];
+  in ''
+    export PATH=${lib.makeBinPath deps}:$PATH
     export EXT2FS_NO_MTAB_OK=yes
 
     # build-tools releasetools/common.py hilariously tries to modify the
@@ -41,18 +47,18 @@ let
   signedTargetFilesScript = { targetFiles, out }: ''
   ( OUT=$(realpath ${out})
     cd ${otaTools}; # Enter otaTools dir so relative paths are correct for finding original keys
-    ${otaTools}/releasetools/sign_target_files_apks.py \
+    sign_target_files_apks \
       -o ${toString config.signing.signTargetFilesArgs} \
       ${targetFiles} $OUT
   )
   '';
   otaScript = { targetFiles, prevTargetFiles ? null, out }: ''
-    ${otaTools}/releasetools/ota_from_target_files.py  \
+    ota_from_target_files  \
       ${toString config.otaArgs} \
       ${lib.optionalString (prevTargetFiles != null) "-i ${prevTargetFiles}"} \
       ${targetFiles} ${out}
   '';
-  imgScript = { targetFiles, out }: ''${otaTools}/releasetools/img_from_target_files.py ${targetFiles} ${out}'';
+  imgScript = { targetFiles, out }: ''img_from_target_files ${targetFiles} ${out}'';
   factoryImgScript = { targetFiles, img, out }: ''
       ln -s ${targetFiles} ${config.device}-target_files-${config.buildNumber}.zip || true
       ln -s ${img} ${config.device}-img-${config.buildNumber}.zip || true
@@ -64,10 +70,10 @@ let
 
       get_radio_image() {
         ${lib.getBin pkgs.unzip}/bin/unzip -p ${targetFiles} OTA/android-info.txt  \
-          |  grep -Po "require version-$1=\K.+" | tr '[:upper:]' '[:lower:]'
+          |  grep "require version-$1" | cut -d'=' -f2 | tr '[:upper:]' '[:lower:]' || exit 1
       }
-      export BOOTLOADER=$(get_radio_image bootloader google_devices/$DEVICE)
-      export RADIO=$(get_radio_image baseband google_devices/$DEVICE)
+      export BOOTLOADER=$(get_radio_image bootloader)
+      export RADIO=$(get_radio_image baseband)
 
       export PATH=${lib.getBin pkgs.zip}/bin:${lib.getBin pkgs.unzip}/bin:$PATH
       ${pkgs.runtimeShell} ${config.source.dirs."device/common".src}/generate-factory-images-common.sh
@@ -78,7 +84,7 @@ in
   options = {
     channel = mkOption {
       default = "stable";
-      type = types.strMatching "(stable|beta)";
+      type = types.enum [ "stable" "beta" ];
       description = "Default channel to use for updates (can be modified in app)";
     };
 
@@ -129,26 +135,58 @@ in
     incrementalOta = runWrappedCommand "incremental-${config.prevBuildNumber}" otaScript { inherit targetFiles; inherit (config) prevTargetFiles; };
     img = runWrappedCommand "img" imgScript { inherit targetFiles; };
     factoryImg = runWrappedCommand "factory" factoryImgScript { inherit targetFiles img; };
+    unpackedImg = pkgs.robotnix.unpackImg config.build.img;
 
     # Pull this out of target files, because (at least) verity key gets put into boot ramdisk
     bootImg = pkgs.runCommand "boot.img" {} "${pkgs.unzip}/bin/unzip -p ${targetFiles} IMAGES/boot.img > $out";
+    recoveryImg = pkgs.runCommand "recovery.img" {} "${pkgs.unzip}/bin/unzip -p ${targetFiles} IMAGES/recovery.img > $out";
 
     # BUILDID_PLACEHOLDER below was originally config.apv.buildID, but we don't want to have to depend on setting a buildID generally.
-    otaMetadata = pkgs.writeText "${config.device}-${config.channel}" ''
-      ${config.buildNumber} ${toString config.buildDateTime} BUILDID_PLACEHOLDER ${config.channel}
-    '';
+    otaMetadata = (rec {
+      grapheneos = pkgs.writeText "${config.device}-${config.channel}" ''
+        ${config.buildNumber} ${toString config.buildDateTime} BUILDID_PLACEHOLDER ${config.channel}
+      '';
+      lineageos = pkgs.writeText "lineageos-${config.device}.json" (
+        # https://github.com/LineageOS/android_packages_apps_Updater#server-requirements
+        builtins.toJSON {
+          response = [
+            {
+              "datetime" = config.buildDateTime;
+              "filename" = ota.name;
+              "id" = config.buildNumber;
+              "romtype" = config.envVars.RELEASE_TYPE;
+              "size" = "ROM_SIZE";
+              "url" = "${config.apps.updater.url}${ota.name}";
+              "version" = config.flavorVersion;
+            }
+          ];
+        }
+      );
+    }).${config.apps.updater.flavor};
+
+    writeOtaMetadata = { otaFile, path }: {
+      grapheneos = ''
+        cat ${otaMetadata} > ${path}/${config.device}-${config.channel}
+      '';
+      lineageos = ''
+        sed -e "s:\"ROM_SIZE\":$(du -b ${otaFile} | cut -f1):" ${otaMetadata} > ${path}/lineageos-${config.device}.json
+      '';
+    }.${config.apps.updater.flavor};
 
     # TODO: target-files aren't necessary to publish--but are useful to include if prevBuildDir is set to otaDir output
-    otaDir = pkgs.linkFarm "${config.device}-otaDir" (
-      (map (p: {name=p.name; path=p;}) ([ ota otaMetadata ] ++ (lib.optional config.incremental incrementalOta)))
-      ++ [{ name="${config.device}-target_files-${config.buildNumber}.zip"; path=targetFiles; }]
-    );
+    otaDir = pkgs.runCommand "${config.device}-otaDir" {} ''
+      mkdir -p $out
+      ln -s "${ota}" "$out/${ota.name}"
+      ln -s "${targetFiles}" "$out/${config.device}-target_files-${config.buildNumber}.zip"
+      ${lib.optionalString config.incremental ''ln -s ${incrementalOta} "$out/${incrementalOta.name}"''}
+
+      ${writeOtaMetadata { otaFile = ota; path = placeholder "out"; }}
+    '';
 
     # TODO: Do this in a temporary directory. It's ugly to make build dir and ./tmp/* dir gets cleared in these scripts too.
     releaseScript =
       (if (!config.signing.enable) then lib.warn "releaseScript should be used only if signing.enable = true; Otherwise, the build might be using incorrect keys / certificate metadata" else lib.id)
-      pkgs.writeScript "release.sh" (''
-      #!${pkgs.runtimeShell}
+      pkgs.writeShellScript "release.sh" (''
       set -euo pipefail
 
       if [[ $# -ge 2 ]]; then
@@ -174,7 +212,7 @@ in
       echo Building factory image
       ${factoryImgScript { targetFiles=signedTargetFiles.name; img=img.name; out=factoryImg.name; }}
       echo Writing updater metadata
-      cat ${otaMetadata} > ${config.device}-${config.channel}
+      ${writeOtaMetadata { otaFile=ota.name; path = "."; }}
     ''; }));
   };
 }

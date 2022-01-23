@@ -25,6 +25,27 @@ let
         deepClone = false;
       };
 
+
+  # A tree (attrset containing attrsets) which matches the source directories relpath filesystem structure.
+  # e.g.
+  # {
+  #   "build" = {
+  #     "make" = {};
+  #     "soong" = {};
+  #     ...
+  #    }
+  #    ...
+  #  };
+  dirsTree = let
+    listToTreeBranch = xs:
+      if builtins.length xs == 0 then {}
+      else { "${builtins.head xs}" = listToTreeBranch (builtins.tail xs); };
+    combineTreeBranches = branches:
+      lib.foldr lib.recursiveUpdate {} branches;
+    enabledDirs = lib.filterAttrs (name: dir: dir.enable) config.source.dirs;
+  in
+    combineTreeBranches (lib.mapAttrsToList (name: dir: listToTreeBranch (lib.splitString "/" dir.relpath)) enabledDirs);
+
   fileModule = types.submodule ({ config, ... }: {
     options = {
       src = mkOption {
@@ -119,6 +140,12 @@ let
         internal = true;
       };
 
+      dateTime = mkOption {
+        default = 1;
+        type = types.int;
+        internal = true;
+      };
+
       sha256 = mkOption {
         type = types.nullOr types.str;
         default = null;
@@ -153,6 +180,13 @@ let
       src =
         mkIf ((config.url != null) && (config.rev != null) && (config.sha256 != null))
         (mkDefault (projectSource config));
+
+      postPatch = let
+        # Check if we need to make mountpoints in this directory for other repos to be mounted inside it.
+        relpathSplit = lib.splitString "/" config.relpath;
+        mountPoints = lib.attrNames (lib.attrByPath relpathSplit {} dirsTree);
+      in mkIf (mountPoints != [])
+        ((lib.concatMapStringsSep "\n" (mountPoint: "mkdir -p ${mountPoint}") mountPoints) + "\n");
 
       unpackScript = (lib.optionalString config.enable ''
         mkdir -p ${config.relpath}
@@ -204,7 +238,7 @@ in
         type = types.attrsOf dirModule;
         description = ''
           Directories to include in Android build process.
-          Normally set by the output of `mk-repo-file.py`.
+          Normally set by the output of `mk_repo_file.py`.
           However, additional source directories can be added to the build here using this option as well.
         '';
       };

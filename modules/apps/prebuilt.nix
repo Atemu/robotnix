@@ -12,8 +12,7 @@ let
 
     include $(CLEAR_VARS)
 
-    # Add a prefix to avoid potential conflicts with existing modules
-    LOCAL_MODULE := Robotnix${prebuilt.name}
+    LOCAL_MODULE := ${prebuilt.moduleName}
     LOCAL_MODULE_CLASS := APPS
     LOCAL_SRC_FILES := ${prebuilt.name}.apk
     LOCAL_MODULE_SUFFIX := $(COMMON_ANDROID_PACKAGE_SUFFIX)
@@ -28,6 +27,8 @@ let
     }
     ${lib.optionalString (prebuilt.partition == "vendor") "LOCAL_VENDOR_MODULE := true"}
     ${lib.optionalString (prebuilt.partition == "product") "LOCAL_PRODUCT_MODULE := true"}
+    ${lib.optionalString (config.androidVersion >= 11 && prebuilt.usesLibraries != []) "LOCAL_USES_LIBRARIES := ${builtins.concatStringsSep " " prebuilt.usesLibraries}"}
+    ${lib.optionalString (config.androidVersion >= 11 && prebuilt.usesOptionalLibraries != []) "LOCAL_OPTIONAL_USES_LIBRARIES := ${builtins.concatStringsSep " " prebuilt.usesOptionalLibraries}"}
     ${prebuilt.extraConfig}
 
     include $(BUILD_PREBUILT)
@@ -53,6 +54,8 @@ let
   buildTimeKeyPath = name: _keyPath config.signing.buildTimeKeyStorePath name;
 
   putInStore = path: if (lib.hasPrefix builtins.storeDir path) then path else (/. + path);
+
+  enabledPrebuilts = lib.filter (p: p.enable) (lib.attrValues cfg);
 in
 {
   options = {
@@ -64,14 +67,34 @@ in
         _config = config;
       in types.attrsOf (types.submodule ({ name, config, ... }: {
         options = {
+          enable = mkOption {
+            default = true;
+            description = "Include ${name} APK in Android build";
+            type = types.bool;
+          };
+
           name = mkOption {
             default = name;
             description = "Name of application. (No spaces)";
             type = types.str; # TODO: Use strMatching to enforce no spaces?
           };
 
+          modulePrefix = mkOption {
+            default = "Robotnix";
+            description = "Prefix to prepend to the module name to avoid conflicts. (No spaces)";
+            type = types.str; # TODO: Use strMatching to enforce no spaces?
+          };
+
+          moduleName = mkOption {
+            default = "${config.modulePrefix}${config.name}";
+            description = "Module name in the AOSP build system. (No spaces)";
+            type = types.str;
+            internal = true;
+          };
+
           apk = mkOption {
-            type = types.path;
+            type = with types; nullOr path;
+            default = null; # TODO: Consider a .enable option
             description = "APK file to include in build";
           };
 
@@ -136,7 +159,7 @@ in
 
           partition = mkOption {
             description = "Partition on which to place this app";
-            type = types.strMatching "(vendor|system|product)";
+            type = types.enum [ "vendor" "system" "product" ];
           };
 
           allowInPowerSave = mkOption {
@@ -145,6 +168,26 @@ in
             description = ''
               Whether to allow this application to operate in \"power save\" mode.
               Disables battery optimization for this app.
+            '';
+          };
+
+          usesLibraries = mkOption {
+            default = [];
+            type = types.listOf types.str;
+            description = ''
+              Shared library dependencies of this app.
+
+              For more information, see <https://android.googlesource.com/platform/build/+/75342c19323fea64dbc93fdc5a7def3f81113c83/Changes.md>.
+            '';
+          };
+
+          usesOptionalLibraries = mkOption {
+            default = [];
+            type = types.listOf types.str;
+            description = ''
+              Optional shared library dependencies of this app.
+
+              For more information, see <https://android.googlesource.com/platform/build/+/75342c19323fea64dbc93fdc5a7def3f81113c83/Changes.md>.
             '';
           };
 
@@ -240,7 +283,7 @@ in
           cp ${prebuilt.snakeoilKeyPath}/${prebuilt.certificate}.{pk8,x509.pem} $out/
         '');
       };
-    }) (lib.attrValues cfg));
+    }) enabledPrebuilts);
 
     # TODO: Make just a single file with each of these configuration types instead of one for each app?
     etc = let
@@ -251,7 +294,7 @@ in
             text = (f prebuilt).text;
             inherit (prebuilt) partition;
           };
-        }) (lib.filter (prebuilt: (f prebuilt).filter) (lib.attrValues cfg))));
+        }) (lib.filter (prebuilt: (f prebuilt).filter) enabledPrebuilts)));
     in
       confToAttrs (prebuilt: {
         path = "permissions/privapp-permissions-${prebuilt.packageName}.xml";
@@ -289,12 +332,12 @@ in
         '';
       });
 
-    system.additionalProductPackages = map (p: "Robotnix${p.name}") (lib.filter (p: p.partition == "system") (lib.attrValues cfg));
-    product.additionalProductPackages = map (p: "Robotnix${p.name}") (lib.filter (p: p.partition == "product") (lib.attrValues cfg));
+    system.additionalProductPackages = map (p: p.moduleName) (lib.filter (p: p.partition == "system") enabledPrebuilts);
+    product.additionalProductPackages = map (p: p.moduleName) (lib.filter (p: p.partition == "product") enabledPrebuilts);
 
     # Convenience derivation to get all prebuilt apks -- for use in custom fdroid repo?
     build.prebuiltApks = pkgs.linkFarm "${config.device}-prebuilt-apks"
       (map (p: { name="${p.name}.apk"; path=p.signedApk; })
-      (lib.filter (p: p.name != "CustomWebview") (lib.attrValues cfg)));
+      (lib.filter (p: p.name != "CustomWebview") enabledPrebuilts));
   };
 }

@@ -10,13 +10,15 @@ let
   upstreamParams = import ./upstream-params.nix;
   grapheneOSRelease = "${config.apv.buildID}.${upstreamParams.buildNumber}";
 
-  phoneDeviceFamilies = [ "crosshatch" "bonito" "coral" "sunfish" "redfin" ];
+  phoneDeviceFamilies = [ "crosshatch" "bonito" "coral" "sunfish" "redfin" "barbet" ];
   supportedDeviceFamilies = phoneDeviceFamilies ++ [ "generic" ];
 
 in mkIf (config.flavor == "grapheneos") (mkMerge [
 {
   buildNumber = mkDefault upstreamParams.buildNumber;
   buildDateTime = mkDefault upstreamParams.buildDateTime;
+
+  productNamePrefix = mkDefault "";
 
   # Match upstream user/hostname
   envVars = {
@@ -28,9 +30,8 @@ in mkIf (config.flavor == "grapheneos") (mkMerge [
 
   apv.enable = mkIf (elem config.deviceFamily phoneDeviceFamilies) (mkDefault true);
   apv.buildID = mkDefault (
-    if lib.elem config.deviceFamily [ "crosshatch" "bonito" "coral" "sunfish" ]
-    then "RQ2A.210505.002"
-    else "RQ2A.210505.003"
+    if (elem config.device [ "crosshatch" "blueline" ]) then "SP1A.210812.016.A2"
+    else "SQ1A.220105.002"
   );
 
   # Not strictly necessary for me to set these, since I override the source.dirs above
@@ -39,9 +40,16 @@ in mkIf (config.flavor == "grapheneos") (mkMerge [
 
   warnings = (optional ((config.device != null) && !(elem config.deviceFamily supportedDeviceFamilies))
     "${config.device} is not a supported device for GrapheneOS")
-    ++ (optional (config.androidVersion != 11) "Unsupported androidVersion (!= 11) for GrapheneOS");
+    ++ (optional (!(elem config.androidVersion [ 12 ])) "Unsupported androidVersion (!= 12) for GrapheneOS")
+    ++ (optional (config.deviceFamily == "crosshatch") "crosshatch/blueline are considered legacy devices and receive only extended support updates from GrapheneOS and no longer receive vendor updates from Google");
 }
 {
+  # Upstream tag doesn't always set the BUILD_ID and platform security patch correctly for legacy crosshatch/blueline
+  source.dirs."build/make".postPatch = mkIf (elem config.device [ "crosshatch" "blueline" ]) ''
+    echo BUILD_ID=SP1A.210812.016.A2 > core/build_id.mk
+    sed -i 's/PLATFORM_SECURITY_PATCH := 2021-11-05/PLATFORM_SECURITY_PATCH := 2021-11-01/g' core/version_defaults.mk
+  '';
+
   # Disable setting SCHED_BATCH in soong. Brings in a new dependency and the nix-daemon could do that anyway.
   source.dirs."build/soong".patches = [
     (pkgs.fetchpatch {
@@ -51,7 +59,7 @@ in mkIf (config.flavor == "grapheneos") (mkMerge [
     })
   ];
 
-  # No need to include these in AOSP build source since we build separately
+  # No need to include kernel sources in Android source trees since we build separately
   source.dirs."kernel/google/marlin".enable = false;
   source.dirs."kernel/google/wahoo".enable = false;
   source.dirs."kernel/google/crosshatch".enable = false;
@@ -59,6 +67,9 @@ in mkIf (config.flavor == "grapheneos") (mkMerge [
   source.dirs."kernel/google/coral".enable = false;
   source.dirs."kernel/google/sunfish".enable = false;
   source.dirs."kernel/google/redbull".enable = false;
+  source.dirs."kernel/google/barbet".enable = false;
+
+  kernel.enable = mkDefault (elem config.deviceFamily phoneDeviceFamilies);
 
   # Enable Vanadium (GraphaneOS's chromium fork).
   apps.vanadium.enable = mkDefault true;
@@ -66,6 +77,7 @@ in mkIf (config.flavor == "grapheneos") (mkMerge [
   webview.vanadium.availableByDefault = mkDefault true;
 
   apps.seedvault.includedInFlavor = mkDefault true;
+  apps.updater.includedInFlavor = mkDefault true;
 
   # Remove upstream prebuilt versions from build. We build from source ourselves.
   removedProductPackages = [ "TrichromeWebView" "TrichromeChrome" "webview" ];
@@ -78,6 +90,11 @@ in mkIf (config.flavor == "grapheneos") (mkMerge [
   nixpkgs.overlays = [ (self: super: {
     android-prepare-vendor = super.android-prepare-vendor.overrideAttrs (_: {
       src = config.source.dirs."vendor/android-prepare-vendor".src;
+      patches = [
+        ./apv/0001-Just-write-proprietary-blobs.txt-to-current-dir.patch
+        ./apv/0002-Allow-for-externally-set-config-file.patch
+        ./apv/0003-Add-option-to-use-externally-provided-carrier_list.p.patch
+      ];
       passthru.evalTimeSrc = builtins.fetchTarball {
         url = "https://github.com/GrapheneOS/android-prepare-vendor/archive/${config.source.dirs."vendor/android-prepare-vendor".rev}.tar.gz";
         inherit (config.source.dirs."vendor/android-prepare-vendor") sha256;
@@ -88,27 +105,10 @@ in mkIf (config.flavor == "grapheneos") (mkMerge [
   # GrapheneOS just disables apex updating wholesale
   signing.apex.enable = false;
 
-  # Don't include updater by default since it would download updates signed with grapheneos's keys.
-  source.dirs."packages/apps/Updater".enable = false;
+  # Extra packages that should use releasekey
+  signing.signTargetFilesArgs = [ "--extra_apks OsuLogin.apk,ServiceWifiResources.apk=$KEYSDIR/${config.device}/releasekey" ];
 
   # Leave the existing auditor in the build--just in case the user wants to
-  # audit devices using the official upstream build
-}
-(mkIf (elem config.deviceFamily phoneDeviceFamilies) {
-  kernel.enable = mkDefault true;
-  kernel.src = mkDefault config.source.dirs."kernel/google/${config.kernel.name}".src;
-  kernel.configName = config.device;
-  kernel.relpath = "device/google/${config.device}-kernel";
-})
-{
-  # Hackish exceptions
-  kernel.src = mkIf (config.deviceFamily == "bonito") (mkForce config.source.dirs."kernel/google/crosshatch".src);
-  kernel.configName = mkMerge [
-    (mkIf (config.device       == "sargo") (mkForce "bonito"))
-    (mkIf (config.deviceFamily == "coral") (mkForce "floral"))
-  ];
-  kernel.relpath = mkMerge [
-    (mkIf (config.device == "sargo") (mkForce "device/google/bonito-kernel"))
-  ];
+  # audit devices running the official upstream build
 }
 ])
