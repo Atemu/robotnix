@@ -13,7 +13,7 @@ let
   androidVersionToLineageBranch = {
     "10" = "lineage-17.1";
     "11" = "lineage-18.1";
-    "12" = "lineage-19.0";
+    "12" = "lineage-19.1";
   };
   lineageBranchToAndroidVersion = mapAttrs' (name: value: nameValuePair value name) androidVersionToLineageBranch;
 
@@ -75,7 +75,7 @@ in mkIf (config.flavor == "lineageos")
 
   productNamePrefix = "lineage_"; # product names start with "lineage_"
 
-  buildDateTime = mkDefault 1647677324;
+  buildDateTime = mkDefault 1649677132;
 
   # LineageOS uses this by default. If your device supports it, I recommend using variant = "user"
   variant = mkDefault "userdebug";
@@ -92,7 +92,10 @@ in mkIf (config.flavor == "lineageos")
 
     {
       "vendor/lineage".patches = [
-        ./0001-Remove-LineageOS-keys.patch
+        (if lib.versionAtLeast (toString config.androidVersion) "12"
+         then ./0001-Remove-LineageOS-keys-12.patch
+         else ./0001-Remove-LineageOS-keys.patch)
+
         (pkgs.substituteAll {
           src = ./0002-bootanimation-Reproducibility-fix.patch;
           inherit (pkgs) imagemagick;
