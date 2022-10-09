@@ -12,6 +12,7 @@ let
   androidVersionToTWRPBranch = {
     "9" = "twrp-9.0";
     "10" = "twrp-10.0-deprecated";
+    "12" = "twrp-12.1";
   };
   TWRPBranch = androidVersionToTWRPBranch.${toString config.androidVersion};
   repoDirs = lib.importJSON (./. + "/${TWRPBranch}/repo.json");
@@ -34,7 +35,7 @@ in mkIf (config.flavor == "twrp")
     repoDirs
   ]);
 
-  source.manifest.url = mkDefault "https://github.com/minimal-manifest-twrp/platform_manifest_twrp_omni.git";
+  source.manifest.url = mkDefault "https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git";
   source.manifest.rev = mkDefault "refs/heads/${TWRPBranch}";
   envVars.RELEASE_TYPE = mkDefault "EXPERIMENTAL";  # Other options are RELEASE NIGHTLY SNAPSHOT EXPERIMENTAL
 

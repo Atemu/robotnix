@@ -190,7 +190,17 @@ let
 
       unpackScript = (lib.optionalString config.enable ''
         mkdir -p ${config.relpath}
-        ${pkgs.utillinux}/bin/mount --bind ${config.src} ${config.relpath}
+        cp --reflink=auto --no-preserve=ownership --no-dereference --preserve=links -r ${config.src}/. ${config.relpath}
+        # mkdir -p upper/${config.relpath}
+        # mkdir -p work/${config.relpath}
+        # ${pkgs.utillinux}/bin/mount -t overlay overlay -o rw,lowerdir=${config.src},upperdir=upper/${config.relpath},workdir=work/${config.relpath},metacopy=on ${config.relpath}
+        # # ${pkgs.bindfs}/bin/bindfs --map=nobody/`whoami` ${config.src} ${config.relpath}
+        # ls -l ${config.relpath}
+        # chown `whoami` -R ${config.relpath}
+        chmod +rw -R ${config.relpath}
+        # ls -l ${config.relpath}
+        # exit 1
+
       '')
       + (lib.concatMapStringsSep "\n" (c: ''
         mkdir -p $(dirname ${c.dest})

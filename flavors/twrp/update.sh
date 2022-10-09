@@ -12,10 +12,10 @@ branch=$1
 args=(
     --cache-search-path ../../
     --ref-type branch
-    "https://github.com/minimal-manifest-twrp/platform_manifest_twrp_omni"
+    "https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp"
     "$branch"
 )
 
 export TMPDIR=/tmp
 
-../../scripts/mk_repo_file.py --out "${branch}/repo.json" "${args[@]}"
+../../scripts/mk_repo_file.py --out "${branch}/repo.json" "${args[@]}" < /dev/null
