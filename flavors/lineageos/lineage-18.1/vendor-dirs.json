@@ -1,4 +1,15 @@
 {
+  "vendor/askey": {
+    "date": "2022-03-29T22:37:18-04:00",
+    "deepClone": false,
+    "fetchLFS": false,
+    "fetchSubmodules": false,
+    "leaveDotGit": false,
+    "path": "/nix/store/vpg2di1vhr53qzm85bplkhm278n5ka0x-proprietary_vendor_askey",
+    "rev": "fcf643ad5208a6e0f49b91ece2e0103cc2ae7ff8",
+    "sha256": "136wh63cf0x0qf8an5prcwpgamhyxl82nkl8p9c9l6kib5ghhma0",
+    "url": "https://github.com/TheMuppets/proprietary_vendor_askey"
+  },
   "vendor/asus": {
     "date": "2022-02-13T15:35:55-06:00",
     "deepClone": false,
@@ -33,14 +44,14 @@
     "url": "https://github.com/TheMuppets/proprietary_vendor_essential"
   },
   "vendor/fairphone": {
-    "date": "2022-02-17T18:49:07+01:00",
+    "date": "2022-05-26T16:33:45+02:00",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/i1am76m8nwjlp5v0q3k6117ma9x320ag-proprietary_vendor_fairphone",
-    "rev": "c7df738287debf35f3c744ecb3c7364bb614f172",
-    "sha256": "09z5wv2ckrrmm323mlya9l19vlv78a2js3rdgbikcgzlqa75r3ad",
+    "path": "/nix/store/zm00ryaiy5gcvqhyj42y7jyxlqwpg4v9-proprietary_vendor_fairphone",
+    "rev": "d38d3f0ed30cafd5a8e747ce9d5428a61e9382a2",
+    "sha256": "1wqbp2d3zm11rnm46xm0iy5ydcvd5zi11f1226iq6rq3xwy239kd",
     "url": "https://github.com/TheMuppets/proprietary_vendor_fairphone"
   },
   "vendor/fxtec": {
@@ -77,14 +88,14 @@
     "url": "https://github.com/TheMuppets/proprietary_vendor_htc"
   },
   "vendor/leeco": {
-    "date": "2021-09-15T21:44:10-06:00",
+    "date": "2022-05-06T21:54:55-06:00",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/b723qs0mnb4x7h1q1xbmd83abr92nc2w-proprietary_vendor_leeco",
-    "rev": "6707ed383e446185fca510498fed2360b84333c8",
-    "sha256": "00byph4mr0ykqhjfg7arwyl920s1s877wvad3m2mwk073a83fpf7",
+    "path": "/nix/store/82b5rmysqm1md909p2pdynypaz1hizva-proprietary_vendor_leeco",
+    "rev": "9bcd8c09c5ed89b758c217c0be43051e3d3c99b5",
+    "sha256": "1h0ibrw379hbplfgyh1pm68r2g80qzdmi5f9dvr1lx8spbhva99c",
     "url": "https://github.com/TheMuppets/proprietary_vendor_leeco"
   },
   "vendor/lenovo": {
@@ -110,14 +121,14 @@
     "url": "https://github.com/TheMuppets/proprietary_vendor_lge"
   },
   "vendor/motorola": {
-    "date": "2022-04-05T10:51:19-04:00",
+    "date": "2022-10-03T11:52:02-04:00",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/mlv8v42l83n4lnis65vq1bix42ak3a3d-proprietary_vendor_motorola",
-    "rev": "1cf4b9aaad67b800be9da350240945d77620d82d",
-    "sha256": "0rcmmz0j1wcpvhwhcc5pwd3wrnd0r2pfgfj16lv0waxav2rp2hpq",
+    "path": "/nix/store/csb9s8zaw6ss3fg3yhi9ajf4gg4mszj1-proprietary_vendor_motorola",
+    "rev": "79d084d447610898e7796c0129348bbfb88f6651",
+    "sha256": "11l2xx89im6p4pmifqwqxwv6rgrc0j4wss1azfb2prgk95l25vjr",
     "url": "https://github.com/TheMuppets/proprietary_vendor_motorola"
   },
   "vendor/nextbit": {
@@ -153,15 +164,26 @@
     "sha256": "1685ggc85gg3r0w9sazkkd1szw044z161bws3nhqnn590gbvvvf0",
     "url": "https://github.com/TheMuppets/proprietary_vendor_nubia"
   },
-  "vendor/oneplus": {
-    "date": "2022-03-05T01:33:22+01:00",
+  "vendor/nvidia": {
+    "date": "2022-07-01T06:30:51-05:00",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/gfjmg4wbcz1a8pa84bdkzf7jfsls04j0-proprietary_vendor_oneplus",
-    "rev": "50b0f237798c654c2b6071c10af6b656ea3c36df",
-    "sha256": "0k3pbgl5aibs7xkd18s33fgkj2p9hks3yj31q1pgwa4454qr24ww",
+    "path": "/nix/store/8ginhsf0k6wlsmk9fdmd7brinmsdsy4m-proprietary_vendor_nvidia",
+    "rev": "d392d479a0cb5657f92a49c08b1ff18ab21f83b6",
+    "sha256": "1vyygmiln6imvzn273xb6x27ni4cblr6cjl08avjab66xwasqkml",
+    "url": "https://github.com/TheMuppets/proprietary_vendor_nvidia"
+  },
+  "vendor/oneplus": {
+    "date": "2022-04-26T20:59:36+02:00",
+    "deepClone": false,
+    "fetchLFS": false,
+    "fetchSubmodules": false,
+    "leaveDotGit": false,
+    "path": "/nix/store/rbwq7awd2cc4advz4fs2wap4jvlm7a8a-proprietary_vendor_oneplus",
+    "rev": "f04ec90af2b626594d46d653b9fcd3c433e08258",
+    "sha256": "15fdzjvd6xzhsar8hkp9wjznra2wlhb7nbszlpx8lhi7mq1g4rib",
     "url": "https://github.com/TheMuppets/proprietary_vendor_oneplus"
   },
   "vendor/oppo": {
@@ -197,14 +219,14 @@
     "url": "https://github.com/TheMuppets/proprietary_vendor_realme"
   },
   "vendor/samsung": {
-    "date": "2022-01-29T15:19:23-07:00",
+    "date": "2022-05-04T10:34:23-04:00",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/vx06jxinxv4m9vp3wjbn28p48wnb2p0d-proprietary_vendor_samsung",
-    "rev": "7ebb43c52b94ebcd68fe129713cfc5f9ce3953e0",
-    "sha256": "1kh4a5ww3kszrrzi5npr1nn98ki6jy4d6jrzy387lr7flq8ygkcb",
+    "path": "/nix/store/i372aby4qx01hqbm89fxnky732gm702p-proprietary_vendor_samsung",
+    "rev": "9508b39c6123853f50ceb15436818fc547b62034",
+    "sha256": "09liw5wv83h2gxvrj8njnax3akqx5kcs03nsrgh6qhq9iqnvwrvp",
     "url": "https://github.com/TheMuppets/proprietary_vendor_samsung"
   },
   "vendor/shift": {
@@ -219,14 +241,14 @@
     "url": "https://github.com/TheMuppets/proprietary_vendor_shift"
   },
   "vendor/sony": {
-    "date": "2022-03-30T23:59:26+02:00",
+    "date": "2022-08-25T07:17:12-06:00",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/fjrpfchsqvinj6zbdmpi06m8m5b4js56-proprietary_vendor_sony",
-    "rev": "ac1db73af5ff5807bc63d312ed6e09ba831501eb",
-    "sha256": "1qwak05194rasqb5z1h5zcb1hn7vy73y1km3wjib9f4yqgpqv4pa",
+    "path": "/nix/store/64i80ag3gw7q0h8mm41sn7fl9kwggj3g-proprietary_vendor_sony",
+    "rev": "d0e286bd6570044e805c952f5fe034fd77aa4f8d",
+    "sha256": "0xwn68ml571cj83a79lhbmms37lnjxpd7zjjw56q455j59qsgq74",
     "url": "https://github.com/TheMuppets/proprietary_vendor_sony"
   },
   "vendor/wileyfox": {
@@ -250,14 +272,14 @@
     "url": "https://github.com/TheMuppets/proprietary_vendor_wingtech"
   },
   "vendor/xiaomi": {
-    "date": "2022-03-21T17:00:24+01:00",
+    "date": "2022-05-25T22:38:04+09:00",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/2pnyxfwmvifvbizynn94nyhgvljvzym3-proprietary_vendor_xiaomi",
-    "rev": "e383b414df30f0a270fee5617d1ccaae26f5d00d",
-    "sha256": "0q7m6zvxsyndzpddy286p7vrhihq0g5pf133n4fl1xkjn0waan5k",
+    "path": "/nix/store/nv96vnzbfv3cw1bqq5d0rfyqj85qz1lp-proprietary_vendor_xiaomi",
+    "rev": "5ef13fcc9aad481069a58e5a1dc945ee0c31f270",
+    "sha256": "0gbpll6vjxz3zyjh7yab3sx9saln31lbnqyn7pkj9pcnr92k4fk1",
     "url": "https://gitlab.com/the-muppets/proprietary_vendor_xiaomi.git/"
   },
   "vendor/yandex": {
