@@ -188,7 +188,15 @@ in
       internal = true;
     };
 
-    ccache.enable = mkEnableOption "ccache";
+    ccache = {
+      enable = mkEnableOption "ccache";
+
+      directory = mkOption {
+        type = types.str;
+        default = "/var/cache/ccache";
+        description = lib.mdDoc "Directory to store ccache in. Must be available in the sandbox, see `nix.settings.extra-sandbox-paths`";
+      };
+    };
 
     envPackages = mkOption {
       type = types.listOf types.package;
@@ -279,8 +287,9 @@ in
       (mkIf config.ccache.enable {
         CCACHE_EXEC = pkgs.ccache + /bin/ccache;
         USE_CCACHE = "true";
-        CCACHE_DIR = "/var/cache/ccache"; # Make configurable?
+        CCACHE_DIR = config.ccache.directory;
         CCACHE_UMASK = "007"; # CCACHE_DIR should be user root, group nixbld
+        CCACHE_COMPILERCHECK = "content"; # Default is a mtime+size check. We can't fully rely on that.
       })
       (mkIf (config.androidVersion >= 11) {
         # Android 11 ninja filters env vars for more correct incrementalism.
