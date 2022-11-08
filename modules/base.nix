@@ -327,6 +327,9 @@ in
           unpackPhase = ''
             export rootDir=$PWD
             source ${config.build.unpackScript}
+
+            mkdir -p out
+            ${pkgs.utillinux}/bin/mount -o bind /Volumes/Data/Temp/out/ out/
           '';
 
           dontConfigure = true;
