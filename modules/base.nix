@@ -328,6 +328,8 @@ in
             export rootDir=$PWD
             source ${config.build.unpackScript}
 
+            ${pkgs.utillinux}/bin/mount -o bind ${(import ../../nixpkgs { }).ninja}/bin/ninja ./prebuilts/build-tools/linux-x86/bin/ninja
+
             mkdir -p out
             ${pkgs.utillinux}/bin/mount -o bind /Volumes/Data/Temp/out/ out/
           '';
