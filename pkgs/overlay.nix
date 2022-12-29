@@ -27,7 +27,9 @@ self: super: {
 
   fetchgerritpatchset = super.callPackage ./fetchgerritpatchset {};
 
-  fetchgit = super.callPackage ./fetchgit {};
+  fetchgit = args@{ ... }: super.fetchgit args // {
+    impureEnvVars = args.impureEnvVars or [ ] ++ [ "ROBOTNIX_GIT_MIRRORS" ];
+  };
   nix-prefetch-git = super.callPackage ./fetchgit/nix-prefetch-git.nix {};
 
   ###
