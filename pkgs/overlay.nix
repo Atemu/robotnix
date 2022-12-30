@@ -27,9 +27,10 @@ self: super: {
 
   fetchgerritpatchset = super.callPackage ./fetchgerritpatchset {};
 
-  fetchgit = args@{ ... }: super.fetchgit args // {
-    impureEnvVars = args.impureEnvVars or [ ] ++ [ "ROBOTNIX_GIT_MIRRORS" ];
-  };
+  # TODO cleanup once fetchgit is overridable upstream
+  fetchgit = args: ((super.lib.makeOverridable super.fetchgit) args).overrideAttrs (old: {
+    impureEnvVars = old.impureEnvVars or [ ] ++ [ "ROBOTNIX_GIT_MIRRORS" ];
+  });
   nix-prefetch-git = super.callPackage ./fetchgit/nix-prefetch-git.nix {};
 
   ###
