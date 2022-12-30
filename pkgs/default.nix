@@ -12,12 +12,12 @@
 
 let
   inherit (inputs) nixpkgs nixpkgsUnstable androidPkgs;
-in nixpkgs.legacyPackages.x86_64-linux.appendOverlays [
+in nixpkgs.legacyPackages."${builtins.currentSystem}".appendOverlays [
   (self: super: {
-    androidPkgs.packages = androidPkgs.packages.x86_64-linux;
-    androidPkgs.sdk = androidPkgs.sdk.x86_64-linux;
+    androidPkgs.packages = androidPkgs.packages."${builtins.currentSystem}";
+    androidPkgs.sdk = androidPkgs.sdk."${builtins.currentSystem}";
 
-    inherit (nixpkgsUnstable.legacyPackages.x86_64-linux)
+    inherit (nixpkgsUnstable.legacyPackages."${builtins.currentSystem}")
       diffoscope;
   })
   (import ./overlay.nix)

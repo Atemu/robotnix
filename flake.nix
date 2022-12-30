@@ -31,7 +31,7 @@
       manual = (import ./docs { inherit pkgs; }).manual;
     };
 
-    devShell.x86_64-linux = pkgs.mkShell {
+    devShell."${builtins.currentSystem}" = pkgs.mkShell {
       name = "robotnix-scripts";
       nativeBuildInputs = with pkgs; [
         # For android updater scripts
