@@ -2,18 +2,13 @@
   description = "Build Android (AOSP) using Nix";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.11";
     nixpkgsUnstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     androidPkgs.url = "github:tadfisher/android-nixpkgs/stable";
-    flake-utils.url = "github:numtide/flake-utils";
-    flake-compat = {
-      url = "github:edolstra/flake-compat";
-      flake = false;
-    };
   };
 
-  outputs = { self, nixpkgs, androidPkgs, flake-utils, ... }@inputs: flake-utils.lib.eachDefaultSystem (system: let
-    pkgs = import ./pkgs/default.nix { inherit inputs system; };
+  outputs = { self, nixpkgs, androidPkgs, ... }@inputs: let
+    pkgs = import ./pkgs/default.nix { inherit inputs; };
   in {
     # robotnixSystem evaluates a robotnix configuration
     lib.robotnixSystem = configuration: import ./default.nix {
@@ -28,17 +23,17 @@
     nixosModule = import ./nixos; # Contains all robotnix nixos modules
     nixosModules.attestation-server = import ./nixos/attestation-server/module.nix;
 
-    packages = {
+    packages.x86_64-linux = {
       manual = (import ./docs { inherit pkgs; }).manual;
     };
 
-    devShell = pkgs.mkShell {
+    devShell.x86_64-linux = pkgs.mkShell {
       name = "robotnix-scripts";
       nativeBuildInputs = with pkgs; [
         # For android updater scripts
-        (python39.withPackages (p: with p; [ mypy flake8 pytest ]))
-        (gitRepo.override { python3 = python39; }) nix-prefetch-git
-        curl pup jq
+        (python3.withPackages (p: with p; [ mypy flake8 pytest ]))
+        gitRepo nix-prefetch-git
+        curl go-pup jq
         shellcheck
         wget
 
@@ -49,5 +44,5 @@
       ];
       PYTHONPATH=./scripts;
     };
-  });
+  };
 }

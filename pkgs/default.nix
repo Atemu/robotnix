@@ -8,17 +8,16 @@
   ) {
     src =  ../.;
   }).defaultNix.inputs,
-  system,
   ... }@args:
 
 let
   inherit (inputs) nixpkgs nixpkgsUnstable androidPkgs;
-in nixpkgs.legacyPackages."${system}".appendOverlays [
+in nixpkgs.legacyPackages.x86_64-linux.appendOverlays [
   (self: super: {
-    androidPkgs.packages = androidPkgs.packages."${system}";
-    androidPkgs.sdk = androidPkgs.sdk."${system}";
+    androidPkgs.packages = androidPkgs.packages.x86_64-linux;
+    androidPkgs.sdk = androidPkgs.sdk.x86_64-linux;
 
-    inherit (nixpkgsUnstable.legacyPackages."${system}")
+    inherit (nixpkgsUnstable.legacyPackages.x86_64-linux)
       diffoscope;
   })
   (import ./overlay.nix)
