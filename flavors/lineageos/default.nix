@@ -11,8 +11,6 @@ let
     importJSON toLower hasPrefix removePrefix;
 
   androidVersionToLineageBranch = {
-    "10" = "lineage-17.1";
-    "11" = "lineage-18.1";
     "12" = "lineage-19.1";
   };
   lineageBranchToAndroidVersion = mapAttrs' (name: value: nameValuePair value name) androidVersionToLineageBranch;
