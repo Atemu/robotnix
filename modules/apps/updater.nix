@@ -89,8 +89,8 @@ in
     ]))
 
     # Remove package if it's disabled by configuration
-    (mkIf (!cfg.enable && cfg.includedInFlavor) {
-      source.dirs.${relpath}.enable = false;
-    })
+    # (mkIf (!cfg.enable && cfg.includedInFlavor) {
+    #   source.dirs.${relpath}.enable = false;
+    # })
   ];
 }
