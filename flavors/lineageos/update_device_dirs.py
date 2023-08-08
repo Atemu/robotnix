@@ -110,8 +110,6 @@ def fetch_device_dirs(metadata: Any,
                     dirs_to_fetch.add((dep['target_path'], f"{url_base}/{dep['repository']}"))
 
             dir_info['deps'] = [dep['target_path'] for dep in lineage_dependencies]
-        else:
-            dir_info['deps'] = []
 
         if callback is not None:
             callback(dirs)
