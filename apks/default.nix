@@ -43,8 +43,4 @@ rec {
     inherit chromium;
     inherit (pkgs) fetchFromGitHub git fetchcipd linkFarmFromDrvs fetchurl;
   };
-  bromite = import ./chromium/bromite.nix {
-    inherit chromium;
-    inherit (pkgs) fetchFromGitHub git python3;
-  };
 }

@@ -9,8 +9,8 @@ in
 {
   options = {
     webview = mkOption {
-      description = "Webview providers to include in Android build. Pre-specified options are `chromium`, `bromite`, and `vanadium`.";
-      example = lib.literalExample "{ bromite.enable = true; }";
+      description = "Webview providers to include in Android build. Pre-specified options are `chromium`, and `vanadium`.";
+      example = lib.literalExample "{ chromium.enable = true; }";
 
       type = types.attrsOf (types.submodule ({ name, config, ... }: {
         options = {

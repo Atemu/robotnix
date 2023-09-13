@@ -54,8 +54,6 @@ in {
     browsers = lib.recurseIntoAttrs {
       inherit ((robotnix { device = "arm64"; flavor="vanilla"; }).config.build)
         chromium;
-      inherit ((robotnix { device = "arm64"; flavor="vanilla"; apps.bromite.enable=true; webview.bromite.enable=true; }).config.build)
-        bromite;
       inherit ((robotnix { device = "arm64"; flavor="grapheneos"; }).config.build)
         vanadium;
     };

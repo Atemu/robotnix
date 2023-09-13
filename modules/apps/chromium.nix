@@ -44,7 +44,6 @@ in
 {
   options = {
     apps.chromium.enable = mkEnableOption "chromium browser";
-    apps.bromite.enable = mkEnableOption "bromite browser";
     apps.vanadium.enable = mkEnableOption "vanadium browser";
   };
 
@@ -116,9 +115,6 @@ in
       }
     ])
     [ { name = "chromium"; displayName = "Chromium"; }
-      # For an unknown reason, Bromite fails to build chrome_modern_public_bundle
-      # simultaneously with system_webview_apk as of 2020-12-22
-      { name = "bromite"; displayName = "Bromite"; buildSeparately = true; isTriChrome = false; }
       { name = "vanadium"; displayName = "Vanadium"; }
     ]
   )) ++ [
@@ -126,7 +122,6 @@ in
       # Snakeoil key fingerprints
       apps.prebuilt = mkIf (!config.signing.enable) {
         chromium.fingerprint = "A9934B9FF708E2731A191453E53D961F57DA240AC50270287A8D5A0BFCC2A32F";
-        bromite.fingerprint = "84DC65839E28832CD7CEB132E484F26857A075AFF5CFEB65802B489949AA6C36";
         vanadium.fingerprint = "67732B459F18ACD4BA86A6F1EE6D77C5AB347170A9CF29040CA874D6EE3FD61B";
       };
     }

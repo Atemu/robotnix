@@ -4,17 +4,15 @@ A properly functioning Android system requires the use of a "webview".
 Chromium-based browsers may also provide this webview 
 
 Robotnix can also build chromium-based browsers from source.
-We currently package Chromium, Bromite, and Vanadium for use with robotnix.
+We currently package Chromium and Vanadium for use with robotnix.
 
 
 > [Chromium](https://www.chromium.org/) is an open-source browser project that aims to build a safer, faster, and more stable way for all users to experience the web.
 
-> [Bromite](https://www.bromite.org/) is a Chromium fork with ad blocking and enhanced privacy.
-
 > [Vanadium](https://github.com/GrapheneOS/Vanadium) is a privacy and security hardened variant of Chromium providing the WebView (used by other apps to render web content) and standard browser for GrapheneOS.
 > It depends on hardening and compatibility fixes in GrapheneOS rather than reinventing the wheel inside Vanadium
 
-The following shows the available options for `chromium`. The corresponding options for `vanadium` and `bromite` are similar.
+The following shows the available options for `chromium`. The corresponding options for `vanadium` are similar.
 ```nix
 {
   apps.chromium.enable = true;
