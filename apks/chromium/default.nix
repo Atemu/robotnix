@@ -261,4 +261,10 @@ in stdenvNoCC.mkDerivation rec {
       cp -r out/Release/apks/. $out/
     )
   '';
+
+  meta = {
+    knownVulnerabilities = [
+      "Source-build chromium browsers are currently unmaintained and severely out of date."
+    ];
+  };
 }
