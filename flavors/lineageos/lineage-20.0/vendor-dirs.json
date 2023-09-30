@@ -22,14 +22,14 @@
     "url": "https://github.com/TheMuppets/proprietary_vendor_10or_G"
   },
   "vendor/amlogic/g12-common": {
-    "date": "2022-12-09T23:05:25-05:00",
+    "date": "2023-09-29T17:37:18+01:00",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/b7gdccf4rrwn0lz2fkrzg43xy04pgy7w-proprietary_vendor_amlogic_g12-common",
-    "rev": "ced108941b3b993a58fcff17ce2d9472d3b256f1",
-    "sha256": "07w9n5l0xwv9x18lwcjys46qj334d75zb9hv8nyjhm819nvfcr6k",
+    "path": "/nix/store/xckswz94pnv8yqibcad2n1jnv0afgcfj-proprietary_vendor_amlogic_g12-common",
+    "rev": "c9f262221e8783b208909ac64a5aea3db336b593",
+    "sha256": "1i2b8mcp56f3axxf6pcax7w9qa4abakbcawfhc44g5gcwrmb63nx",
     "url": "https://github.com/TheMuppets/proprietary_vendor_amlogic_g12-common"
   },
   "vendor/amlogic/m5": {
@@ -187,25 +187,25 @@
     "url": "https://github.com/TheMuppets/proprietary_vendor_essential_mata"
   },
   "vendor/fairphone/FP3": {
-    "date": "2023-08-07T12:58:46+05:30",
+    "date": "2023-08-18T18:24:46+05:30",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/v6pgilwqjml8sav6i60980zyjm1lblsg-proprietary_vendor_fairphone_FP3",
-    "rev": "6cae2b04d75bd8377e4fdefe097986c00319a9b0",
-    "sha256": "1cda1y1ypil9xfch2imdccnvh9bkp89nxka2cw8d9ca1n01xhr9x",
+    "path": "/nix/store/bgl93cvi6j3qd77yv73jz9qzbl5x94f6-proprietary_vendor_fairphone_FP3",
+    "rev": "1e4de214a14f47fc6ebbfa3a040412352353ff64",
+    "sha256": "1197412xmzby9b43ck3h64xy7zyx1jpbwmdpa2p3dm0x10yn12ls",
     "url": "https://github.com/TheMuppets/proprietary_vendor_fairphone_FP3"
   },
   "vendor/fairphone/FP4": {
-    "date": "2023-07-18T20:06:23+03:00",
+    "date": "2023-09-11T20:09:06+03:00",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/sb7d18qvxis10g41g5y35k6vcqfbb7nm-proprietary_vendor_fairphone_FP4",
-    "rev": "66d9cfb8b4645dc3c564046ebfce6dd067aa4299",
-    "sha256": "03zlp260pkf5yz09ai2mi45y9qf2ri8baq2d7vabqf66m25jfzp0",
+    "path": "/nix/store/5szrbpqw547lnjj2h67g2p2zvajvxqc8-proprietary_vendor_fairphone_FP4",
+    "rev": "d8ebd4804a3e61b57e708ee1d1c3b6e26a6f5651",
+    "sha256": "1iin8ivv4y6d25sm6vxyr09vqf36r3d4gg38l5qmbryl02ppfgad",
     "url": "https://github.com/TheMuppets/proprietary_vendor_fairphone_FP4"
   },
   "vendor/fxtec/pro1": {
@@ -231,47 +231,47 @@
     "url": "https://github.com/TheMuppets/proprietary_vendor_fxtec_pro1x"
   },
   "vendor/google/barbet": {
-    "date": "2023-07-08T13:13:40+03:00",
+    "date": "2023-09-25T18:32:01+03:00",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/53i5zr6pk9wgwkj8c3kgqbijynr5f8g9-proprietary_vendor_google_barbet",
-    "rev": "497872a04c3ef0804e1b1cf6fb321cd38ac528ee",
-    "sha256": "0xwnbg1lcxpc0dnrmym5bqvlaflj9sab3fhrjsy8hi6q1kpr1qmk",
+    "path": "/nix/store/kjkrimiif881405fyf6wdfj0lzlqlqf5-proprietary_vendor_google_barbet",
+    "rev": "4ac4babbbbf8a7672ce63e3ee4e174d48c1834c4",
+    "sha256": "0gr6rkhm28s70r0l5h97clvc4pvk68w8b4vy0592wpa2z5s13f5j",
     "url": "https://github.com/TheMuppets/proprietary_vendor_google_barbet"
   },
   "vendor/google/bluejay": {
-    "date": "2023-07-08T13:14:10+03:00",
+    "date": "2023-09-25T18:33:56+03:00",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/axbkn6gj98fmh1yr41y3k1bijn6lpqk7-proprietary_vendor_google_bluejay",
-    "rev": "05a93ef9f6e4369f42b9c641cdc15cc855633046",
-    "sha256": "1rdzd24ycnyng5cbkzm8kdvqjq82ci35jc6b63hciy4rzh53ld7g",
+    "path": "/nix/store/pll42ywd2xarlsg03kp3yb3hjwb91aha-proprietary_vendor_google_bluejay",
+    "rev": "16729a9dfff1fb316fa974ce44cd6eacb73cd05f",
+    "sha256": "1wl3zgbx2lfkasqc362vxpvzi3hw1bxd9086r6v77crdgl0dh887",
     "url": "https://gitlab.com/the-muppets/proprietary_vendor_google_bluejay"
   },
   "vendor/google/bramble": {
-    "date": "2023-07-08T13:13:26+03:00",
+    "date": "2023-09-25T18:30:59+03:00",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/fmwwpgmzbpr5fs2ms60gj1qqbk81p2aj-proprietary_vendor_google_bramble",
-    "rev": "3445e1445a5656cd7be2cef2cd8b77d07c159ba7",
-    "sha256": "02ir9z621407d31w14z0bk56bgdwcrmivags0sv1cksb9f3vmrsk",
+    "path": "/nix/store/frq8dlgsz2dxvy0j9hgiszzs08p1gbjc-proprietary_vendor_google_bramble",
+    "rev": "6fb32ddfe23b73c9ecc74a6b1db747886903ad47",
+    "sha256": "1dyj693adr9ar9wbrgna0lifvhapl93zs5lx26jvc3xn4k986nl4",
     "url": "https://github.com/TheMuppets/proprietary_vendor_google_bramble"
   },
   "vendor/google/cheetah": {
-    "date": "2023-07-08T13:14:22+03:00",
+    "date": "2023-09-25T18:36:33+03:00",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/mgb590i00jmzh2hh36xp5wqdx8wawzs7-proprietary_vendor_google_cheetah",
-    "rev": "d2353e67171d51f094af2b8d08a550ac54a3bd13",
-    "sha256": "1d3cdyw53ym95xh7vi6qc7y5zvdikibg7s8ppmwwcv0qnhyhial8",
+    "path": "/nix/store/rbf1jpi98siah0m7g32liapfg0l8zgjr-proprietary_vendor_google_cheetah",
+    "rev": "37a2b2b32c767441d43d491bd3cd24ff9765da88",
+    "sha256": "0jf673h0jr4gy5kizk8g0g15qqhc9i8a9hj2khf2r4bw7n35ar8h",
     "url": "https://gitlab.com/the-muppets/proprietary_vendor_google_cheetah"
   },
   "vendor/google/coral": {
@@ -297,69 +297,91 @@
     "url": "https://github.com/TheMuppets/proprietary_vendor_google_flame"
   },
   "vendor/google/lynx": {
-    "date": "2023-07-08T13:14:45+03:00",
+    "date": "2023-09-25T18:38:45+03:00",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/d6pzxp2zvscmy2xg14mgw94ycczbq7q2-proprietary_vendor_google_lynx",
-    "rev": "c0d12fb6723df320f76aa2437a13b54566ab2fb9",
-    "sha256": "1vwwhqqxvnkn42wr54ggfkq79j955pdl0dxxh3qw9j9hsznk6idv",
+    "path": "/nix/store/fy9s3xvg7k4yv1z1aarcicsh4n4v012y-proprietary_vendor_google_lynx",
+    "rev": "d72be9cbf391a539949bfa3a6b694fed5f1ca627",
+    "sha256": "1cp5sgr4aqvdvkwfzrrfpq1na7l7p2d5ylr5i1bxgpvimiylh24a",
     "url": "https://gitlab.com/the-muppets/proprietary_vendor_google_lynx"
   },
-  "vendor/google/oriole": {
-    "date": "2023-07-08T13:14:00+03:00",
+  "vendor/google/marlin": {
+    "date": "2023-09-08T15:03:39-04:00",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/6qx01wsnima1qf41569x2diwg25vypwa-proprietary_vendor_google_oriole",
-    "rev": "b1bb15d198aef1f786ebd408ab26e74a6914e765",
-    "sha256": "1ghyfbiq2i2cmsms706173lsm4gyvm3wh9711yclzpf4axhqz449",
+    "path": "/nix/store/i7rf6r0pzd46wkrf746m85fwxdhliyvw-proprietary_vendor_google_marlin",
+    "rev": "230a432c75141715924f43f40d7f0cd7c4a5f27c",
+    "sha256": "0q6xyl6s1asr35cmixsjc4pi2hyc77bqzxz9f8mdb81l2g6d3ibi",
+    "url": "https://github.com/TheMuppets/proprietary_vendor_google_marlin"
+  },
+  "vendor/google/oriole": {
+    "date": "2023-09-25T18:32:41+03:00",
+    "deepClone": false,
+    "fetchLFS": false,
+    "fetchSubmodules": false,
+    "leaveDotGit": false,
+    "path": "/nix/store/3jj39r2nlms74lgbwlx9zd46jrg7jny1-proprietary_vendor_google_oriole",
+    "rev": "049c7c04350794a58a63e3a34274dfc274460cf4",
+    "sha256": "1x9smq645dgycx4mbsd1bs7899drg4mvp2i05a38fxf1cxkcvis3",
     "url": "https://gitlab.com/the-muppets/proprietary_vendor_google_oriole"
   },
   "vendor/google/panther": {
-    "date": "2023-07-08T13:14:33+03:00",
+    "date": "2023-09-25T18:37:53+03:00",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/940k3w1icp4vfigs535h564qd9byzi37-proprietary_vendor_google_panther",
-    "rev": "72833ea9de93d346b7c0a75233610780b963dfa8",
-    "sha256": "1liqz3ksqps3xjapqb7bc2glw4smhgph9r1njnzkpwwc90z6d5bg",
+    "path": "/nix/store/q5rw2533ci3pk2svmlgy9hww28pzw6by-proprietary_vendor_google_panther",
+    "rev": "d84d399099233f91ddcbea766767e65a1d2d9bb2",
+    "sha256": "1v39rxgha8fk0hl4dbikpl14v2m8vj854vlc2xpnayp112iw5jmr",
     "url": "https://gitlab.com/the-muppets/proprietary_vendor_google_panther"
   },
   "vendor/google/raven": {
-    "date": "2023-07-08T13:13:50+03:00",
+    "date": "2023-09-25T18:33:18+03:00",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/xfi3xbxmjz5zxka0xx8pn20d664gyrgm-proprietary_vendor_google_raven",
-    "rev": "09260564eba0c95b24ff7d7239acd33b67557fa0",
-    "sha256": "0gw5kx6pfny1vw3ya7jkkq0755xb3gdxl263l6vvfpvhm4sw2qbg",
+    "path": "/nix/store/0zih1x5b1j08cqyaf1dqa7p1540zbxqw-proprietary_vendor_google_raven",
+    "rev": "325dc846d1f0428e8f943451ce0f835190f4b28e",
+    "sha256": "18psdds7060s7z16hrgfsnxvr072vw7swx26s50cfjwrwdmql1vd",
     "url": "https://gitlab.com/the-muppets/proprietary_vendor_google_raven"
   },
   "vendor/google/redfin": {
-    "date": "2023-07-08T13:13:32+03:00",
+    "date": "2023-09-25T18:31:31+03:00",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/dcq3zsmrvm11d0yzfp12qi7g5jzkb3kz-proprietary_vendor_google_redfin",
-    "rev": "fef7bbac91f8bf5dbe84d08314540d5e58079ab8",
-    "sha256": "137lcqhw4pnpyhzrmgs85wzfhns5fp84fk5f56hv7fsbjyblxfc2",
+    "path": "/nix/store/l4lkg7vkrq6v6rcwdmfx008rg21biq3d-proprietary_vendor_google_redfin",
+    "rev": "3d7f7230cdb052e791dfc6c7e905acc4da85f795",
+    "sha256": "1pmj0s7hya9cvlqq5k7wxqjd0vznh37k84s4v9rb6ygbymwl4r2i",
     "url": "https://github.com/TheMuppets/proprietary_vendor_google_redfin"
   },
-  "vendor/google/sunfish": {
-    "date": "2023-07-08T13:13:15+03:00",
+  "vendor/google/sailfish": {
+    "date": "2023-09-08T15:03:49-04:00",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/kiz5lmvs1nq2id5mnhgn8lvk4p5rjb90-proprietary_vendor_google_sunfish",
-    "rev": "11d32eb953d824e4c3d6af8aa9a3daa59a73e113",
-    "sha256": "12fmwajjni5aj13vryay1b1cw8xvah3wh3c7ls071igqgaf3xpd1",
+    "path": "/nix/store/n4kk4mynnajk92h4cm0s5vr2w9gysvrn-proprietary_vendor_google_sailfish",
+    "rev": "6e543aee512ab8fb0bd296360291fe1738cdb3b8",
+    "sha256": "1d7wnllbldjx2cdh67dcz41s37apzqryr5652r1ximnpnqabh8rx",
+    "url": "https://github.com/TheMuppets/proprietary_vendor_google_sailfish"
+  },
+  "vendor/google/sunfish": {
+    "date": "2023-08-12T05:53:21+03:00",
+    "deepClone": false,
+    "fetchLFS": false,
+    "fetchSubmodules": false,
+    "leaveDotGit": false,
+    "path": "/nix/store/9mxhfh8jqd6snrmykpqdaf18zf534jv4-proprietary_vendor_google_sunfish",
+    "rev": "7e3a75b0c229b823e2fb2f251c7ddc00c542aa09",
+    "sha256": "1mr5a2syq673xahs8n4jjajgdjnzzjs8n2v9116i7q73jnf6r5fs",
     "url": "https://github.com/TheMuppets/proprietary_vendor_google_sunfish"
   },
   "vendor/google/taimen": {
@@ -374,14 +396,14 @@
     "url": "https://github.com/TheMuppets/proprietary_vendor_google_taimen"
   },
   "vendor/google/tangorpro": {
-    "date": "2023-07-10T13:57:14+03:00",
+    "date": "2023-09-25T18:40:53+03:00",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/rm5gmdspnc5815ylrxgkqy2r1zlfliv8-proprietary_vendor_google_tangorpro",
-    "rev": "65720ce52937512461015b8cf09166e0e82ee986",
-    "sha256": "1ikwrvai88hs2v8my675mklb8y9zzxw3lins228r010jr6fwmqkz",
+    "path": "/nix/store/v6mq3n8jja5c1a4w2kj2sg0gbxvqpvfv-proprietary_vendor_google_tangorpro",
+    "rev": "21120490b9b853c420918e3ddd4bdfb9a31e9a69",
+    "sha256": "0y4b0fjmvklvypw6nlyd0p5lksmszyc6xp95k4hcag7np5f29b0c",
     "url": "https://gitlab.com/the-muppets/proprietary_vendor_google_tangorpro"
   },
   "vendor/google/walleye": {
@@ -429,13 +451,13 @@
     "url": "https://github.com/TheMuppets/proprietary_vendor_lenovo_zippo"
   },
   "vendor/lge/g5-common": {
-    "date": "2023-06-20T18:29:20-04:00",
+    "date": "2023-08-20T16:10:59-04:00",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
     "path": "/nix/store/gxsr4kfkhb31fknkxilpbnbwm494a1r3-proprietary_vendor_lge_g5-common",
-    "rev": "226a57d129619074241ff7fb94048ff015464346",
+    "rev": "8609747ec474c158a6049bf5076271f51a453ba0",
     "sha256": "0wnlya9xxicw8d46sqm6wwldli8ngszg97b2yaa82qh1k9qpyc5d",
     "url": "https://github.com/TheMuppets/proprietary_vendor_lge_g5-common"
   },
@@ -450,6 +472,72 @@
     "sha256": "00fr303xjv88qbh3418p16wksfp61imqbjjx1xfww5xk16g8jd1x",
     "url": "https://github.com/TheMuppets/proprietary_vendor_lge_g6-common"
   },
+  "vendor/lge/h830": {
+    "date": "2023-08-20T16:10:46-04:00",
+    "deepClone": false,
+    "fetchLFS": false,
+    "fetchSubmodules": false,
+    "leaveDotGit": false,
+    "path": "/nix/store/jqcaj6xwkfn6r05a3nx0k96ykq4zdka1-proprietary_vendor_lge_h830",
+    "rev": "fa075881551b172ef36f89af97c61913065ed97c",
+    "sha256": "1q19zzfskjwgydds6wk9qjjbijxazijdmavkmy3rqkpihlc5qi3w",
+    "url": "https://github.com/TheMuppets/proprietary_vendor_lge_h830"
+  },
+  "vendor/lge/h850": {
+    "date": "2023-08-20T16:10:47-04:00",
+    "deepClone": false,
+    "fetchLFS": false,
+    "fetchSubmodules": false,
+    "leaveDotGit": false,
+    "path": "/nix/store/6vry491zivrqic13w0sag0lbzwngmfx2-proprietary_vendor_lge_h850",
+    "rev": "9105729cc0ba346ba4f7a87a939646c2d5a9fc87",
+    "sha256": "0gs4lmpaja1drhw92q85qsj6pc0vy57x9mwckj8ryw8g9ij4k5r2",
+    "url": "https://github.com/TheMuppets/proprietary_vendor_lge_h850"
+  },
+  "vendor/lge/h870": {
+    "date": "2023-06-20T18:29:40-04:00",
+    "deepClone": false,
+    "fetchLFS": false,
+    "fetchSubmodules": false,
+    "leaveDotGit": false,
+    "path": "/nix/store/jy5hgafp07y6sjpr1gvivafj92k5nnb7-proprietary_vendor_lge_h870",
+    "rev": "e792880fbf5b6e3db25d9de622f8a9bf91389214",
+    "sha256": "0444maymqpawkadica1q7z4lq4g219gkmfq2cqfz1g0h602p920v",
+    "url": "https://github.com/TheMuppets/proprietary_vendor_lge_h870"
+  },
+  "vendor/lge/h872": {
+    "date": "2023-06-20T18:29:42-04:00",
+    "deepClone": false,
+    "fetchLFS": false,
+    "fetchSubmodules": false,
+    "leaveDotGit": false,
+    "path": "/nix/store/b4dlm5hrrqlsxa96w2qgc0lx8jfhs7bj-proprietary_vendor_lge_h872",
+    "rev": "5ac8078fe0fb09905dbd3d4e1b5c3522bc103a16",
+    "sha256": "000hzymja5g1g9h0qnzqif2wwd2wyb2s9zgbmmhz7bii53dcmbrb",
+    "url": "https://github.com/TheMuppets/proprietary_vendor_lge_h872"
+  },
+  "vendor/lge/h910": {
+    "date": "2023-08-20T16:10:48-04:00",
+    "deepClone": false,
+    "fetchLFS": false,
+    "fetchSubmodules": false,
+    "leaveDotGit": false,
+    "path": "/nix/store/qiqvl31320gswbahn1m317nwigj1zxd2-proprietary_vendor_lge_h910",
+    "rev": "078185c377cae37c6169a78df260a6f77dca9e94",
+    "sha256": "1y993hfb7fqzzy7qbzch6nznblllj2sc82hmcgsljds7hrmgibyb",
+    "url": "https://github.com/TheMuppets/proprietary_vendor_lge_h910"
+  },
+  "vendor/lge/h918": {
+    "date": "2023-08-20T16:10:49-04:00",
+    "deepClone": false,
+    "fetchLFS": false,
+    "fetchSubmodules": false,
+    "leaveDotGit": false,
+    "path": "/nix/store/vlpw1c0hwm7vq369psczxf2p78lamyhw-proprietary_vendor_lge_h918",
+    "rev": "1c24eb0c779dc7c98c82910970bfb624fa14da7c",
+    "sha256": "02y26fdlhvm0gikpzgxsvv3hgsjzh5sa4frnjw5pb97ardaz9aq5",
+    "url": "https://github.com/TheMuppets/proprietary_vendor_lge_h918"
+  },
   "vendor/lge/h932": {
     "date": "2023-02-18T15:45:47-08:00",
     "deepClone": false,
@@ -460,6 +548,17 @@
     "rev": "a33875691ac0a65229726ac8569a8edf83d29077",
     "sha256": "0s2yxp458d9gihdn1nxmndgr28c3k3s6ibhxhr4m6iqmr4mgs42d",
     "url": "https://github.com/TheMuppets/proprietary_vendor_lge_h932"
+  },
+  "vendor/lge/h990": {
+    "date": "2023-08-20T16:10:51-04:00",
+    "deepClone": false,
+    "fetchLFS": false,
+    "fetchSubmodules": false,
+    "leaveDotGit": false,
+    "path": "/nix/store/cx9h0f6bsmaicpi1564nrmsm85pan8y2-proprietary_vendor_lge_h990",
+    "rev": "5f17186061463bddb1aa347946a137c072f04336",
+    "sha256": "09sks7s6mq2isqy4mwa5pibp820llqfjkbw956yq3nkkz5vjf0g1",
+    "url": "https://github.com/TheMuppets/proprietary_vendor_lge_h990"
   },
   "vendor/lge/joan": {
     "date": "2023-02-18T14:36:04-08:00",
@@ -483,16 +582,82 @@
     "sha256": "0kik27h8xr8v3w534m9kv6l94z9xbgsdwqn5lrzb2nmfz1gqfvf7",
     "url": "https://github.com/TheMuppets/proprietary_vendor_lge_joan-common"
   },
-  "vendor/lge/v20-common": {
-    "date": "2023-06-20T18:30:20-04:00",
+  "vendor/lge/ls997": {
+    "date": "2023-08-20T16:10:52-04:00",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/j8c1y82q9dmxsxg91irg7h85s39s2mds-proprietary_vendor_lge_v20-common",
-    "rev": "b0fef9e5b6bacff88c0d5dec33cc74ca338a0250",
-    "sha256": "10my69xdma9fc5psfr2b0k3glpzv8174mi4mfvd776gjw3pc9f2m",
+    "path": "/nix/store/36rgzrgcli12nvm497z0irlgdi0gd1xd-proprietary_vendor_lge_ls997",
+    "rev": "85d14ee3baf4749964a77a9f80d18234721812c5",
+    "sha256": "1xhajvvwk8369b4g88grfp4gzja6r9i6g0cj1a46x1zx7fx6jmji",
+    "url": "https://github.com/TheMuppets/proprietary_vendor_lge_ls997"
+  },
+  "vendor/lge/rs988": {
+    "date": "2023-08-20T16:10:53-04:00",
+    "deepClone": false,
+    "fetchLFS": false,
+    "fetchSubmodules": false,
+    "leaveDotGit": false,
+    "path": "/nix/store/0z5is927a0s0c5jjwljmfk7mvjlyb1yg-proprietary_vendor_lge_rs988",
+    "rev": "fa7ca1ffc700713b0a3d54bca62758a21ab2e1d9",
+    "sha256": "03rmbx7v5rq59nj5bnrmydi4kyb9zhf6jnx1p8xvcz0nfbbby686",
+    "url": "https://github.com/TheMuppets/proprietary_vendor_lge_rs988"
+  },
+  "vendor/lge/us996": {
+    "date": "2023-08-20T16:10:54-04:00",
+    "deepClone": false,
+    "fetchLFS": false,
+    "fetchSubmodules": false,
+    "leaveDotGit": false,
+    "path": "/nix/store/lrjvxrcdq7hwa2r4mg4iw5vnb35q63i6-proprietary_vendor_lge_us996",
+    "rev": "f0208a3c04e9528d1811fbd06f4a1764087d6608",
+    "sha256": "1i515nhcx29gn79sawva00br571zs1klpgaa3f1610i6bikvdavd",
+    "url": "https://github.com/TheMuppets/proprietary_vendor_lge_us996"
+  },
+  "vendor/lge/us996d": {
+    "date": "2023-08-20T16:10:55-04:00",
+    "deepClone": false,
+    "fetchLFS": false,
+    "fetchSubmodules": false,
+    "leaveDotGit": false,
+    "path": "/nix/store/j0ql73sk11y1mmvlvyvaknbkid6hxk5k-proprietary_vendor_lge_us996d",
+    "rev": "548f96ba5e97624c00650fd218e985aaf7b8424c",
+    "sha256": "174lcbsx8hfjlqjqvbszzkpyy1hy6rznid3xi0dxcddf1vn37jga",
+    "url": "https://github.com/TheMuppets/proprietary_vendor_lge_us996d"
+  },
+  "vendor/lge/us997": {
+    "date": "2023-06-20T18:30:17-04:00",
+    "deepClone": false,
+    "fetchLFS": false,
+    "fetchSubmodules": false,
+    "leaveDotGit": false,
+    "path": "/nix/store/l7dvvdj9p8q33mz3smjw4xrwc3q4anaq-proprietary_vendor_lge_us997",
+    "rev": "1bdb1edf78b5b86972a61c8e51294b5905c36e77",
+    "sha256": "19r5agcd25xz19j5w76a3z6lm9qnaccyg8nwdsb4bfianb4q7wai",
+    "url": "https://github.com/TheMuppets/proprietary_vendor_lge_us997"
+  },
+  "vendor/lge/v20-common": {
+    "date": "2023-08-20T16:10:57-04:00",
+    "deepClone": false,
+    "fetchLFS": false,
+    "fetchSubmodules": false,
+    "leaveDotGit": false,
+    "path": "/nix/store/g9p0yagkd4gjl1wqhmdl10q635ydl0ks-proprietary_vendor_lge_v20-common",
+    "rev": "1493693b4de2e304ba5271022236fad1aa969a4f",
+    "sha256": "0bbql23gz8yxl3mabgafvc2l2ygqss9gas44516nz1zvwv7q90v2",
     "url": "https://github.com/TheMuppets/proprietary_vendor_lge_v20-common"
+  },
+  "vendor/lge/vs995": {
+    "date": "2023-08-20T16:10:56-04:00",
+    "deepClone": false,
+    "fetchLFS": false,
+    "fetchSubmodules": false,
+    "leaveDotGit": false,
+    "path": "/nix/store/p28rad6xlljdn7jygk8mjiblx9im5274-proprietary_vendor_lge_vs995",
+    "rev": "86a35d3e47c9de58c55a8c6dd5438638e3525776",
+    "sha256": "0ip5jdk4n4xdza0v4b0a84qbv0znbjzy11pk1498z68l3l8anyrb",
+    "url": "https://github.com/TheMuppets/proprietary_vendor_lge_vs995"
   },
   "vendor/motorola/beckham": {
     "date": "2022-10-20T11:45:12-04:00",
@@ -517,14 +682,14 @@
     "url": "https://gitlab.com/the-muppets/proprietary_vendor_motorola_berlin"
   },
   "vendor/motorola/berlna": {
-    "date": "2023-07-14T09:07:55-07:00",
+    "date": "2023-08-31T07:27:10-07:00",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/nnda73a6i9s1p70i92inqllihr5n7imd-proprietary_vendor_motorola_berlna",
-    "rev": "faf216ab5b79287af09ad79acf22303fdf073213",
-    "sha256": "0xy5g590c0x1hjx76d2il391lm60ma256sgc7954zb8g6rgss6nm",
+    "path": "/nix/store/wd035sj63mpnx06w9wj6hpwzvgnmm0km-proprietary_vendor_motorola_berlna",
+    "rev": "6fcc55b8685faae62e87812db931a71946f80970",
+    "sha256": "0fg5jyzn9gyf61fzxjlcz4cwg0k802y6yiy20ig8x2j7nyqqjxya",
     "url": "https://gitlab.com/the-muppets/proprietary_vendor_motorola_berlna"
   },
   "vendor/motorola/channel": {
@@ -550,14 +715,14 @@
     "url": "https://gitlab.com/the-muppets/proprietary_vendor_motorola_chef"
   },
   "vendor/motorola/devon": {
-    "date": "2023-07-19T19:23:12+03:00",
+    "date": "2023-08-27T19:49:53+05:30",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/ix5mybnwpa8qsng0dwcn3yfyn2dgaxdv-proprietary_vendor_motorola_devon",
-    "rev": "d6bb80b95dbff711e580010baad59a686712b31b",
-    "sha256": "1wq2d27xbq6yz97ifww8s42y0g8v30pplip1hs87pq4h67gzjs40",
+    "path": "/nix/store/l6z9ww8rnv4cn8fh1qzr9jaig2k248yd-proprietary_vendor_motorola_devon",
+    "rev": "f1f91bbed4b2cd8ce0d5849448e540d24db8c92c",
+    "sha256": "017k2w6m0gfq351402yxnpcvbllmbjf6ksyz9pl9nahn1yicws6z",
     "url": "https://github.com/TheMuppets/proprietary_vendor_motorola_devon"
   },
   "vendor/motorola/dubai": {
@@ -594,14 +759,14 @@
     "url": "https://gitlab.com/the-muppets/proprietary_vendor_motorola_exynos9610-common"
   },
   "vendor/motorola/hawao": {
-    "date": "2023-07-19T19:24:15+03:00",
+    "date": "2023-08-27T19:50:43+05:30",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/bk7sm89a3n73x82nlcalxflsmwawb2v1-proprietary_vendor_motorola_hawao",
-    "rev": "d2fce1c7c8d00711dd18a0f9251077a04563719d",
-    "sha256": "0f80viba70gpqhhcp89j63yv23ii0aipb6qyp0x6gf4476n876q9",
+    "path": "/nix/store/gyyidrb7qa4grggk14qqc15rki63xi7v-proprietary_vendor_motorola_hawao",
+    "rev": "df898f2ddfb466115fc464c86e6e6864ce0c7442",
+    "sha256": "0rhnjgdypbw20zjb9y6j5y2bq2mk33qjsa0y763w9vph4q7gcsms",
     "url": "https://github.com/TheMuppets/proprietary_vendor_motorola_hawao"
   },
   "vendor/motorola/kane": {
@@ -637,6 +802,17 @@
     "sha256": "055yvf8dl2fdmbhj8xnk3018lc6m4kkmbz2ygmfshy0dz1a38xg4",
     "url": "https://gitlab.com/the-muppets/proprietary_vendor_motorola_lake"
   },
+  "vendor/motorola/messi": {
+    "date": "2023-08-23T15:31:20-04:00",
+    "deepClone": false,
+    "fetchLFS": false,
+    "fetchSubmodules": false,
+    "leaveDotGit": false,
+    "path": "/nix/store/i5mmgdl3bxrnx113gc0p81q7p1njw5l2-proprietary_vendor_motorola_messi",
+    "rev": "eff53df84073934e254a2772877e35ca84024028",
+    "sha256": "1x2gq4bhx36fkpa680why3rg0043c26r2pqrlyvmljxdxa4klkgi",
+    "url": "https://gitlab.com/the-muppets/proprietary_vendor_motorola_messi"
+  },
   "vendor/motorola/msm8998-common": {
     "date": "2023-05-31T08:51:20+02:00",
     "deepClone": false,
@@ -660,14 +836,14 @@
     "url": "https://gitlab.com/the-muppets/proprietary_vendor_motorola_nairo"
   },
   "vendor/motorola/nash": {
-    "date": "2023-07-22T17:25:20+02:00",
+    "date": "2023-08-23T11:23:14-04:00",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/00fan4hpf5y8z2sr34k0pwbbrrl59b40-proprietary_vendor_motorola_nash",
-    "rev": "e1246812f3f3903f85463ab857373790175401e2",
-    "sha256": "0s0qcg96rbgwjmwrac96g5vnm78wrdrz6hpl4z01d6j2slzvf0c4",
+    "path": "/nix/store/gzxfiznzgjn233cfp27la77ibid6idvh-proprietary_vendor_motorola_nash",
+    "rev": "d8333f5f0f39ba461cbf2e7a38b1b29622cb8a83",
+    "sha256": "1cyabp1c882v4j1vjnqc60ylxf4y2v7jb7b77yxcn4zvfnzd1cb8",
     "url": "https://gitlab.com/the-muppets/proprietary_vendor_motorola_nash"
   },
   "vendor/motorola/nio": {
@@ -726,14 +902,14 @@
     "url": "https://gitlab.com/the-muppets/proprietary_vendor_motorola_racer"
   },
   "vendor/motorola/rhode": {
-    "date": "2023-07-27T15:22:45+03:00",
+    "date": "2023-08-27T19:49:36+05:30",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/hzlf3k5ar812w8558lad0l92x7lad6c8-proprietary_vendor_motorola_rhode",
-    "rev": "454dadb5700c573a4227600fc049ac634738ca77",
-    "sha256": "1pjzbk5hxwzmzk43qqsybwwnv52s30apk3zr3g25wh32iapg7sw1",
+    "path": "/nix/store/3y5n53drcakwzk128gc808ipdjxvl9yv-proprietary_vendor_motorola_rhode",
+    "rev": "d4ff42102121ac4246992c781330cc6e5e56f20f",
+    "sha256": "1ymd4f4qg23ws4xxv9zcfim523qhqfn1qms2ivldg42qvx1fkm20",
     "url": "https://github.com/TheMuppets/proprietary_vendor_motorola_rhode"
   },
   "vendor/motorola/river": {
@@ -770,14 +946,14 @@
     "url": "https://gitlab.com/the-muppets/proprietary_vendor_motorola_sdm660-common"
   },
   "vendor/motorola/sm6225-common": {
-    "date": "2023-07-19T19:22:36+03:00",
+    "date": "2023-09-21T00:38:29+05:30",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/g3sidn88yksbgjk8mlz8ychv4cr0ns5z-proprietary_vendor_motorola_sm6225-common",
-    "rev": "a4829476b4cf065c069f834ea8ce26ce27d3bbaf",
-    "sha256": "0dn9gk05d8cv1plqk21d3ph52xni1766v775fhbnmx2xnvpwxnii",
+    "path": "/nix/store/v4r4y2rnc8hxbn6mj2lzxmc70rf23i6z-proprietary_vendor_motorola_sm6225-common",
+    "rev": "a7685411f723856524f767dcb0f495c8e439aa0e",
+    "sha256": "1z10rjp869ks2lfy4h2d6f1jxmbf4aw1ci8kjdlqdl2yl9rml7bc",
     "url": "https://github.com/TheMuppets/proprietary_vendor_motorola_sm6225-common"
   },
   "vendor/motorola/sm7250-common": {
@@ -857,6 +1033,17 @@
     "sha256": "08xqx3i4m2b7x0nxsbblmrp3p8bnm4qfmmbdqdcaw8qnmfxczs6f",
     "url": "https://github.com/TheMuppets/proprietary_vendor_nokia_sdm660-common"
   },
+  "vendor/nothing/Spacewar": {
+    "date": "2023-09-20T18:18:56+02:00",
+    "deepClone": false,
+    "fetchLFS": false,
+    "fetchSubmodules": false,
+    "leaveDotGit": false,
+    "path": "/nix/store/m882vckqg97llp4r4zjm0ky1hj08xmjs-proprietary_vendor_nothing_Spacewar",
+    "rev": "9453d1acd95a38a959e9d22fbe88f365e48ac1a5",
+    "sha256": "166f7lg6lzrwrphymfbms0nimbs0f9x1zsmq6vhc3cx9p2w4jkhm",
+    "url": "https://github.com/TheMuppets/proprietary_vendor_nothing_Spacewar"
+  },
   "vendor/nubia/TP1803": {
     "date": "2023-06-14T20:49:13-04:00",
     "deepClone": false,
@@ -891,14 +1078,14 @@
     "url": "https://github.com/TheMuppets/proprietary_vendor_nubia_nx563j"
   },
   "vendor/nubia/nx606j": {
-    "date": "2023-07-04T18:06:11+08:00",
+    "date": "2023-08-16T21:10:16+08:00",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/h2zadb312xkwx7b9k2l72hsj95kbslwk-proprietary_vendor_nubia_nx606j",
-    "rev": "76e48113e4d2d712df78c1cf00fe31d6141886cb",
-    "sha256": "0sl6m96mbyznn4dp2w1q8qnk6zg5p803w251c160sr1bikrxh92z",
+    "path": "/nix/store/xf2shs2lv3b2zxmznvpx19d0xz846xz7-proprietary_vendor_nubia_nx606j",
+    "rev": "c45c58bde1fe34922c97ac6f2ccd555c077fb033",
+    "sha256": "0kvrdkpjvcjqpckgkbgi0b0iyil0pnv2wm6pq1f3kxb1vfz97yz8",
     "url": "https://github.com/TheMuppets/proprietary_vendor_nubia_nx606j"
   },
   "vendor/nubia/nx609j": {
@@ -924,15 +1111,26 @@
     "url": "https://github.com/TheMuppets/proprietary_vendor_nubia_nx611j"
   },
   "vendor/nubia/nx619j": {
-    "date": "2023-06-24T19:38:34+08:00",
+    "date": "2023-08-16T21:08:39+08:00",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/wppjnnd9xj1a6j2bmbbndn91zrfarckv-proprietary_vendor_nubia_nx619j",
-    "rev": "e2327fb35baae132ccde47e86456239c2ddace23",
-    "sha256": "1haaph8yk9jjyhl3d4l09kyygrlyr97r6n56jkabph56k24h1lfs",
+    "path": "/nix/store/2x4rc2zzl1n96m3zvzv0clfdbvciijl7-proprietary_vendor_nubia_nx619j",
+    "rev": "8c9458a42764e2c01cc1ac9148bb0ccdbc79a474",
+    "sha256": "040q9grhkf2zqjlvd6q5x9ibqxl6165c04njjpaqmy9ja8a8kp0l",
     "url": "https://github.com/TheMuppets/proprietary_vendor_nubia_nx619j"
+  },
+  "vendor/nubia/nx659j": {
+    "date": "2023-07-31T03:35:16+02:00",
+    "deepClone": false,
+    "fetchLFS": false,
+    "fetchSubmodules": false,
+    "leaveDotGit": false,
+    "path": "/nix/store/lhwdayrnyibfdgwk1f01yckhik5svn8q-proprietary_vendor_nubia_nx659j",
+    "rev": "d9a17209401ac9e7ea6e91ed2695ca1b1a8c04cb",
+    "sha256": "1px6y7sfh5hzckww5jijrf1ilgcv90kz50izsamdyd1zcpfapfnr",
+    "url": "https://github.com/TheMuppets/proprietary_vendor_nubia_nx659j"
   },
   "vendor/nubia/sdm845-common": {
     "date": "2023-06-24T19:40:16+08:00",
@@ -968,14 +1166,14 @@
     "url": "https://github.com/TheMuppets/proprietary_vendor_oneplus_cheeseburger"
   },
   "vendor/oneplus/dre": {
-    "date": "2023-07-01T11:45:51-05:00",
+    "date": "2023-09-11T10:21:14-05:00",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/m2pchkdpk276ir8gmsbich21cvh41va7-proprietary_vendor_oneplus_dre",
-    "rev": "2fa7642839172a70843cd8c64831340d3145b24c",
-    "sha256": "1yp612rk0n4hbnz12p53vpl7sb0yrazarqb2fws4kz1y72q0d03x",
+    "path": "/nix/store/ryc768llpif5li8i4apfdh96hk6lfbbv-proprietary_vendor_oneplus_dre",
+    "rev": "f35bd2e011096980af1883b71deb6815b898fe8a",
+    "sha256": "1cigjnn77ig9n94p1m2j42017k2li9nwnjmp6rbbqf73is60ckdx",
     "url": "https://github.com/TheMuppets/proprietary_vendor_oneplus_dre"
   },
   "vendor/oneplus/dumpling": {
@@ -1056,69 +1254,69 @@
     "url": "https://github.com/TheMuppets/proprietary_vendor_oneplus_hotdogb"
   },
   "vendor/oneplus/instantnoodle": {
-    "date": "2023-06-02T23:04:06+02:00",
+    "date": "2023-09-10T10:26:36+02:00",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/rzda9443qjp6l7lynw2wp97r2300a6ap-proprietary_vendor_oneplus_instantnoodle",
-    "rev": "914c48a59392c6b59fc27a210223e4ee8587ceb3",
-    "sha256": "0w0dsqidh56vacn3j7c38q1brzcjj7r22rjh4p6r8k8gnzja5nl7",
+    "path": "/nix/store/4cjclizyaxxj8zcnhny5hfk984c5rs46-proprietary_vendor_oneplus_instantnoodle",
+    "rev": "41ac48f004e66b5027358d38d48e610468978760",
+    "sha256": "1dkp9kzy6vmvdjaz7x15cq8bc4y2wrcjzdpdh00dyc3a0jakb625",
     "url": "https://github.com/TheMuppets/proprietary_vendor_oneplus_instantnoodle"
   },
   "vendor/oneplus/instantnoodlep": {
-    "date": "2023-06-02T23:04:18+02:00",
+    "date": "2023-09-10T10:26:50+02:00",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/7nbfs1pbdjwq5hv2in945a81spqhl1f2-proprietary_vendor_oneplus_instantnoodlep",
-    "rev": "8f097ea58151ec627b21b25021b54d696e966c9f",
-    "sha256": "18wz4pa4cw446s4img3k571b83687vz2brkfn3dhciqhlgggw80b",
+    "path": "/nix/store/1qzib07v1n79vs2z9s6hmbin8qgj46la-proprietary_vendor_oneplus_instantnoodlep",
+    "rev": "a47c11f88d09f02b8944147a6fab29bf9b324d0d",
+    "sha256": "09p04w3sdfss2smawd6i6kjgrbn5v09i2ixfasldic9gx4y5gkhf",
     "url": "https://github.com/TheMuppets/proprietary_vendor_oneplus_instantnoodlep"
   },
   "vendor/oneplus/kebab": {
-    "date": "2023-03-31T18:28:23+02:00",
+    "date": "2023-09-07T13:05:21+02:00",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/4lca893x76ab3kiniih5qsr5a01ha7dy-proprietary_vendor_oneplus_kebab",
-    "rev": "36ce99ee676b941507416ce236a456f35c4e1ea5",
-    "sha256": "17wipd525mbg5p29wkdg5xyjm7v3wmb812p5pphznx3xbc1b9i0i",
+    "path": "/nix/store/77m2plqxf9kbc5gdjzrcymi1nla07g75-proprietary_vendor_oneplus_kebab",
+    "rev": "dad5916247a7c57023af24229246e1e60f7c5757",
+    "sha256": "00wv2ksjrdbpkrf37cjg3i2s01d624g51r43817bb3s95d34qwmz",
     "url": "https://github.com/TheMuppets/proprietary_vendor_oneplus_kebab"
   },
   "vendor/oneplus/lemonade": {
-    "date": "2023-08-02T14:29:53+02:00",
+    "date": "2023-09-27T20:26:09+02:00",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/m3l74gvgvsvna36m9nxmyg3manxs6a2c-proprietary_vendor_oneplus_lemonade",
-    "rev": "8733c118429f803763767427a299dcf80f39d220",
-    "sha256": "01665xwh5xxcdl48gxfh3pnp5y9ky7sw9c4cqg6k3dcgsr6d7pmq",
+    "path": "/nix/store/y2036vpa16cfy95k2q09hd8s6j5i7w9r-proprietary_vendor_oneplus_lemonade",
+    "rev": "85355d17a54287df7872d1affd3492a027dfe33c",
+    "sha256": "1qmwf6xhvj9hfjwfsfids4f892aya2p1713h7p6qsbw1nm8c4y7l",
     "url": "https://github.com/TheMuppets/proprietary_vendor_oneplus_lemonade"
   },
   "vendor/oneplus/lemonadep": {
-    "date": "2023-08-02T14:31:24+02:00",
+    "date": "2023-09-27T20:27:18+02:00",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/i2ssyhpz668g9i96yvw1idz1039yw9g4-proprietary_vendor_oneplus_lemonadep",
-    "rev": "7fe93c09b6076a578733f53c755f1889c772fe22",
-    "sha256": "0bkxg1z3ks951w2f8qy1k0nqhl4dwbwvm48wr4ajyy2jnh7k2nll",
+    "path": "/nix/store/hsav11zvw6ag31zvlh3k8qid4v6lzv06-proprietary_vendor_oneplus_lemonadep",
+    "rev": "48f49fa5e2c34a8c3d855bbae05104ab1f8f0c99",
+    "sha256": "1jyvjl3s3mrnmprx4sz2g9pxxnk650mmaycb18by6zmkgamli9kw",
     "url": "https://github.com/TheMuppets/proprietary_vendor_oneplus_lemonadep"
   },
   "vendor/oneplus/lemonades": {
-    "date": "2023-06-02T23:03:51+02:00",
+    "date": "2023-08-28T22:33:09+02:00",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/fkghq86ssmjdf648ynq4pkwf4kg1xqh1-proprietary_vendor_oneplus_lemonades",
-    "rev": "0b233dcacbddbecc111c85edfafc39c739e4975f",
-    "sha256": "0cjfk902zz4p8vlyngl6xdr46gg4830crw665b4fdp7pxq87vr02",
+    "path": "/nix/store/g7ad3sc6v26vgh6krcq3nhji9rk5b5zd-proprietary_vendor_oneplus_lemonades",
+    "rev": "928259661fde0f940619b26208da47c26bdf4b58",
+    "sha256": "1d147w179xnmqjdkzrfjraq8r24fchid9b1xnxl4l5yhkxd3li5n",
     "url": "https://github.com/TheMuppets/proprietary_vendor_oneplus_lemonades"
   },
   "vendor/oneplus/martini": {
@@ -1166,25 +1364,25 @@
     "url": "https://github.com/TheMuppets/proprietary_vendor_oneplus_sm8150-common"
   },
   "vendor/oneplus/sm8250-common": {
-    "date": "2023-06-27T22:08:57+02:00",
+    "date": "2023-09-10T13:50:41+02:00",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/xylhm83vqai8qwbx6k6lpd983bmcrn96-proprietary_vendor_oneplus_sm8250-common",
-    "rev": "f0e672f68c6289aeb9fd926d7b046a534634e9d0",
-    "sha256": "0wsbh742wy9dspykazg8rfgywhvix8gs7s2z1m6cwpy56q1ghnrk",
+    "path": "/nix/store/cr63kl5g9pqq8jjsvsw228cis4l3f6d4-proprietary_vendor_oneplus_sm8250-common",
+    "rev": "4d9130910c6f1f6395e99c76f39641986e7da904",
+    "sha256": "0gipr8bl2p2azv9x88x24wfzpz5bba25qya35fjhzazn2249v5fc",
     "url": "https://github.com/TheMuppets/proprietary_vendor_oneplus_sm8250-common"
   },
   "vendor/oneplus/sm8350-common": {
-    "date": "2023-08-02T15:38:38+02:00",
+    "date": "2023-09-27T20:27:34+02:00",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/gdhvb97mxkwrp3skpvmyv3vj781wd6dq-proprietary_vendor_oneplus_sm8350-common",
-    "rev": "aad9b79d611a027f4d39be95508440657808b1a1",
-    "sha256": "1bav1r0w328llm8j1ix1z5wb4qsgzbfzyrs51lccashkyxzgn524",
+    "path": "/nix/store/19546s89hy41ipvx7q4p03az7nramiij-proprietary_vendor_oneplus_sm8350-common",
+    "rev": "c608045f84c05dbd9fa1fedb9b927687ac94b74f",
+    "sha256": "0a9p2jj67l5kib1s4zy7zd6nz8dkymd1339l04mal23s53p964kz",
     "url": "https://github.com/TheMuppets/proprietary_vendor_oneplus_sm8350-common"
   },
   "vendor/oneplus_cheeseburger": {
@@ -1232,14 +1430,14 @@
     "url": "https://github.com/TheMuppets/proprietary_vendor_samsung_a52q"
   },
   "vendor/samsung/a52sxq": {
-    "date": "2023-07-02T12:56:08+02:00",
+    "date": "2023-08-21T18:37:06+02:00",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/xz6s4dm9aas6fkx2iybq49nkwl5fk7zr-proprietary_vendor_samsung_a52sxq",
-    "rev": "240341020aa13117d406529e198e1d48d19f626e",
-    "sha256": "0vj43zgjly18a5gy9993qxlhz3wg63b6k1738cr7skmnq5cdj66k",
+    "path": "/nix/store/s38ikch23xzmsa3x11966lkn70hxalgk-proprietary_vendor_samsung_a52sxq",
+    "rev": "be85942937aaa7d095a4c3c9da1cfe78df885daa",
+    "sha256": "18zp66fxy8ijwk595860c7q0sk7km6zsbnb3j12sadlg6zrbs7mb",
     "url": "https://github.com/TheMuppets/proprietary_vendor_samsung_a52sxq"
   },
   "vendor/samsung/a72q": {
@@ -1507,14 +1705,14 @@
     "url": "https://github.com/TheMuppets/proprietary_vendor_samsung_starlte"
   },
   "vendor/shift/axolotl": {
-    "date": "2023-06-03T22:39:38+03:00",
+    "date": "2023-09-27T18:14:57+02:00",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/bix4gr6wmabmz41afyqzg9hymkm4ia8m-proprietary_vendor_shift_axolotl",
-    "rev": "070c9322c0bef69086806872de85db61af4429d8",
-    "sha256": "0v87v3kvbwjd6lmfqdq8m7px3yq01haqdcc9li4yi3cqp4r72ifb",
+    "path": "/nix/store/70p91grc4pai9pd30m19cgbyvrrcqm9s-proprietary_vendor_shift_axolotl",
+    "rev": "e450b687ce0388608b3f4ee90b2b78071e35e70e",
+    "sha256": "0mqdrfzkkh1v1yb1jk32bjmzjmmz2zk0zxmj1lf7mqdxw09p6qy1",
     "url": "https://github.com/TheMuppets/proprietary_vendor_shift_axolotl"
   },
   "vendor/sony/akari": {
@@ -1639,36 +1837,36 @@
     "url": "https://github.com/TheMuppets/proprietary_vendor_sony_xz2c"
   },
   "vendor/xiaomi/Mi439": {
-    "date": "2023-02-03T21:59:18+08:00",
+    "date": "2023-09-28T02:36:33+08:00",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/x77phkk52bm0l5j05wngcbfzr4gvd4yj-proprietary_vendor_xiaomi_Mi439",
-    "rev": "121180f5cbf2e46bc7a27cae4e414475c90e1ec1",
-    "sha256": "10r1p1gbqw0cv4191j783sq1cqsj9p9f452zws1zvpbja5xwrya8",
+    "path": "/nix/store/myjaw17gl386pbazgzr7ilp8gfgppgw0-proprietary_vendor_xiaomi_Mi439",
+    "rev": "e8c391f1ae49d5a6928985297e7a642f067c5af7",
+    "sha256": "0kqr4345dm830dwh23iijjvivp54ik4lmkd7iv92r1c9ciql6zy6",
     "url": "https://github.com/TheMuppets/proprietary_vendor_xiaomi_Mi439"
   },
   "vendor/xiaomi/Mi8917": {
-    "date": "2023-01-26T14:02:13+08:00",
+    "date": "2023-09-11T03:23:32+08:00",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/iqbs4js6gn99smwjg28gjhw6a5hrj0sq-proprietary_vendor_xiaomi_Mi8917",
-    "rev": "dbc8a14a8399fd9f721450d2da21286e71b59b95",
-    "sha256": "199434hhxn224ck0h129vvf0ysrd2wh12bvkaplnz7nhz9pzw4rz",
+    "path": "/nix/store/p6m4a9r2wf30qns5sss6fcwiggx4j4bz-proprietary_vendor_xiaomi_Mi8917",
+    "rev": "fa3621d00369a97b4e70ed726c262ab65410bf99",
+    "sha256": "05yp7ddzhmnzpkkmmckwzlb6pfzfg9i0vgrqnmrl0g16kwqzbpq9",
     "url": "https://github.com/TheMuppets/proprietary_vendor_xiaomi_Mi8917"
   },
   "vendor/xiaomi/Mi8937": {
-    "date": "2023-05-17T19:00:40+08:00",
+    "date": "2023-09-28T02:36:13+08:00",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/aq1pgqq4vbbv7xq88xpi9qn4jbdn2kb1-proprietary_vendor_xiaomi_Mi8937",
-    "rev": "47209ef9cf1d154a63e84d7b94b991c7010e9a3b",
-    "sha256": "04j2r5fh571jzqj6npmjwv5g0kw9lbv3y7whmcjy83vcmld7nxx4",
+    "path": "/nix/store/wg59gx9c0vgs5zq6b781w06kfy2xv1mi-proprietary_vendor_xiaomi_Mi8937",
+    "rev": "cb015b1080ddb7da986634fdc8098a825af3e63e",
+    "sha256": "115gkckc44mbwagkhinq8cahhix11a192zbqh3w71xdfdwqwsl7s",
     "url": "https://github.com/TheMuppets/proprietary_vendor_xiaomi_Mi8937"
   },
   "vendor/xiaomi/alioth": {
@@ -1681,6 +1879,17 @@
     "rev": "7e046393e382e429873abeed55fa998885120379",
     "sha256": "0j8jbwh61707bzc70dmy5302r1i5wki0spq9p3vxaj3nqliy4vpl",
     "url": "https://github.com/TheMuppets/proprietary_vendor_xiaomi_alioth"
+  },
+  "vendor/xiaomi/apollon": {
+    "date": "2023-08-29T23:35:46+00:00",
+    "deepClone": false,
+    "fetchLFS": false,
+    "fetchSubmodules": false,
+    "leaveDotGit": false,
+    "path": "/nix/store/afiq2s4vr13k5jnbr1blp63h0g7m2vd7-proprietary_vendor_xiaomi_apollon",
+    "rev": "77b846288f775edb09fc639341db3dc719327c6e",
+    "sha256": "1jndfsxlyxp79z61dlq66823z494qpq0v78hxha8d7l59a61b2dz",
+    "url": "https://github.com/TheMuppets/proprietary_vendor_xiaomi_apollon"
   },
   "vendor/xiaomi/beryllium": {
     "date": "2022-11-01T11:09:09+00:00",
@@ -1703,6 +1912,17 @@
     "rev": "ab4e502dfe9c76a47cc0895e22c481b4692200c6",
     "sha256": "0dqcpabq64kz3avllxbf76jnz851zwdzd4308a0y6l7kc1zwd9fm",
     "url": "https://github.com/TheMuppets/proprietary_vendor_xiaomi_chiron"
+  },
+  "vendor/xiaomi/davinci": {
+    "date": "2023-05-18T13:20:20+02:00",
+    "deepClone": false,
+    "fetchLFS": false,
+    "fetchSubmodules": false,
+    "leaveDotGit": false,
+    "path": "/nix/store/nhxafci04vlzdymy52bhbryras3brzil-proprietary_vendor_xiaomi_davinci",
+    "rev": "be2781f498573c00171269efc42eae6a6b4591e1",
+    "sha256": "0si1f935ikm28h0vawcz6d7gqw18dlnz64raxz4cqi02xhgab6m1",
+    "url": "https://github.com/TheMuppets/proprietary_vendor_xiaomi_davinci"
   },
   "vendor/xiaomi/dipper": {
     "date": "2022-11-01T11:08:59+00:00",
@@ -1781,6 +2001,17 @@
     "sha256": "08vx9i5m7d1saxfc39m9ncfh5jl44s5g1iri5g60dyyi0rsv1k3x",
     "url": "https://github.com/TheMuppets/proprietary_vendor_xiaomi_lmi"
   },
+  "vendor/xiaomi/mars": {
+    "date": "2023-09-12T11:13:35+08:00",
+    "deepClone": false,
+    "fetchLFS": false,
+    "fetchSubmodules": false,
+    "leaveDotGit": false,
+    "path": "/nix/store/7ic29m6rhh2zh12962w953drhjx0snzl-proprietary_vendor_xiaomi_mars",
+    "rev": "1da56b697a7d70fd656c1a03a156a6bcbe897487",
+    "sha256": "1rahmwqmb1sr58y70rdh5crz4f0k1khqndwyl8g82q6xpfwrmghy",
+    "url": "https://github.com/TheMuppets/proprietary_vendor_xiaomi_mars"
+  },
   "vendor/xiaomi/merlinx": {
     "date": "2023-01-03T11:46:55+01:00",
     "deepClone": false,
@@ -1792,15 +2023,26 @@
     "sha256": "0l5ydrhcdwzaymb2rdamaf0gdvqk8sbk167icmcvrbsvc5b9phn0",
     "url": "https://github.com/TheMuppets/proprietary_vendor_xiaomi_merlinx"
   },
-  "vendor/xiaomi/mithorium-common": {
-    "date": "2023-03-06T16:38:48+08:00",
+  "vendor/xiaomi/miatoll": {
+    "date": "2023-08-20T13:53:48+00:00",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/2mar09babhai88d8qq03gs492knwa4s3-proprietary_vendor_xiaomi_mithorium-common",
-    "rev": "5a629c773b5130a9004defb14c202c02f1882c24",
-    "sha256": "0pz09lq4050qf32m1pcpwkp4lp3jyblqxjz8mna5m00a13ihimg1",
+    "path": "/nix/store/w72k316vr89i8zvdnyj4krk3g1c2gdvr-proprietary_vendor_xiaomi_miatoll",
+    "rev": "cc8b6628ba7c3449c8335ad868bbe246ea43891a",
+    "sha256": "0s5869b57hnlinlz5j6ahhwqzb02kv348ayv81jx3a2114y3g2rr",
+    "url": "https://github.com/TheMuppets/proprietary_vendor_xiaomi_miatoll"
+  },
+  "vendor/xiaomi/mithorium-common": {
+    "date": "2023-08-20T15:48:47+08:00",
+    "deepClone": false,
+    "fetchLFS": false,
+    "fetchSubmodules": false,
+    "leaveDotGit": false,
+    "path": "/nix/store/xdaf601s672sjgcljxfzx7nmkxkfnz0v-proprietary_vendor_xiaomi_mithorium-common",
+    "rev": "7b6d145fbbc01884c5e849f31e8312285cac38eb",
+    "sha256": "0vr5xfh96fzrcysyrcx0glijwsnxafd8qn8nzlxlqxx7587ibmq3",
     "url": "https://github.com/TheMuppets/proprietary_vendor_xiaomi_mithorium-common"
   },
   "vendor/xiaomi/msm8996-common": {
@@ -1924,6 +2166,39 @@
     "sha256": "063k0w3hrba9hj12mz003dx8ikh6cn96x696pb4zdp55cq2rfygb",
     "url": "https://github.com/TheMuppets/proprietary_vendor_xiaomi_sdm845-common"
   },
+  "vendor/xiaomi/sm6150-common": {
+    "date": "2023-05-10T22:49:57+04:00",
+    "deepClone": false,
+    "fetchLFS": false,
+    "fetchSubmodules": false,
+    "leaveDotGit": false,
+    "path": "/nix/store/pbvw3v8kprclmal3lldj7ynkvaw45bi1-proprietary_vendor_xiaomi_sm6150-common",
+    "rev": "e8614999b2fa3627eff549fa5452a3338b13e8d5",
+    "sha256": "1bfpldznyyilsbfplgxgibmdinfxy8waalhdk6x9592blavr9lvv",
+    "url": "https://github.com/TheMuppets/proprietary_vendor_xiaomi_sm6150-common"
+  },
+  "vendor/xiaomi/sm6250-common": {
+    "date": "2023-08-29T20:51:01+02:00",
+    "deepClone": false,
+    "fetchLFS": false,
+    "fetchSubmodules": false,
+    "leaveDotGit": false,
+    "path": "/nix/store/lq3hxd2p9n600sy6b1fp3cgrmm0w65ds-proprietary_vendor_xiaomi_sm6250-common",
+    "rev": "a359987ea4b04fe9c4b4a201a7c844f15031ec00",
+    "sha256": "1sv759nhjfb70zfchm91bhgwh3nnrcrlmhja2r18pcfywd08w5ca",
+    "url": "https://github.com/TheMuppets/proprietary_vendor_xiaomi_sm6250-common"
+  },
+  "vendor/xiaomi/sm8150-common": {
+    "date": "2023-08-22T15:22:32+02:00",
+    "deepClone": false,
+    "fetchLFS": false,
+    "fetchSubmodules": false,
+    "leaveDotGit": false,
+    "path": "/nix/store/1yfbqq7yyf0ik93fxhi4zvahpjhivbhg-proprietary_vendor_xiaomi_sm8150-common",
+    "rev": "78696c0a037cfa4531668b613573b624543b114f",
+    "sha256": "0x6wn089f7b3b2fqxqajclqyasjfbymcb9xx89v22a3zdnc5sa6w",
+    "url": "https://github.com/TheMuppets/proprietary_vendor_xiaomi_sm8150-common"
+  },
   "vendor/xiaomi/sm8250-common": {
     "date": "2023-07-09T21:08:38+05:30",
     "deepClone": false,
@@ -1936,15 +2211,26 @@
     "url": "https://github.com/TheMuppets/proprietary_vendor_xiaomi_sm8250-common"
   },
   "vendor/xiaomi/surya": {
-    "date": "2023-05-24T09:11:17+02:00",
+    "date": "2023-08-25T10:26:32+02:00",
     "deepClone": false,
     "fetchLFS": false,
     "fetchSubmodules": false,
     "leaveDotGit": false,
-    "path": "/nix/store/0bjhyqdl6qaxbh5wblap445kg8x344r8-proprietary_vendor_xiaomi_surya",
-    "rev": "b649c0057fc0d791ac983e0eeea77bc5ea0a8bb8",
-    "sha256": "1x5qkdr8pajn60mpdxwgldkfr5qf3bi1a8bm7i6sh76f3n8j0rkq",
+    "path": "/nix/store/g6z4fazz7lpr47wl2mxphcz0z8y4nmxx-proprietary_vendor_xiaomi_surya",
+    "rev": "ed8c3ea7b6a0a53c37e7b84e4e71fa611b68fc33",
+    "sha256": "1rm2s5dz86zwbm783s20slr7f7gcy1hiyarydqm0mmjj8z99325a",
     "url": "https://github.com/TheMuppets/proprietary_vendor_xiaomi_surya"
+  },
+  "vendor/xiaomi/sweet": {
+    "date": "2023-07-16T13:44:57+05:30",
+    "deepClone": false,
+    "fetchLFS": false,
+    "fetchSubmodules": false,
+    "leaveDotGit": false,
+    "path": "/nix/store/yhiy83lpxb4bd663bg1siap9p304m3xd-proprietary_vendor_xiaomi_sweet",
+    "rev": "13c2fc52fcd6060babfaf6e2c343381d996bb2a7",
+    "sha256": "1bvg4iz3n7ad2wnmyp0ghmgh7rb9xhsgw67bn5nfaj7gdbzy39d7",
+    "url": "https://github.com/TheMuppets/proprietary_vendor_xiaomi_sweet"
   },
   "vendor/xiaomi/ursa": {
     "date": "2022-11-01T11:08:47+00:00",
@@ -1968,6 +2254,17 @@
     "sha256": "1an5fb7yc34af7ngsqkp14ikqaggrcdxikwpn6vvjs93qsqjz878",
     "url": "https://github.com/TheMuppets/proprietary_vendor_xiaomi_vela"
   },
+  "vendor/xiaomi/violet": {
+    "date": "2023-08-22T11:32:22+02:00",
+    "deepClone": false,
+    "fetchLFS": false,
+    "fetchSubmodules": false,
+    "leaveDotGit": false,
+    "path": "/nix/store/qrrz4q7w43ghzi9np4221lb2m2kz17xf-proprietary_vendor_xiaomi_violet",
+    "rev": "abf47bec4792af5f51a15cb577a9cda28367020b",
+    "sha256": "0a6m64g3l55j2knrz2xkhy1qz2n6jhmrjav5mn3k1l8i9pp77jrs",
+    "url": "https://github.com/TheMuppets/proprietary_vendor_xiaomi_violet"
+  },
   "vendor/xiaomi/xmsirius": {
     "date": "2022-12-30T19:01:59+01:00",
     "deepClone": false,
@@ -1978,5 +2275,16 @@
     "rev": "42eace042a2888ea6913c550e61fc242a576f1f9",
     "sha256": "0n4786lgrkh21zvbfcpi6adhkqiva8y56b9xhnnjf1hyikl59m8b",
     "url": "https://github.com/TheMuppets/proprietary_vendor_xiaomi_xmsirius"
+  },
+  "vendor/zuk/z2_plus": {
+    "date": "2023-08-05T23:14:33+02:00",
+    "deepClone": false,
+    "fetchLFS": false,
+    "fetchSubmodules": false,
+    "leaveDotGit": false,
+    "path": "/nix/store/clsf7dxfzckw1076prplm91a4w2y3n3z-proprietary_vendor_zuk_z2_plus",
+    "rev": "0eb10610574de417b3f4a10c57f50df554f2fc37",
+    "sha256": "184gyak0a4zy54dqmz85b9xqf2z7a5nfjr7w0fzzjdm51vjmwhrk",
+    "url": "https://github.com/TheMuppets/proprietary_vendor_zuk_z2_plus"
   }
 }
