@@ -8,22 +8,26 @@ import urllib.request
 import os
 import pathlib
 
-from robotnix_common import save
+from robotnix_common import save, get_store_path, checkout_git
 
 
 def fetch_metadata(
-        lineage_build_targets_url: str = "https://github.com/LineageOS/hudson/raw/master/lineage-build-targets",
-        devices_json_url: str = "https://github.com/LineageOS/hudson/raw/master/updater/devices.json"
+        hudson_url: str = 'https://github.com/LineageOS/hudson',
+        lineage_build_targets_path: str = 'lineage-build-targets',
+        devices_json_path: str = 'updater/devices.json'
         ) -> Any:
     metadata = {}
+
+    hudson_path = get_store_path(checkout_git(hudson_url, 'refs/heads/master')['path'])
 
     # Devices we can't support due to repo naming inconsistencies. If you care
     # about a certain device in this list, you can add a workaround and remove
     # the device from the list.
     ignore = [ 'nx651j' ]
 
-    lineage_build_targets_str = urllib.request.urlopen(lineage_build_targets_url).read().decode()
-    for line in lineage_build_targets_str.split("\n"):
+
+    lineage_build_targets = open(f'{hudson_path}/{lineage_build_targets_path}').readlines()
+    for line in lineage_build_targets:
         line = line.strip()
         if line == "":
             continue
@@ -40,7 +44,7 @@ def fetch_metadata(
 
     ###
 
-    devices = json.load(urllib.request.urlopen(devices_json_url))
+    devices = json.load(open(f'{hudson_path}/{devices_json_path}'))
     for data in devices:
         if data['model'] not in metadata:
             continue
@@ -73,15 +77,7 @@ def fetch_metadata(
         if vendor == 'banana pi':
             vendor = 'bananapi'
 
-        # Bacon needs vendor/oppo but is device/oneplus/bacon...
-        # https://github.com/danielfullmer/robotnix/issues/26
-        vendor_dir = 'oppo' if device == 'bacon' else vendor 
-
         metadata[data['model']].update({
-            # LOS 20.0 has vendor dirs like this: proprietary/vendor/vendorName/deviceName
-            # Versions before that have one dir per vendor: proprietary/vendor/vendorName
-            'vendor_dir': vendor_dir,
-            'vendor_dir_new': os.path.join(vendor_dir, device),
             'vendor': vendor,
             'name': data['name'],
             'lineage_recovery': data.get('lineage_recovery', False)

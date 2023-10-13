@@ -10,7 +10,7 @@ import pathlib
 
 from typing import Any, Callable, Dict, List, Optional, cast
 
-from robotnix_common import save, checkout_git, ls_remote, get_mirrored_url, check_free_space, GitCheckoutInfoDict
+from robotnix_common import save, get_store_path, checkout_git, ls_remote, get_mirrored_url, check_free_space, GitCheckoutInfoDict
 
 # A full run took approximately 12 minutes total. Needed to set TMPDIR=/tmp
 #
@@ -22,12 +22,6 @@ debug = False
 # Project info is just GitCheckoutInfoDict plus deps
 class ProjectInfoDict(GitCheckoutInfoDict, total=False):
     deps: List[str]
-
-def get_store_path(path):
-    prefix = os.getenv('NIX_REMOTE');
-    if prefix and not prefix.startswith('/'):
-        raise Exception('Must be run on a local Nix store.')
-    return f"{prefix}/{path}"
 
 def fetch_relpath(dirs: Dict[str, Any], relpath: str, url: str, branch: str) -> ProjectInfoDict:
     if debug:
@@ -137,23 +131,23 @@ def fetch_vendor_dirs(metadata: Any,
     for device, data in metadata.items():
         if debug:
             print(device, data)
-        if 'vendor_dir' in data:
-            vendor_dir = data['vendor_dir']
+        if 'vendor' in data:
+            vendor = data['vendor']
 
             # For the some devices, the vendor name used in device and vendor dir differs of course...
-            if vendor_dir in [ 'radxa', 'bananapi', 'hardkernel']:
-                vendor_dir = 'amlogic'
+            if vendor in [ 'radxa', 'bananapi', 'hardkernel']:
+                vendor = 'amlogic'
 
             if debug:
                 print(branch)
 
             if branch == 'lineage-20.0':
                 if 'branch' in data and data['branch'] == branch:
-                    required_vendor.add(os.path.join(vendor_dir, device))
+                    required_vendor.add(os.path.join(vendor, device))
                 else:
                     print(f'SKIP: {device} is not available for {branch}')
             else:
-                required_vendor.add(vendor_dir)
+                required_vendor.add(vendor)
 
         if 'vendor' in data:
             # Some devices need an additional vendor dir for their SoC.
