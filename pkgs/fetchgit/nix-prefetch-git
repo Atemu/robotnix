@@ -107,11 +107,22 @@ if test -z "$url"; then
     usage
 fi
 
+is_url_local(){
+    local url="$1"
+    local is_local=$([[ "$url" == /* ]] || [[ "$url" == file://* ]]);
+}
 
 init_remote(){
     local url=$1
-    clean_git init --initial-branch=master
-    clean_git remote add origin "$url"
+
+    if is_url_local "$url"; then
+        # It's usually faster to clone local repos entirely
+        clean_git clone "$url" .
+    else
+        clean_git init --initial-branch=master
+        clean_git remote add origin "$url"
+    fi
+
     ( [ -n "$http_proxy" ] && clean_git config http.proxy "$http_proxy" ) || true
 
     # Set up git mirrors
