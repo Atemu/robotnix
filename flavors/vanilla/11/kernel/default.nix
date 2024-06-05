@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 # TODO: remove all the redfin exceptions
-# TODO: Replace with a solution for https://github.com/danielfullmer/robotnix/issues/116
+# TODO: Replace with a solution for https://github.com/nix-community/robotnix/issues/116
 
 { config, pkgs, lib, ... }:
 

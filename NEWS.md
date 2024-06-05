@@ -37,7 +37,7 @@ listing of changes. See the git commit log for additional details.
 There are no intentional backward incompatible changes since the last release.
 
 # 2021-12-08
-- Experimental support for Pixel 6 (Pro) (`raven`/`oriole`) for vanilla flavor [PR #131](https://github.com/danielfullmer/robotnix/pull/131) (thanks @zhaofengli)
+- Experimental support for Pixel 6 (Pro) (`raven`/`oriole`) for vanilla flavor [PR #131](https://github.com/nix-community/robotnix/pull/131) (thanks @zhaofengli)
 - Updated nixpkgs to 21.11 channel
 - Updated vanilla flavor to 2021120720
 - Updated GrapheneOS flavor to 2021120717 (thanks @yu-re-ka)
@@ -63,8 +63,8 @@ There are no intentional backward incompatible changes since the last release.
 # 2021-10-24
 ## Highlights:
 - Android 12 support for `vanilla` and `grapheneos` flavors. Set default `androidVersion = 12`.
-- New LineageOS-flavored updater module [PR #90](https://github.com/danielfullmer/robotnix/pull/90) (thanks @ajs124)
-- New Active Edge module for Pixel devices [PR #125](https://github.com/danielfullmer/robotnix/pull/125) (thanks @zhaofengli)
+- New LineageOS-flavored updater module [PR #90](https://github.com/nix-community/robotnix/pull/90) (thanks @ajs124)
+- New Active Edge module for Pixel devices [PR #125](https://github.com/nix-community/robotnix/pull/125) (thanks @zhaofengli)
 - New `pixel.useUpstreamDriverBinaries` option to use binaries from [here](https://developers.google.com/android/drivers) instead of android-prepare-vendor. (Only recommended for testing)
 - Updated vanilla flavor to SP1A.210812
 - Updated GrapheneOS flavor to 2021102300
@@ -95,7 +95,7 @@ There are no intentional backward incompatible changes since the last release.
 There are no intentional backward incompatible changes since the last release.
 
 We have (hopefully temporarily) switched back to prebuilt kernels for redfin and related devices (bramble and barbet) in the vanilla flavor.
-Re-adding support for building these kernels in robotnix will likely require resolving [#116](https://github.com/danielfullmer/robotnix/issues/116).
+Re-adding support for building these kernels in robotnix will likely require resolving [#116](https://github.com/nix-community/robotnix/issues/116).
 
 # 2021-08-03
 ## Highlights:
@@ -126,7 +126,7 @@ There are no intentional backward incompatible changes since the last release.
 
 # 2021-06-09
 ## Highlights:
-- Updated LineageOS flavor from 17.1 to 18.1 (up-to-date as of 2021-05-22) [PR #96](https://github.com/danielfullmer/robotnix/pull/96) (thanks @hmenke).
+- Updated LineageOS flavor from 17.1 to 18.1 (up-to-date as of 2021-05-22) [PR #96](https://github.com/nix-community/robotnix/pull/96) (thanks @hmenke).
 - Updated vanilla flavor to RQ3A.210605
 - Updated GrapheneOS flavor to 2021.06.08.06
 - Updated Auditor / AttestationServer to 27 / 2021-05-19
@@ -162,8 +162,8 @@ There are no intentional backward incompatible changes since the last release.
 
 # 2021-03-02
 ## Highlights:
-- Added support for Pixel 5 (redfin) and Pixel 4a (5g) (bramble) [PR #79](https://github.com/danielfullmer/robotnix/pull/79)
-- Added support for building as a nix flake [PR #85](https://github.com/danielfullmer/robotnix/pull/85) (with help from @hmenke)
+- Added support for Pixel 5 (redfin) and Pixel 4a (5g) (bramble) [PR #79](https://github.com/nix-community/robotnix/pull/79)
+- Added support for building as a nix flake [PR #85](https://github.com/nix-community/robotnix/pull/85) (with help from @hmenke)
   For reference, I've also migrated my [personal config](https://github.com/danielfullmer/robotnix-personal) to flakes.
 - LineageOS now uses robotnix-built webview by default since upstream force-pushes to the prebuilt webview repository, breaking reproducibility.
 - Added Android 12 preview, tested working for `x86_64` in emulator

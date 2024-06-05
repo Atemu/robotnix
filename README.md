@@ -18,7 +18,7 @@ Robotnix enables a user to easily and reliably build Android (AOSP) images using
 ## Quick Start
 Here is a single command to build an `img` which can be flashed onto a Pixel 3 XL (`crosshatch`).
 ```console
-$ nix-build "https://github.com/danielfullmer/robotnix/archive/master.tar.gz" \
+$ nix-build "https://github.com/nix-community/robotnix/archive/master.tar.gz" \
     --arg configuration '{ device="crosshatch"; flavor="vanilla"; }' \
     -A img
 ```

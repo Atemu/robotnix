@@ -63,7 +63,7 @@ Future improvements may allow the Auditor app and attestation service to work wi
           name = "robotnix";
           # Replace the git revision and sha256 with ones referring to a recent commit
           url =
-            "https://github.com/danielfullmer/robotnix/archive/61b91d145f0b08cf0d4d73fb1d7ba74b9899b788.zip";
+            "https://github.com/nix-community/robotnix/archive/61b91d145f0b08cf0d4d73fb1d7ba74b9899b788.zip";
           sha256 = "1dihmdw5w891jq2fm7mcx30ydjjd33ggbb60898841x5pzjx6ynv";
         }) + "/nixos")
       ];

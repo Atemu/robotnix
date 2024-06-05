@@ -32,7 +32,7 @@ let
             trimmedDeclaration = concatStringsSep "/" (drop 4 (splitString "/" declaration));
           in
             if hasPrefix "/nix/store/" declaration
-            then "[${trimmedDeclaration}](https://github.com/danielfullmer/robotnix/blob/master/${trimmedDeclaration})"
+            then "[${trimmedDeclaration}](https://github.com/nix-community/robotnix/blob/master/${trimmedDeclaration})"
             else declaration;
           body = ''
             ${option.description}
