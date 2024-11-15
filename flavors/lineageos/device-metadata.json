@@ -1,23 +1,9 @@
 {
-  "FP4": {
+  "instantnoodlep": {
     "branch": "lineage-21.0",
     "lineage_recovery": false,
-    "name": "Fairphone 4",
-    "variant": "userdebug",
-    "vendor": "fairphone"
-  },
-  "cheeseburger": {
-    "branch": "lineage-21.0",
-    "lineage_recovery": false,
-    "name": "5",
+    "name": "8 Pro",
     "variant": "userdebug",
     "vendor": "oneplus"
-  },
-  "sunfish": {
-    "branch": "lineage-21.0",
-    "lineage_recovery": false,
-    "name": "Pixel 4a",
-    "variant": "userdebug",
-    "vendor": "google"
   }
 }
