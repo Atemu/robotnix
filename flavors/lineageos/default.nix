@@ -104,7 +104,7 @@ in mkIf (config.flavor == "lineageos")
          then ./0003-kernel-Set-constant-kernel-timestamp-20.patch
          else ./0003-kernel-Set-constant-kernel-timestamp-19.patch)
         
-      ] ++ lib.optionals (lib.versionAtLeast (toString config.androidVersion) "13") [
+      ] ++ lib.optionals (lib.versionAtLeast (toString config.androidVersion) "12") [
         ./dont-run-repo-during-build.patch
       ];
       "system/extras".patches = [
@@ -161,7 +161,10 @@ in mkIf (config.flavor == "lineageos")
 
   # This is the prebuilt webview apk from LineageOS. Adding this here is only
   # for convenience if the end-user wants to set `webview.prebuilt.enable = true;`.
-  webview.prebuilt.apk = config.source.dirs."external/chromium-webview".src + "/prebuilt/${config.arch}/webview.apk";
+  webview.prebuilt.apk = if config.androidVersion >= 11 then
+    config.source.dirs."external/chromium-webview/prebuilt/${config.arch}".src + "/webview.apk"
+  else
+    config.source.dirs."external/chromium-webview".src + "/prebuilt/${config.arch}/webview.apk";
   webview.prebuilt.availableByDefault = mkDefault true;
   removedProductPackages = [ "webview" ];
 
@@ -176,9 +179,13 @@ in mkIf (config.flavor == "lineageos")
   envVars.RELEASE_TYPE = mkDefault "EXPERIMENTAL";  # Other options are RELEASE NIGHTLY SNAPSHOT EXPERIMENTAL
 
   # LineageOS flattens all APEX packages: https://review.lineageos.org/c/LineageOS/android_vendor_lineage/+/270212
-  signing.apex.enable = false;
+  # However, the APEX flattening feature has been removed in LineageOS 21 / Android 14:
+  # https://github.com/LineageOS/android_build/commit/5d7f9cb2a1f719fa56572b2a7b7a3c1aa36690ae
+  # That means we need to enable APEX signing from Android version 14 onwards.
+  signing.apex.enable = config.androidVersion >= 14;
   # This environment variable is set in android/build.sh under https://github.com/lineageos-infra/build-config
-  envVars.OVERRIDE_TARGET_FLATTEN_APEX = "true";
+  # APEX flattening supported only in Android 13 and earlier.
+  envVars.OVERRIDE_TARGET_FLATTEN_APEX = lib.boolToString (config.androidVersion < 14);
 
   # LineageOS needs this additional command line argument to enable
   # backuptool.sh, which runs scripts under /system/addons.d

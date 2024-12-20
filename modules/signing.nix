@@ -17,6 +17,9 @@ let
                     ++ (lib.optionals (config.androidVersion >= 10) [ "${config.device}/networkstack" ])
                     ++ (lib.optionals (config.androidVersion >= 11) [ "com.android.hotspot2.osulogin" "com.android.wifi.resources" ])
                     ++ (lib.optionals (config.androidVersion >= 12) [ "com.android.connectivity.resources" ])
+                    ++ (lib.optionals (config.androidVersion >= 13)
+                        [ "com.android.adservices.api" "com.android.safetycenter.resources" "com.android.nearby.halfsheet"
+                          "com.android.uwb.resources" "com.android.wifi.dialog" ])
                     ++ (lib.optional config.signing.apex.enable config.signing.apex.packageNames)
                     ++ (lib.mapAttrsToList
                         (name: prebuilt: prebuilt.certificate)
@@ -134,6 +137,11 @@ in
         "appsearch" "art" "art.debug" "art.host" "art.testing" "compos" "geotz"
         "scheduling" "support.apexer" "tethering.inprocess" "virt"
         "vndk.current.on_vendor" "vndk.v30"
+      ] ++ lib.optionals (config.androidVersion >= 13) [
+        "adservices" "btservices" "ondevicepersonalization" "uwb"
+      ] ++ lib.optionals (config.androidVersion >= 14) [
+        "configinfrastructure" "devicelock" "healthfitness" "rkpd"
+        "hardware.cas"
       ]
     );
 
@@ -182,6 +190,14 @@ in
         "packages/modules/Wifi/service/ServiceWifiResources/resources-certs/com.android.wifi.resources" = "com.android.wifi.resources";
         "packages/modules/Connectivity/service/ServiceConnectivityResources/resources-certs/com.android.connectivity.resources" = "com.android.connectivity.resources";
       }
+      // lib.optionalAttrs (config.androidVersion >= 13) {
+        "packages/modules/AdServices/adservices/apk/com.android.adservices.api" = "com.android.adservices.api";
+        "packages/modules/Permission/SafetyCenter/Resources/com.android.safetycenter.resources" = "com.android.safetycenter.resources";
+        "packages/modules/Connectivity/nearby/halfsheet/apk-certs/com.android.nearby.halfsheet" = "com.android.nearby.halfsheet";
+        "packages/modules/Uwb/service/ServiceUwbResources/resources-certs/com.android.uwb.resources" = "com.android.uwb.resources";
+        "packages/modules/Wifi/WifiDialog/certs/com.android.wifi.dialog" = "com.android.wifi.dialog";
+      }
+
       # App-specific keys
       // lib.mapAttrs'
         (name: prebuilt: lib.nameValuePair "robotnix/prebuilt/${prebuilt.name}/${prebuilt.certificate}" prebuilt.certificate)
@@ -199,6 +215,16 @@ in
 
     build.generateKeysScript = let
       # Get a bunch of utilities to generate keys
+
+      # avbtool has been renamed to avbtool.py
+      # History about the change:
+      # * Android 10: There's only avbtool
+      # * Android 11: Adds a symlink avbtool.py, which points to avbtool
+      # * Android 12: Swaps the two above, now there's a symlink called avbtool
+      #               which points to avbtool.py
+      # * Android 14: Now there's only avbtool.py, the avbtool symlink has been
+      #               removed
+      avbtoolFilename = if config.androidVersion <= 10 then "avbtool" else "avbtool.py";
       keyTools = pkgs.runCommandCC "android-key-tools" { buildInputs = [ (if config.androidVersion >= 12 then pkgs.python3 else pkgs.python2) ]; } ''
         mkdir -p $out/bin
 
@@ -209,9 +235,9 @@ in
           ${config.source.dirs."system/extras".src}/verity/generate_verity_key.c \
           ${config.source.dirs."system/core".src}/libcrypto_utils/android_pubkey.c${lib.optionalString (config.androidVersion >= 12) "pp"} \
           -I ${config.source.dirs."system/core".src}/libcrypto_utils/include/ \
-          -I ${pkgs.boringssl}/include ${pkgs.boringssl}/lib/libssl.a ${pkgs.boringssl}/lib/libcrypto.a -lpthread
+          -I ${pkgs.boringssl.dev}/include ${pkgs.boringssl}/lib/libssl.a ${pkgs.boringssl}/lib/libcrypto.a -lpthread
 
-        cp ${config.source.dirs."external/avb".src}/avbtool $out/bin/avbtool
+        cp ${config.source.dirs."external/avb".src}/${avbtoolFilename} $out/bin/avbtool
 
         patchShebangs $out/bin
       '';
