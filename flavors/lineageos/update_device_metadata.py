@@ -15,7 +15,8 @@ from robotnix_common import save, get_store_path, checkout_git
 def fetch_metadata(
         hudson_url: str = 'https://github.com/LineageOS/hudson',
         lineage_build_targets_path: str = 'lineage-build-targets',
-        devices_json_path: str = 'updater/devices.json'
+        devices_json_path: str = 'updater/devices.json',
+        device_deps_json_path: str = 'updater/device_deps.json',
         ) -> Any:
     metadata = {}
 
@@ -38,6 +39,7 @@ def fetch_metadata(
             metadata[device] = {
                 'variant': variant,
                 'branch': branch,
+                'deps': [],
             }
 
     ###
@@ -55,6 +57,15 @@ def fetch_metadata(
             'name': data['name'],
             'lineage_recovery': data.get('lineage_recovery', False)
         })
+
+    device_deps = json.load(open(f'{hudson_path}/{device_deps_json_path}'))
+    for device, deps in device_deps.items():
+        if device not in supported_devices['supported']:
+            continue
+        if device not in metadata:
+            print(f"Warning: {device} in device_deps.json but not in devices.json")
+            continue
+        metadata[device]['deps'] = deps
 
     return metadata
 

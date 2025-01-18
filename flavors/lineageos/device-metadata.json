@@ -1,6 +1,10 @@
 {
   "FP4": {
     "branch": "lineage-22.1",
+    "deps": [
+      "android_device_fairphone_FP4",
+      "android_kernel_fairphone_sm7225"
+    ],
     "lineage_recovery": false,
     "name": "Fairphone 4",
     "variant": "userdebug",
@@ -8,6 +12,12 @@
   },
   "cheeseburger": {
     "branch": "lineage-22.1",
+    "deps": [
+      "android_device_oneplus_cheeseburger",
+      "android_device_oneplus_msm8998-common",
+      "android_hardware_oneplus",
+      "android_kernel_oneplus_msm8998"
+    ],
     "lineage_recovery": false,
     "name": "5",
     "variant": "userdebug",
@@ -15,6 +25,12 @@
   },
   "instantnoodlep": {
     "branch": "lineage-22.1",
+    "deps": [
+      "android_device_oneplus_instantnoodlep",
+      "android_device_oneplus_sm8250-common",
+      "android_hardware_oplus",
+      "android_kernel_oneplus_sm8250"
+    ],
     "lineage_recovery": false,
     "name": "8 Pro",
     "variant": "userdebug",
