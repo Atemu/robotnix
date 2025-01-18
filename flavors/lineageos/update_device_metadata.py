@@ -65,7 +65,8 @@ def fetch_metadata(
         if device not in metadata:
             print(f"Warning: {device} in device_deps.json but not in devices.json")
             continue
-        metadata[device]['deps'] = deps
+        for dep in deps:
+            metadata[device]['deps'].append(dep.split('_'))
 
     return metadata
 
