@@ -33,8 +33,9 @@ def save(filename: str, data: Any) -> None:
 def get_store_path(path):
     """Get actual path to a Nix store path; supports handling local remotes"""
     prefix = os.getenv("NIX_REMOTE")
+    print(repr(prefix))
 
-    if not prefix:
+    if not prefix or prefix == "daemon":
         return path
 
     prefix = Path(prefix)
