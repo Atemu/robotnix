@@ -115,6 +115,14 @@ let
         type = types.listOf types.str;
         default = [];
       };
+
+      lastUpdated = mkOption {
+        type = types.nullOr types.int;
+        default = null;
+        description = ''
+          UNIX timestamp of the latest Git commit in the repository. Used to determine buildDateTime.
+        '';
+      };
     };
 
     config = {
@@ -188,49 +196,58 @@ in
     };
   };
 
-  config.source = {
-    unpackScript = lib.concatMapStringsSep "\n" (d: d.unpackScript) (lib.attrValues config.source.dirs);
+  config = {
+    buildDateTime = lib.mkDefault (
+      lib.foldr lib.max 0 (
+        (builtins.filter (x: !isNull x) (lib.mapAttrsToList (_: x: x.lastUpdated) config.source.dirs))
+      )
+    );
 
-    dirs = lib.mkMerge (lib.mapAttrsToList (_: value:
-      lib.listToAttrs (builtins.map (project: {
-        name = project.path;
-        value = {
-          inherit (project.branch_settings."${value.branch}") groups copyfiles linkfiles;
-          src = let
+    source = {
+      unpackScript = lib.concatMapStringsSep "\n" (d: d.unpackScript) (lib.attrValues config.source.dirs);
+
+      dirs = lib.mkMerge (lib.mapAttrsToList (_: value:
+        lib.listToAttrs (builtins.map (project: {
+          name = project.path;
+          value = let
             fetchgitArgs = (lib.importJSON value.lockfile)."${project.path}";
-          in pkgs.fetchgit {
-            inherit (fetchgitArgs) url rev hash fetchLFS fetchSubmodules;
+          in {
+            inherit (project.branch_settings."${value.branch}") groups copyfiles;
+            lastUpdated = fetchgitArgs.date;
+            src = pkgs.fetchgit {
+              inherit (fetchgitArgs) url rev hash fetchLFS fetchSubmodules;
+            };
           };
-        };
-      }) (builtins.filter (p: builtins.hasAttr value.branch p.branch_settings) (lib.importJSON value.manifest)))
-    ) config.source.manifests);
-  };
+        }) (builtins.filter (p: builtins.hasAttr value.branch p.branch_settings) (lib.importJSON value.manifest)))
+      ) config.source.manifests);
+    };
 
-  config.build = {
-    unpackScript = pkgs.writeShellScript "unpack.sh" config.source.unpackScript;
+    build = {
+      unpackScript = pkgs.writeShellScript "unpack.sh" config.source.unpackScript;
 
-    # Extract only files under robotnix/ (for debugging with an external AOSP build)
-    debugUnpackScript = pkgs.writeShellScript "debug-unpack.sh" (''
-      rm -rf robotnix
-      '' +
-      (lib.concatStringsSep "" (map (d: lib.optionalString (d.enable && (lib.hasPrefix "robotnix/" d.relpath)) ''
-        mkdir -p $(dirname ${d.relpath})
-        echo "${d.src} -> ${d.relpath}"
-        cp --reflink=auto --no-preserve=ownership --no-dereference --preserve=links -r ${d.src} ${d.relpath}/
-      '') (lib.attrValues config.source.dirs))) + ''
-      chmod -R u+w robotnix/
-    '');
+      # Extract only files under robotnix/ (for debugging with an external AOSP build)
+      debugUnpackScript = pkgs.writeShellScript "debug-unpack.sh" (''
+        rm -rf robotnix
+        '' +
+        (lib.concatStringsSep "" (map (d: lib.optionalString (d.enable && (lib.hasPrefix "robotnix/" d.relpath)) ''
+          mkdir -p $(dirname ${d.relpath})
+          echo "${d.src} -> ${d.relpath}"
+          cp --reflink=auto --no-preserve=ownership --no-dereference --preserve=links -r ${d.src} ${d.relpath}/
+        '') (lib.attrValues config.source.dirs))) + ''
+        chmod -R u+w robotnix/
+      '');
 
-    # Patch files in other sources besides robotnix/*
-    debugPatchScript = pkgs.writeShellScript "debug-patch.sh"
-      (lib.concatStringsSep "\n" (map (d: ''
-        ${lib.concatMapStringsSep "\n" (p: "patch -p1 --no-backup-if-mismatch -d ${d.relpath} < ${p}") d.patches}
-        ${lib.optionalString (d.postPatch != "") ''
-        pushd ${d.relpath} >/dev/null
-        ${d.postPatch}
-        popd >/dev/null
-        ''}
-      '')
-      (lib.filter (d: d.enable && ((d.patches != []) || (d.postPatch != ""))) (lib.attrValues config.source.dirs))));
+      # Patch files in other sources besides robotnix/*
+      debugPatchScript = pkgs.writeShellScript "debug-patch.sh"
+        (lib.concatStringsSep "\n" (map (d: ''
+          ${lib.concatMapStringsSep "\n" (p: "patch -p1 --no-backup-if-mismatch -d ${d.relpath} < ${p}") d.patches}
+          ${lib.optionalString (d.postPatch != "") ''
+          pushd ${d.relpath} >/dev/null
+          ${d.postPatch}
+          popd >/dev/null
+          ''}
+        '')
+        (lib.filter (d: d.enable && ((d.patches != []) || (d.postPatch != ""))) (lib.attrValues config.source.dirs))));
+    };
   };
 }
