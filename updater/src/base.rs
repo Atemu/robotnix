@@ -15,7 +15,7 @@ pub enum Variant {
 pub struct FetchgitArgs {
     url: String,
     rev: String,
-    date: String,
+    date: i64, // Y292B problem here we come!
     path: String,
     hash: String,
     #[serde(rename = "fetchLFS")]
