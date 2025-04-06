@@ -48,9 +48,9 @@ struct HudsonDevice {
     name: String,
 }
 
-fn get_proprietary_repos_for_device(muppets_manifests: &GitRepoManifest, device: &str, branch: &str, real_branch: &str) -> Vec<RepoProject> {
+fn get_proprietary_repos_for_device(muppets_manifest: &GitRepoManifest, device: &str, branch: &str) -> Vec<RepoProject> {
     let mut repos = vec![];
-    for entry in muppets_manifests.projects.iter() {
+    for entry in muppets_manifest.projects.iter() {
         let mut found = false;
         if let Some(groups) = &entry.groups {
             for m_group in groups.split(",") {
@@ -60,11 +60,11 @@ fn get_proprietary_repos_for_device(muppets_manifests: &GitRepoManifest, device:
                 }
             }
             if found {
-                let mut repo_name = "proprietary".to_string();
-                for c in entry.path.split("/") {
-                    repo_name.push('_');
-                    repo_name.push_str(c);
-                }
+                let (url, git_ref) = muppets_manifest.get_url_and_ref(
+                    &entry.remote,
+                    &entry.git_ref,
+                    "https://github.com/TheMuppets/muppets_manifests"
+                ).unwrap();
                 repos.push(RepoProject {
                     path: entry.path.clone(),
                     nonfree: true,
@@ -72,9 +72,9 @@ fn get_proprietary_repos_for_device(muppets_manifests: &GitRepoManifest, device:
                         let mut branch_settings = HashMap::new();
                         branch_settings.insert(branch.to_string(), RepoProjectBranchSettings {
                             repo: Repository {
-                                url: format!("https://github.com/TheMuppets/{repo_name}"),
+                                url: url,
                             },
-                            git_ref: format!("refs/heads/{real_branch}"),
+                            git_ref: git_ref,
                             linkfiles: HashMap::new(),
                             copyfiles: HashMap::new(),
                             // TODO dedupe group parsing code by writing a custom serde parser
@@ -359,7 +359,6 @@ pub fn fetch_device_metadata(device_metadata_path: &str) -> Result<HashMap<Strin
                 muppets_manifests.get(branch).unwrap(),
                 &device,
                 branch,
-                real_branch,
         ));
 
         device_metadata.insert(device.clone(), DeviceMetadata { 
