@@ -129,6 +129,7 @@ impl GitRepoManifest {
     }
 
 
+    // produces a merged/flattened manifest out of a manifest and its dependencies/includes
     pub fn read_and_flatten(manifest_path: &Path, filename: &Path) -> Result<GitRepoManifest, ReadManifestError> {
         let mut manifest = GitRepoManifest::read(manifest_path, filename)?;
 
@@ -138,6 +139,9 @@ impl GitRepoManifest {
             manifest.remotes.append(&mut submanifest.remotes);
             manifest.projects.append(&mut submanifest.projects);
             
+            // manifests have default remotes which they specify using the `default` xml tag
+            // Included manifests can have default remotes too
+            // When flattening, we only want one default_remote
             if let Some(default_remote) = submanifest.default_remote {
                 if let None = manifest.default_remote {
                     manifest.default_remote = Some(default_remote);
@@ -147,10 +151,13 @@ impl GitRepoManifest {
             }
         }
 
+        // We flattened it, so no more includes
         manifest.includes = vec![];
         Ok(manifest)
     }
 
+    // Utility function that generates a mapping of remote names to normalised
+    // remote URLs for a given manifest root URL
     fn get_remote_specs(&self, root_url: &str) -> HashMap<String, RemoteSpec> {
         let mut remote_specs = HashMap::new();
         for remote in self.remotes.iter() {
@@ -189,7 +196,9 @@ impl GitRepoManifest {
         remote_specs
     }
 
-    pub fn get_url_and_ref(&self, remote: &Option<String>, custom_ref: &Option<String>, root_url: &str) -> Result<(String, String), ReadManifestError> {
+    // Get URL and ref for one specific entry in the manifest
+    // TODO type alias?
+    pub fn get_url_and_ref(&self, remote: &Option<String>, ref_override: &Option<String>, root_url: &str) -> Result<(String, String), ReadManifestError> {
         let remote_specs = self.get_remote_specs(root_url);
         let remote_name = remote
             .as_ref()
@@ -199,7 +208,7 @@ impl GitRepoManifest {
         let remote_spec = remote_specs.get(remote_name)
             .ok_or(ReadManifestError::UnknownRemote(remote_name.to_string()))?;
 
-        let git_ref = custom_ref
+        let git_ref = ref_override
             .as_ref()
             .unwrap_or(
                 remote_spec.default_ref.as_ref().unwrap_or(
@@ -216,6 +225,7 @@ impl GitRepoManifest {
         Ok((remote_spec.url.clone(), git_ref))
     }
 
+    // Modifies the projects map to include the branch-specific repo project data for a given branch
     fn get_projects(&self, projects: &mut HashMap<String, RepoProject>, root_url: &str, branch: &str) -> Result<(), FetchGitRepoMetadataError> {
         for project in self.projects.iter() {
             let (remote_url, git_ref) = self.
@@ -264,6 +274,8 @@ impl GitRepoManifest {
     }
 }
 
+// This represents two xml attrs that always come in pairs:
+// `fetch` and `revision`
 struct RemoteSpec {
     url: String,
     default_ref: Option<String>,
@@ -282,6 +294,9 @@ pub enum FetchGitRepoMetadataError {
     Parser(serde_json::Error),
 }
 
+// Fetches metadata for one git-repo manifest
+// Potentially multiple branches
+// Writes metadata into filename
 pub fn fetch_git_repo_metadata(filename: &str, manifest_repo: &Repository, branches: &[String]) -> Result<Vec<RepoProject>, FetchGitRepoMetadataError> {
     let mut projects: HashMap<String, RepoProject> = HashMap::new();
 
@@ -312,3 +327,5 @@ pub fn fetch_git_repo_metadata(filename: &str, manifest_repo: &Repository, branc
 
     Ok(projects)
 }
+
+// DONE

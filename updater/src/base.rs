@@ -36,11 +36,14 @@ impl FetchgitArgs {
     }
 }
 
+// Git repository
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 pub struct Repository {
     pub url: String,
 }
 
+// Data structure for each branch where the repo comes from and the git rev that should be used
+// Mirrors the repo.xml contents for one specific repository/"project"
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 pub struct RepoProjectBranchSettings {
     pub repo: Repository,
@@ -52,7 +55,7 @@ pub struct RepoProjectBranchSettings {
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 pub struct RepoProject {
-    pub path: String,
+    pub path: String, // Where it should be in the source tree
     pub nonfree: bool,
     pub branch_settings: HashMap<String, RepoProjectBranchSettings>, // global_branch -> branch_info
 }
@@ -100,6 +103,7 @@ pub enum NixPrefetchGitError {
     Parser(serde_json::Error),
 }
 
+// Incrementally via prev parameter
 pub fn nix_prefetch_git_repo(repo: &Repository, git_ref: &str, prev: Option<FetchgitArgs>) -> Result<FetchgitArgs, NixPrefetchGitError> {
     let rev = get_rev_of_ref(repo, git_ref)
         .map_err(|e| NixPrefetchGitError::GetRevOfBranch(e))?;

@@ -37,11 +37,6 @@ pub struct DeviceMetadata {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct DeviceDir {
-    deps: HashMap<String, FetchgitArgs>,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
 struct HudsonDevice {
     model: String,
     oem: String,
@@ -129,16 +124,15 @@ fn fetch_lineage_manifests_for_branches(branches: &[String]) -> Result<HashMap<S
 fn fetch_muppets_manifests_for_branches(branches: &[String]) -> Result<HashMap<String, GitRepoManifest>, FetchDeviceMetadataError> {
     let mut muppets_manifests = HashMap::new();
     for branch in branches.iter() {
-        if !muppets_manifests.contains_key(branch) {
-            println!("Fetching TheMuppets manifest (branch {branch})...");
-            let muppets = nix_prefetch_git_repo(&Repository {
-                url: "https://github.com/TheMuppets/manifests".to_string(),
-            }, &format!("refs/heads/{branch}"), None).map_err(|e| FetchDeviceMetadataError::PrefetchGit(e))?;
+        println!("Fetching TheMuppets manifest (branch {branch})...");
+        let muppets = nix_prefetch_git_repo(&Repository {
+            url: "https://github.com/TheMuppets/manifests".to_string(),
+        }, &format!("refs/heads/{branch}"), None).map_err(|e| FetchDeviceMetadataError::PrefetchGit(e))?;
 
-            let muppets_manifest = GitRepoManifest::read(Path::new(&muppets.path()), Path::new("muppets.xml"))
-                .map_err(|e| FetchDeviceMetadataError::ReadManifest(e))?;
-            muppets_manifests.insert(branch.clone(), muppets_manifest);
-        }
+        // TODO Read from nix store cat
+        let muppets_manifest = GitRepoManifest::read(Path::new(&muppets.path()), Path::new("muppets.xml"))
+            .map_err(|e| FetchDeviceMetadataError::ReadManifest(e))?;
+        muppets_manifests.insert(branch.clone(), muppets_manifest);
     }
 
     Ok(muppets_manifests)
@@ -150,7 +144,7 @@ struct LineageDependency {
     target_path: String,
 
     #[serde(default)]
-    branch: Option<String>,
+    branch: Option<String>, // Branch override for this dependency
 
     #[serde(default)]
     remote: Option<String>,
@@ -178,6 +172,8 @@ fn parse_build_targets(hudson_path: &str) -> Result<Vec<(String, String, String)
 }
 
 
+// Gathers from lineage.dependencies which deps we need to fetch (recursively)
+// main branch is the fallback branch if a repository is in lineage.dependencies specifies a branch but its lineage.dependencies dependency doesn't
 fn recursively_lookup_dependencies(repo_name: &str, branch: &str, main_branch: &str, dep_cache: &mut HashMap<String, Vec<LineageDependency>>) -> Result<Vec<LineageDependency>, FetchDeviceMetadataError> {
     println!("Fetching deps of {} (branch {})...", repo_name, branch);
 
@@ -203,6 +199,7 @@ fn recursively_lookup_dependencies(repo_name: &str, branch: &str, main_branch: &
         },
     };
 
+    // TODO this control flow is weird and unergonomic, is there a way to make it better?
     let mut children_deps = vec![];
     for dep in deps.iter() {
         // If a repo isn't on the LineageOS GitHub org, we assume that it doesn't have a
@@ -234,6 +231,7 @@ fn fetch_lineage_dependencies(manifest: &GitRepoManifest, vendor: &str, device_n
     // `bananapi` from "Banana Pi". It would be cool to programmatically pull this from somewhere
     // though.
     // TODO softcode these overrides (maybe a JSON config file or something)
+    // TODO do this the same way roomservice does it by matching the last part of the repo name with the device name in https://raw.githubusercontent.com/LineageOS/mirror/main/default.xml
     let mut vendor_name = vendor.to_lowercase().replace(" ", "");
     if device_name == "deadpool" || device_name == "wade" || device_name == "dopinder" {
         vendor_name = "askey".to_string();
@@ -267,6 +265,7 @@ fn fetch_lineage_dependencies(manifest: &GitRepoManifest, vendor: &str, device_n
     Ok(deps)
 }
 
+// device_metadata_path is the path to the device metadata file to be written
 pub fn fetch_device_metadata(device_metadata_path: &str) -> Result<HashMap<String, DeviceMetadata>, FetchDeviceMetadataError> {
     println!("Fetching LineageOS hudson...");
     let hudson = nix_prefetch_git_repo(&Repository {
@@ -274,7 +273,7 @@ pub fn fetch_device_metadata(device_metadata_path: &str) -> Result<HashMap<Strin
     }, &"refs/heads/main", None).map_err(|e| FetchDeviceMetadataError::PrefetchGit(e))?;
 
     let build_targets = parse_build_targets(&hudson.path())?;
-    let mut all_branches = vec![];
+    let mut all_branches = vec![]; // TODO hashset
     for (_, _, branch) in build_targets.iter() {
         if !all_branches.contains(branch) {
             all_branches.push(branch.to_string())
@@ -285,6 +284,7 @@ pub fn fetch_device_metadata(device_metadata_path: &str) -> Result<HashMap<Strin
 
     let reader = BufReader::new(File::open(format!("{}/updater/devices.json", &hudson.path()))
         .map_err(|e| FetchDeviceMetadataError::FileRead(e))?);
+    // The authorative list of devices in LOS
     let hudson_devices: Vec<HudsonDevice> = serde_json::from_reader(reader)
         .map_err(|e| FetchDeviceMetadataError::Parser(e))?;
 
@@ -292,6 +292,7 @@ pub fn fetch_device_metadata(device_metadata_path: &str) -> Result<HashMap<Strin
     let mut dep_cache = HashMap::new();
     // TODO make this multi-branch as soon as I find out where to get the information about the
     // device's supported branches from.
+    // TODO@atemu wiki has this data
     for (i, (device, variant, branch)) in build_targets.iter().enumerate() {
         println!("At device {} ({}/{})", device, i+1, build_targets.len());
         let hudson_device = hudson_devices.iter().filter(|x| x.model == *device).next().ok_or(FetchDeviceMetadataError::ModelNotFoundInUpdaterDir(device.to_string()))?;

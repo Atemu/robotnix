@@ -14,7 +14,8 @@ use crate::base::{
     GetRevOfBranchError,
 };
 
-pub type RepoLockfile = HashMap<String, Option<FetchgitArgs>>;
+pub type PathInSourceTree = String;
+pub type RepoLockfile = HashMap<PathInSourceTree, Option<FetchgitArgs>>;
 
 #[derive(Debug)]
 pub enum SaveRepoLockfileError {
@@ -41,7 +42,6 @@ pub enum IncrementallyFetchReposError {
     Parser(serde_json::Error),
     NixPrefetch(NixPrefetchGitError),
     SaveLockfile(SaveRepoLockfileError),
-    BranchNotFoundInProject(String),
 }
 
 pub fn incrementally_fetch_projects(filename: &str, projects: &[RepoProject], branch: &str) -> Result<RepoLockfile, IncrementallyFetchReposError> {
@@ -59,23 +59,18 @@ pub fn incrementally_fetch_projects(filename: &str, projects: &[RepoProject], br
     };
 
     for (i, project) in projects.iter().enumerate() {
-        let repo = match project.branch_settings.get(branch) {
-            Some(settings) => &settings.repo,
+        let settings = match project.branch_settings.get(branch) {
+            Some(settings) => settings,
             None => continue,
         };
-        println!("Fetching repo {} ({}/{})", repo.url, i+1, projects.len());
+        println!("Fetching repo {} ({}/{})", settings.repo.url, i+1, projects.len());
         let old = if let Some(Some(fetchgit_args)) = lockfile.get(&project.path) {
             Some(fetchgit_args.clone())
         } else {
             None
         };
 
-        let git_ref = &project.branch_settings
-            .get(branch)
-            .as_ref()
-            .ok_or(IncrementallyFetchReposError::BranchNotFoundInProject(project.path.clone()))?
-            .git_ref;
-        let new = match nix_prefetch_git_repo(repo, git_ref, old) {
+        let new = match nix_prefetch_git_repo(&settings.repo, &settings.git_ref, old) {
             Ok(args) => Some(args),
             Err(e) => return Err(IncrementallyFetchReposError::NixPrefetch(e)),
         };
@@ -88,3 +83,5 @@ pub fn incrementally_fetch_projects(filename: &str, projects: &[RepoProject], br
 
     Ok(lockfile)
 }
+
+// DONE
