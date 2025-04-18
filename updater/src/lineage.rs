@@ -13,7 +13,6 @@ use quick_xml;
 use reqwest;
 
 use crate::base::{
-    Variant,
     Repository,
     RepoProject,
     RepoProjectBranchSettings,
@@ -32,7 +31,7 @@ pub struct DeviceMetadata {
     pub branch: String,
     pub vendor: String,
     pub name: String,
-    pub variant: Variant,
+    pub variant: String,
     pub deps: Vec<RepoProject>,
 }
 
@@ -364,10 +363,7 @@ pub fn fetch_device_metadata(device_metadata_path: &str) -> Result<HashMap<Strin
         device_metadata.insert(device.clone(), DeviceMetadata { 
             name: hudson_device.name.clone(),
             branch: branch.to_string(),
-            // TODO We use the json parser for strings like `userdebug` by wrapping them in quotation
-            // marks, like `"userdebug"`. This is a dirty hack and I need to figure out how to do
-            // this properly at some point.
-            variant: serde_json::from_str(&format!("\"{}\"", variant)).map_err(|e| FetchDeviceMetadataError::Parser(e))?,
+            variant: variant.to_string(),
             vendor: hudson_device.oem.clone(),
             deps: projects,
         });

@@ -5,12 +5,6 @@ use serde::{Serialize, Deserialize};
 use serde_json;
 use git2;
 
-#[derive(Debug, Serialize, Deserialize)]
-pub enum Variant {
-    #[serde(rename = "userdebug")]
-    Userdebug,
-}
-
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct FetchgitArgs {
     url: String,
