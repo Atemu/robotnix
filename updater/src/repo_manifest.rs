@@ -20,31 +20,31 @@ use crate::base::{
 #[derive(Debug, Serialize, Deserialize)]
 pub struct GitRepoRemote {
     #[serde(rename = "@name")]
-    name: String,
+    pub name: String,
 
     #[serde(rename = "@fetch")]
-    fetch: String,
+    pub fetch: String,
 
     #[serde(rename = "@review")]
-    review: Option<String>,
+    pub review: Option<String>,
 
     #[serde(rename = "@revision")]
-    default_ref: Option<String>,
+    pub default_ref: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct GitRepoDefaultRemote {
     #[serde(rename = "@remote")]
-    remote: String,
+    pub remote: String,
 
     #[serde(rename = "@revision")]
-    default_ref: Option<String>,
+    pub default_ref: Option<String>,
 
     #[serde(rename = "@sync-c")]
-    sync_c: Option<String>,
+    pub sync_c: Option<String>,
 
     #[serde(rename = "@sync-j")]
-    sync_j: Option<String>,
+    pub sync_j: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]

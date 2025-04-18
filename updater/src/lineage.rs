@@ -22,6 +22,8 @@ use crate::base::{
 };
 
 use crate::repo_manifest::{
+    GitRepoRemote,
+    GitRepoDefaultRemote,
     GitRepoManifest,
     ReadManifestError,
 };
@@ -134,8 +136,21 @@ fn fetch_muppets_manifests_for_branches(branches: &[String]) -> Result<HashMap<S
                 url: "https://github.com/TheMuppets/manifests".to_string(),
             }, &format!("refs/heads/{branch}"), None).map_err(|e| FetchDeviceMetadataError::PrefetchGit(e))?;
 
-            let muppets_manifest = GitRepoManifest::read(Path::new(&muppets.path()), Path::new("muppets.xml"))
+            let mut muppets_manifest = GitRepoManifest::read(Path::new(&muppets.path()), Path::new("muppets.xml"))
                 .map_err(|e| FetchDeviceMetadataError::ReadManifest(e))?;
+            muppets_manifest.remotes.push(GitRepoRemote {
+                name: "github".to_string(),
+                fetch: "https://github.com".to_string(),
+                default_ref: None,
+                review: None,
+            });
+            muppets_manifest.default_remote = Some(GitRepoDefaultRemote {
+                remote: "github".to_string(),
+                default_ref: Some(branch.to_string()),
+                sync_j: None,
+                sync_c: None,
+            });
+
             muppets_manifests.insert(branch.clone(), muppets_manifest);
         }
     }
