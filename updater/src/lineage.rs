@@ -281,7 +281,7 @@ fn fetch_lineage_dependencies(manifest: &GitRepoManifest, vendor: &str, device_n
     Ok(deps)
 }
 
-pub fn fetch_device_metadata(device_metadata_path: &str) -> Result<HashMap<String, DeviceMetadata>, FetchDeviceMetadataError> {
+pub fn fetch_device_metadata(device_metadata_path: &str, branch_whitelist: &Option<Vec<String>>, device_whitelist: &Option<Vec<String>>) -> Result<HashMap<String, DeviceMetadata>, FetchDeviceMetadataError> {
     println!("Fetching LineageOS hudson...");
     let hudson = nix_prefetch_git_repo(&Repository {
         url: "https://github.com/LineageOS/hudson".to_string(),
@@ -290,7 +290,7 @@ pub fn fetch_device_metadata(device_metadata_path: &str) -> Result<HashMap<Strin
     let build_targets = parse_build_targets(&hudson.path())?;
     let mut all_branches = vec![];
     for (_, _, branch) in build_targets.iter() {
-        if !all_branches.contains(branch) {
+        if !all_branches.contains(branch) && branch_whitelist.as_ref().map(|xs| xs.contains(branch)).unwrap_or(true) {
             all_branches.push(branch.to_string())
         }
     }
@@ -307,6 +307,9 @@ pub fn fetch_device_metadata(device_metadata_path: &str) -> Result<HashMap<Strin
     // TODO make this multi-branch as soon as I find out where to get the information about the
     // device's supported branches from.
     for (i, (device, variant, branch)) in build_targets.iter().enumerate() {
+        if branch_whitelist.as_ref().map(|xs| !xs.contains(branch)).unwrap_or(false) || device_whitelist.as_ref().map(|xs| !xs.contains(device)).unwrap_or(false) {
+            continue;
+        }
         println!("At device {} ({}/{})", device, i+1, build_targets.len());
         let hudson_device = hudson_devices.iter().filter(|x| x.model == *device).next().ok_or(FetchDeviceMetadataError::ModelNotFoundInUpdaterDir(device.to_string()))?;
         let manifest = lineage_manifests.get(branch).unwrap();

@@ -50,6 +50,12 @@ enum Command {
     },
     FetchDeviceMetadata {
         device_metadata_file: String,
+
+        #[arg(name = "branch", short, long)]
+        branch_whitelist: Option<Vec<String>>,
+
+        #[arg(name = "device", short, long)]
+        device_whitelist: Option<Vec<String>>,
     },
     FetchDeviceDirs {
         #[arg(long)]
@@ -75,8 +81,8 @@ fn main() {
                 &branches
             ).unwrap();
         },
-        Command::FetchDeviceMetadata { device_metadata_file } => {
-            fetch_device_metadata(&device_metadata_file).unwrap();
+        Command::FetchDeviceMetadata { device_metadata_file, branch_whitelist, device_whitelist } => {
+            fetch_device_metadata(&device_metadata_file, &branch_whitelist, &device_whitelist).unwrap();
         },
         Command::FetchDeviceDirs { device_metadata_file, branch, device_dirs_file } => {
             let devices = read_device_metadata(&device_metadata_file).unwrap();
