@@ -11,7 +11,7 @@
 
   outputs = { self, nixpkgs, androidPkgs, flake-compat,  ... }@inputs: let
     pkgs = import ./pkgs/default.nix { inherit inputs; };
-  in {
+  in rec {
     # robotnixSystem evaluates a robotnix configuration
     lib.robotnixSystem = configuration: import ./default.nix {
       inherit configuration pkgs;
@@ -28,6 +28,7 @@
     packages.x86_64-linux = {
       manual = (import ./docs { inherit pkgs; }).manual;
       gitRepo = pkgs.gitRepo;
+      robotnix-updater = pkgs.callPackage ./updater/package.nix {};
     };
 
     devShell.x86_64-linux = pkgs.mkShell {
@@ -46,9 +47,13 @@
 
         cachix
 
+        packages.x86_64-linux.robotnix-updater
+
         cargo rustc pkg-config openssl clippy
       ];
       PYTHONPATH=./scripts;
     };
+
+    test = (lib.robotnixSystem (import ./configuration.nix));
   };
 }
