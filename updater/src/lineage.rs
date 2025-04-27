@@ -61,7 +61,7 @@ fn get_proprietary_repos_for_device(muppets_manifest: &GitRepoManifest, device: 
                 }
             }
             if found {
-                let (url, git_ref) = muppets_manifest.get_url_and_ref(
+                let (remote_url, git_ref) = muppets_manifest.get_url_and_ref(
                     &entry.remote,
                     &entry.git_ref,
                     "https://github.com/TheMuppets/muppets_manifests"
@@ -73,7 +73,7 @@ fn get_proprietary_repos_for_device(muppets_manifest: &GitRepoManifest, device: 
                         let mut branch_settings = HashMap::new();
                         branch_settings.insert(branch.to_string(), RepoProjectBranchSettings {
                             repo: Repository {
-                                url: url,
+                                url: format!("{}/{}", &remote_url, &entry.repo_name),
                             },
                             git_ref: git_ref,
                             linkfiles: HashMap::new(),
