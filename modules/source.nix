@@ -212,7 +212,7 @@ in
           value = let
             fetchgitArgs = (lib.importJSON value.lockfile)."${project.path}";
           in {
-            inherit (project.branch_settings."${value.branch}") groups copyfiles;
+            inherit (project.branch_settings."${value.branch}") groups linkfiles copyfiles;
             lastUpdated = fetchgitArgs.date;
             src = pkgs.fetchgit {
               inherit (fetchgitArgs) url rev hash fetchLFS fetchSubmodules;
