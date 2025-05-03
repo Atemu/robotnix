@@ -347,19 +347,16 @@ pub fn fetch_device_metadata(device_metadata_path: &str, branch_whitelist: &Opti
                 git_ref
             };
 
-            let remote_url = if remote_url == "https://github.com" {
-                "https://github.com/LineageOS".to_string()
-            } else {
-                remote_url
-            };
-
             let project = RepoProject {
                 nonfree: false,
                 path: dep.target_path,
                 branch_settings: {
                     let mut branch_settings = HashMap::new();
                     branch_settings.insert(branch.to_string(), RepoProjectBranchSettings {
-                        repo: Repository::new(remote_url, dep.repository),
+                        repo: Repository::new(
+                                  remote_url,
+                                  format!("LineageOS/{}", dep.repository)
+                              ),
                         git_ref: git_ref,
                         groups: vec![],
                         copyfiles: HashMap::new(),
