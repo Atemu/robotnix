@@ -30,6 +30,14 @@ pub fn update_git_mirrors(projects: &[RepoProject], branches: &[String], mirrors
                 fs::create_dir(&mirror_path).unwrap();
             }
 
+            let repo_branch = if settings.git_ref.starts_with("refs/heads/") {
+                settings.git_ref.strip_prefix("refs/heads/").unwrap()
+            } else if settings.git_ref.starts_with("refs/tags") {
+                settings.git_ref.strip_prefix("refs/tags/").unwrap()
+            } else {
+                &settings.git_ref
+            };
+
             let repo_path = mirror_path.join(&format!("{}.git", settings.repo.name));
             let output = if !repo_path.try_exists().unwrap() {
                 // Initial clone
@@ -38,8 +46,8 @@ pub fn update_git_mirrors(projects: &[RepoProject], branches: &[String], mirrors
                     .arg("clone")
                     .arg("--bare")
                     .arg("--single-branch")
-                    .arg("--revision")
-                    .arg(&settings.git_ref)
+                    .arg("--branch")
+                    .arg(repo_branch)
                     .arg(&settings.repo.url())
                     .arg(&repo_path)
                     .output()
