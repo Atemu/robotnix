@@ -31,7 +31,7 @@ pub fn update_git_mirrors(projects: &[RepoProject], branches: &[String], mirrors
             }
 
             let repo_path = mirror_path.join(&format!("{}.git", settings.repo.name));
-            if !repo_path.try_exists().unwrap() {
+            let output = if !repo_path.try_exists().unwrap() {
                 // Initial clone
                 println!("Checkout doesn't exist yet, performing initial clone...");
                 Command::new("git")
@@ -43,7 +43,7 @@ pub fn update_git_mirrors(projects: &[RepoProject], branches: &[String], mirrors
                     .arg(&settings.repo.url())
                     .arg(&repo_path)
                     .output()
-                    .unwrap();
+                    .unwrap()
             } else {
                 Command::new("git")
                     .arg("fetch")
@@ -52,7 +52,10 @@ pub fn update_git_mirrors(projects: &[RepoProject], branches: &[String], mirrors
                     .arg("origin")
                     .arg(&settings.git_ref)
                     .output()
-                    .unwrap();
+                    .unwrap()
+            };
+            if !output.status.success() {
+                println!("{}", std::str::from_utf8(&output.stderr).unwrap());
             }
         }
     }
