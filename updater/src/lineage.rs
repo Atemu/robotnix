@@ -347,6 +347,12 @@ pub fn fetch_device_metadata(device_metadata_path: &str, branch_whitelist: &Opti
                 git_ref
             };
 
+            let repo_name = if remote_url == "https://github.com" {
+                format!("LineageOS/{}", dep.repository)
+            } else {
+                dep.repository.clone()
+            };
+
             let project = RepoProject {
                 nonfree: false,
                 path: dep.target_path,
@@ -355,7 +361,7 @@ pub fn fetch_device_metadata(device_metadata_path: &str, branch_whitelist: &Opti
                     branch_settings.insert(branch.to_string(), RepoProjectBranchSettings {
                         repo: Repository::new(
                                   remote_url,
-                                  format!("LineageOS/{}", dep.repository)
+                                  repo_name,
                               ),
                         git_ref: git_ref,
                         groups: vec![],
