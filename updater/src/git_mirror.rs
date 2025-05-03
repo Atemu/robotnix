@@ -55,8 +55,7 @@ pub fn update_git_mirrors(projects: &[RepoProject], branches: &[String], mirrors
             } else {
                 Command::new("git")
                     .arg("fetch")
-                    .arg("-C")
-                    .arg(&repo_path)
+                    .current_dir(&repo_path)
                     .arg("origin")
                     .arg(&settings.git_ref)
                     .output()
