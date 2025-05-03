@@ -63,7 +63,7 @@ pub fn incrementally_fetch_projects(filename: &str, projects: &[RepoProject], br
             Some(settings) => &settings.repo,
             None => continue,
         };
-        println!("Fetching repo {} ({}/{})", repo.url, i+1, projects.len());
+        println!("Fetching repo {} ({}/{})", repo.url(), i+1, projects.len());
         let old = if let Some(Some(fetchgit_args)) = lockfile.get(&project.path) {
             Some(fetchgit_args.clone())
         } else {

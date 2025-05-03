@@ -221,7 +221,6 @@ impl GitRepoManifest {
             let (remote_url, git_ref) = self.
                 get_url_and_ref(&project.remote, &project.git_ref, root_url)
                 .map_err(|e| FetchGitRepoMetadataError::ReadManifest(e))?;
-            let project_url = format!("{}/{}", &remote_url, &project.repo_name);
 
             if !projects.contains_key(&project.path) {
                 projects.insert(project.path.clone(), RepoProject {
@@ -236,9 +235,7 @@ impl GitRepoManifest {
                 .unwrap()
                 .branch_settings;
             branch_settings.insert(branch.to_string(), RepoProjectBranchSettings {
-                repo: Repository {
-                    url: project_url,
-                },
+                repo: Repository::new(remote_url, project.repo_name.clone()),
                 copyfiles: {
                     let mut files = HashMap::new();
                     for c in project.copyfiles.iter() {
@@ -286,7 +283,7 @@ pub fn fetch_git_repo_metadata(filename: &str, manifest_repo: &Repository, branc
     let mut projects: HashMap<String, RepoProject> = HashMap::new();
 
     for branch in branches.iter() {
-        println!("Fetching manifest repo {} (branch {})", &manifest_repo.url, &branch);
+        println!("Fetching manifest repo {} (branch {})", &manifest_repo.url(), &branch);
         let fetchgit_args = nix_prefetch_git_repo(manifest_repo, &format!("refs/heads/{branch}"), None)
             .map_err(|e| FetchGitRepoMetadataError::PrefetchGit(e))?;
 
@@ -295,7 +292,7 @@ pub fn fetch_git_repo_metadata(filename: &str, manifest_repo: &Repository, branc
             Path::new("default.xml")
         ).map_err(|e| FetchGitRepoMetadataError::ReadManifest(e))?;
 
-        manifest.get_projects(&mut projects, &manifest_repo.url, branch)?;
+        manifest.get_projects(&mut projects, &manifest_repo.url(), branch)?;
     }
 
     let mut projects: Vec<RepoProject> = projects.values().cloned().collect();

@@ -72,9 +72,7 @@ fn get_proprietary_repos_for_device(muppets_manifest: &GitRepoManifest, device: 
                     branch_settings: {
                         let mut branch_settings = HashMap::new();
                         branch_settings.insert(branch.to_string(), RepoProjectBranchSettings {
-                            repo: Repository {
-                                url: format!("{}/{}", &remote_url, &entry.repo_name),
-                            },
+                            repo: Repository::new(remote_url.clone(), entry.repo_name.clone()),
                             git_ref: git_ref,
                             linkfiles: HashMap::new(),
                             copyfiles: HashMap::new(),
@@ -112,9 +110,8 @@ fn fetch_lineage_manifests_for_branches(branches: &[String]) -> Result<HashMap<S
     for branch in branches.iter() {
         println!("Fetching LineageOS manifest repo (branch {})", &branch);
         let fetchgit_args = nix_prefetch_git_repo(
-            &Repository {
-                url: "https://github.com/LineageOS/android".to_string(),
-            }, &format!("refs/heads/{branch}"), None).map_err(|e| FetchDeviceMetadataError::PrefetchGit(e))?;
+            &Repository::new("https://github.com".to_string(), "LineageOS/android".to_string()),
+            &format!("refs/heads/{branch}"), None).map_err(|e| FetchDeviceMetadataError::PrefetchGit(e))?;
 
         let manifest = GitRepoManifest::read_and_flatten(
             &Path::new(&fetchgit_args.path()),
@@ -132,9 +129,11 @@ fn fetch_muppets_manifests_for_branches(branches: &[String]) -> Result<HashMap<S
     for branch in branches.iter() {
         if !muppets_manifests.contains_key(branch) {
             println!("Fetching TheMuppets manifest (branch {branch})...");
-            let muppets = nix_prefetch_git_repo(&Repository {
-                url: "https://github.com/TheMuppets/manifests".to_string(),
-            }, &format!("refs/heads/{branch}"), None).map_err(|e| FetchDeviceMetadataError::PrefetchGit(e))?;
+            let muppets = nix_prefetch_git_repo(
+                &Repository::new("https://github.com".to_string(), "TheMuppets/manifests".to_string()),
+                &format!("refs/heads/{branch}"),
+                None
+            ).map_err(|e| FetchDeviceMetadataError::PrefetchGit(e))?;
 
             let mut muppets_manifest = GitRepoManifest::read(Path::new(&muppets.path()), Path::new("muppets.xml"))
                 .map_err(|e| FetchDeviceMetadataError::ReadManifest(e))?;
@@ -283,9 +282,11 @@ fn fetch_lineage_dependencies(manifest: &GitRepoManifest, vendor: &str, device_n
 
 pub fn fetch_device_metadata(device_metadata_path: &str, branch_whitelist: &Option<Vec<String>>, device_whitelist: &Option<Vec<String>>) -> Result<HashMap<String, DeviceMetadata>, FetchDeviceMetadataError> {
     println!("Fetching LineageOS hudson...");
-    let hudson = nix_prefetch_git_repo(&Repository {
-        url: "https://github.com/LineageOS/hudson".to_string(),
-    }, &"refs/heads/main", None).map_err(|e| FetchDeviceMetadataError::PrefetchGit(e))?;
+    let hudson = nix_prefetch_git_repo(
+        &Repository::new("https://github.com".to_string(), "LineageOS/hudson".to_string()),
+        &"refs/heads/main",
+        None
+    ).map_err(|e| FetchDeviceMetadataError::PrefetchGit(e))?;
 
     let build_targets = parse_build_targets(&hudson.path())?;
     let mut all_branches = vec![];
@@ -358,9 +359,7 @@ pub fn fetch_device_metadata(device_metadata_path: &str, branch_whitelist: &Opti
                 branch_settings: {
                     let mut branch_settings = HashMap::new();
                     branch_settings.insert(branch.to_string(), RepoProjectBranchSettings {
-                        repo: Repository {
-                            url: format!("{}/{}", &remote_url, &dep.repository)
-                        },
+                        repo: Repository::new(remote_url, dep.repository),
                         git_ref: git_ref,
                         groups: vec![],
                         copyfiles: HashMap::new(),

@@ -32,7 +32,21 @@ impl FetchgitArgs {
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 pub struct Repository {
-    pub url: String,
+    pub base_url: String,
+    pub name: String,
+}
+
+impl Repository {
+    pub fn new(base_url: String, name: String) -> Repository {
+        Repository {
+            base_url: base_url,
+            name: name,
+        }
+    }
+
+    pub fn url(&self) -> String {
+        format!("{}/{}", self.base_url, self.name)
+    }
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
@@ -73,7 +87,7 @@ pub fn get_rev_of_ref(repo: &Repository, git_ref: &str) -> Result<String, GetRev
         }
     };
 
-    let mut remote = git2::Remote::create_detached(repo.url.clone())
+    let mut remote = git2::Remote::create_detached(repo.url())
         .map_err(|e| GetRevOfBranchError::Libgit(e))?;
     remote.connect(git2::Direction::Fetch)
         .map_err(|e| GetRevOfBranchError::Libgit(e))?;
@@ -107,7 +121,7 @@ pub fn nix_prefetch_git_repo(repo: &Repository, git_ref: &str, prev: Option<Fetc
     if fetch {
         let output = Command::new("nix-prefetch-git")
             .arg(&"--fetch-lfs")
-            .arg(&repo.url)
+            .arg(&repo.url())
             .arg("--rev")
             .arg(&rev)
             .output()
