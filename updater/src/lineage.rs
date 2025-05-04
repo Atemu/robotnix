@@ -110,8 +110,12 @@ fn fetch_lineage_manifests_for_branches(branches: &[String]) -> Result<HashMap<S
     for branch in branches.iter() {
         println!("Fetching LineageOS manifest repo (branch {})", &branch);
         let fetchgit_args = nix_prefetch_git_repo(
-            &Repository::new("https://github.com".to_string(), "LineageOS/android".to_string()),
-            &format!("refs/heads/{branch}"), None).map_err(|e| FetchDeviceMetadataError::PrefetchGit(e))?;
+            &Repository::new("https://github.com".to_string(),
+            "LineageOS/android".to_string()),
+            &format!("refs/heads/{branch}"),
+            None,
+            false
+        ).map_err(|e| FetchDeviceMetadataError::PrefetchGit(e))?;
 
         let manifest = GitRepoManifest::read_and_flatten(
             &Path::new(&fetchgit_args.path()),
@@ -132,7 +136,8 @@ fn fetch_muppets_manifests_for_branches(branches: &[String]) -> Result<HashMap<S
             let muppets = nix_prefetch_git_repo(
                 &Repository::new("https://github.com".to_string(), "TheMuppets/manifests".to_string()),
                 &format!("refs/heads/{branch}"),
-                None
+                None,
+                false
             ).map_err(|e| FetchDeviceMetadataError::PrefetchGit(e))?;
 
             let mut muppets_manifest = GitRepoManifest::read(Path::new(&muppets.path()), Path::new("muppets.xml"))
@@ -285,7 +290,8 @@ pub fn fetch_device_metadata(device_metadata_path: &str, branch_whitelist: &Opti
     let hudson = nix_prefetch_git_repo(
         &Repository::new("https://github.com".to_string(), "LineageOS/hudson".to_string()),
         &"refs/heads/main",
-        None
+        None,
+        false
     ).map_err(|e| FetchDeviceMetadataError::PrefetchGit(e))?;
 
     let build_targets = parse_build_targets(&hudson.path())?;

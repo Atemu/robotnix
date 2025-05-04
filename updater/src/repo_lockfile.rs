@@ -12,6 +12,7 @@ use crate::base::{
     nix_prefetch_git_repo,
     NixPrefetchGitError,
     GetRevOfBranchError,
+    is_repo_excluded,
 };
 
 pub type RepoLockfile = HashMap<String, Option<FetchgitArgs>>;
@@ -44,7 +45,7 @@ pub enum IncrementallyFetchReposError {
     BranchNotFoundInProject(String),
 }
 
-pub fn incrementally_fetch_projects(filename: &str, projects: &[RepoProject], branch: &str) -> Result<RepoLockfile, IncrementallyFetchReposError> {
+pub fn incrementally_fetch_projects(filename: &str, projects: &[RepoProject], branch: &str, mirror_excluded_paths: &[String]) -> Result<RepoLockfile, IncrementallyFetchReposError> {
     let mut lockfile: RepoLockfile = match fs::read(filename) {
         Ok(lockfile_json) => {
             let lockfile_json_str = str::from_utf8(&lockfile_json)
@@ -75,7 +76,12 @@ pub fn incrementally_fetch_projects(filename: &str, projects: &[RepoProject], br
             .as_ref()
             .ok_or(IncrementallyFetchReposError::BranchNotFoundInProject(project.path.clone()))?
             .git_ref;
-        let new = match nix_prefetch_git_repo(repo, git_ref, old) {
+        let new = match nix_prefetch_git_repo(
+            repo,
+            git_ref,
+            old,
+            !is_repo_excluded(project, mirror_excluded_paths)
+        ) {
             Ok(args) => Some(args),
             Err(e) => return Err(IncrementallyFetchReposError::NixPrefetch(e)),
         };

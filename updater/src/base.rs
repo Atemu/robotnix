@@ -108,7 +108,18 @@ pub enum NixPrefetchGitError {
     Parser(serde_json::Error),
 }
 
-pub fn nix_prefetch_git_repo(repo: &Repository, git_ref: &str, prev: Option<FetchgitArgs>) -> Result<FetchgitArgs, NixPrefetchGitError> {
+pub fn is_repo_excluded(repo: &RepoProject, excluded_paths: &[String]) -> bool {
+    let mut excluded = false;
+    for excluded_path in excluded_paths.iter() {
+        if repo.path.starts_with(excluded_path) {
+            excluded = true;
+            break;
+        }
+    }
+    excluded
+}
+
+pub fn nix_prefetch_git_repo(repo: &Repository, git_ref: &str, prev: Option<FetchgitArgs>, use_mirrors: bool) -> Result<FetchgitArgs, NixPrefetchGitError> {
     let rev = get_rev_of_ref(repo, git_ref)
         .map_err(|e| NixPrefetchGitError::GetRevOfBranch(e))?;
     
@@ -124,6 +135,7 @@ pub fn nix_prefetch_git_repo(repo: &Repository, git_ref: &str, prev: Option<Fetc
             .arg(&repo.url())
             .arg("--rev")
             .arg(&rev)
+            .envs(std::iter::once(("ROBOTNIX_GIT_MIRRORS", "")).filter(|x| use_mirrors))
             .output()
             .map_err(|e| NixPrefetchGitError::IOError(e))?;
 

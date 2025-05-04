@@ -13,7 +13,8 @@ mod git_mirror;
 
 use crate::base::{
     Repository,
-    RepoProject
+    RepoProject,
+    is_repo_excluded
 };
 use crate::lineage::{
     read_device_metadata,
@@ -33,6 +34,9 @@ use crate::git_mirror::{
 
 #[derive(Debug, Parser)]
 struct Args {
+    #[arg(name = "exclude-mirror-path", short, long)]
+    mirror_excluded_paths: Vec<String>,
+
     #[command(subcommand)]
     command: Option<Command>,
 }
@@ -132,7 +136,13 @@ fn main() {
         Command::FetchDeviceDirs { device_metadata_file, branch, device_dirs_file } => {
             let devices = read_device_metadata(&device_metadata_file).unwrap();
             let device_dirs = flatten_device_dirs(&devices);
-            incrementally_fetch_projects(&device_dirs_file, &device_dirs, &branch).unwrap();
+
+            incrementally_fetch_projects(
+                &device_dirs_file,
+                &device_dirs,
+                &branch,
+                &args.mirror_excluded_paths
+            ).unwrap();
         },
         Command::FetchRepoDirs { branch, repo_metadata_file, repo_dirs_file } => {
             let repo_dirs_json = fs::read(&repo_metadata_file).unwrap();
@@ -140,21 +150,35 @@ fn main() {
                 str::from_utf8(&repo_dirs_json).unwrap()
             ).unwrap();
 
-            incrementally_fetch_projects(&repo_dirs_file, &repo_dirs, &branch).unwrap();
+            incrementally_fetch_projects(
+                &repo_dirs_file,
+                &repo_dirs,
+                &branch,
+                &args.mirror_excluded_paths
+            ).unwrap();
         },
 
         Command::MirrorRepoDirs { branches, repo_metadata_file } => {
             let repo_dirs_json = fs::read(&repo_metadata_file).unwrap();
-            let repo_dirs: Vec<RepoProject> = serde_json::from_str(
+            let repo_dirs: Vec<RepoProject> = serde_json::from_str::<Vec<RepoProject>>(
                 str::from_utf8(&repo_dirs_json).unwrap()
-            ).unwrap();
+            )
+                .unwrap()
+                .iter()
+                .filter(|x| !is_repo_excluded(x, &args.mirror_excluded_paths))
+                .map(|x| x.clone())
+                .collect();
             let mirrors = get_mirrors_from_env();
             update_git_mirrors(&repo_dirs, &branches, &mirrors);
         },
 
         Command::MirrorDeviceDirs { branches, device_metadata_file } => {
             let devices = read_device_metadata(&device_metadata_file).unwrap();
-            let device_dirs = flatten_device_dirs(&devices);
+            let device_dirs: Vec<RepoProject> = flatten_device_dirs(&devices)
+                .iter()
+                .filter(|x| !is_repo_excluded(x, &args.mirror_excluded_paths))
+                .map(|x| x.clone())
+                .collect();
             let mirrors = get_mirrors_from_env();
             update_git_mirrors(&device_dirs, &branches, &mirrors);
         },

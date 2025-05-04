@@ -284,7 +284,7 @@ pub fn fetch_git_repo_metadata(filename: &str, manifest_repo: &Repository, branc
 
     for branch in branches.iter() {
         println!("Fetching manifest repo {} (branch {})", &manifest_repo.url(), &branch);
-        let fetchgit_args = nix_prefetch_git_repo(manifest_repo, &format!("refs/heads/{branch}"), None)
+        let fetchgit_args = nix_prefetch_git_repo(manifest_repo, &format!("refs/heads/{branch}"), None, false)
             .map_err(|e| FetchGitRepoMetadataError::PrefetchGit(e))?;
 
         let manifest = GitRepoManifest::read_and_flatten(
