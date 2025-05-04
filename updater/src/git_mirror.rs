@@ -58,6 +58,15 @@ pub fn update_git_mirrors(projects: &[RepoProject], branches: &[String], mirrors
             if !output.status.success() {
                 println!("{}", std::str::from_utf8(&output.stderr).unwrap());
             }
+            // A clone with `--revision` does not create any refs. Make the
+            // newly fetched HEAD point to the ref we fetched it from.
+            Command::new("git")
+                .current_dir(&repo_path)
+                .arg("update-ref")
+                .arg(&settings.git_ref)
+                .arg("HEAD")
+                .output()
+                .unwrap()
         }
     }
 }
