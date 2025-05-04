@@ -135,7 +135,7 @@ pub fn nix_prefetch_git_repo(repo: &Repository, git_ref: &str, prev: Option<Fetc
             .arg(&repo.url())
             .arg("--rev")
             .arg(&rev)
-            .envs(std::iter::once(("ROBOTNIX_GIT_MIRRORS", "")).filter(|x| use_mirrors))
+            .envs(std::iter::once(("ROBOTNIX_GIT_MIRRORS", "")).filter(|x| !use_mirrors))
             .output()
             .map_err(|e| NixPrefetchGitError::IOError(e))?;
 
