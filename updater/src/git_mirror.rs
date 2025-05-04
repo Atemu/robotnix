@@ -25,6 +25,7 @@ pub fn update_git_mirrors(projects: &[RepoProject], branches: &[String], mirrors
             };
             println!("Mirroring {}...", settings.repo.url());
 
+            println!("{:?}", mirrors);
             let mirror_path = mirrors.get(&settings.repo.base_url).unwrap();
             if !mirror_path.try_exists().unwrap() {
                 fs::create_dir(&mirror_path).unwrap();
