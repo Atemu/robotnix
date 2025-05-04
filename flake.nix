@@ -47,8 +47,6 @@
 
         cachix
 
-        packages.x86_64-linux.robotnix-updater
-
         cargo rustc pkg-config openssl clippy
       ];
       PYTHONPATH=./scripts;
