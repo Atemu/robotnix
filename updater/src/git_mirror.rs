@@ -31,10 +31,10 @@ pub fn update_git_mirrors(projects: &[RepoProject], branches: &[String], mirrors
             }
 
             let repo_path = mirror_path.join(&format!("{}.git", settings.repo.name));
-            let output = if !repo_path.try_exists().unwrap() {
+            if !repo_path.try_exists().unwrap() {
                 // Initial clone
                 println!("Checkout doesn't exist yet, performing initial clone...");
-                Command::new("git")
+                let output = Command::new("git")
                     .arg("clone")
                     .arg("--bare")
                     .arg("--single-branch")
@@ -44,29 +44,47 @@ pub fn update_git_mirrors(projects: &[RepoProject], branches: &[String], mirrors
                     .arg(&settings.repo.url())
                     .arg(&repo_path)
                     .output()
+                    .unwrap();
+
+                if !output.status.success() {
+                    println!("{}", std::str::from_utf8(&output.stderr).unwrap());
+                }
+
+                // A clone with `--revision` does not create any refs, only
+                // updates HEAD. Make the local mirror of the ref we fetched
+                // point to the newly fetched HEAD
+                Command::new("git")
+                    .current_dir(&repo_path)
+                    .arg("update-ref")
+                    .arg(&settings.git_ref)
+                    .arg("HEAD")
+                    .output()
                     .unwrap()
             } else {
-                Command::new("git")
+                let output = Command::new("git")
                     .arg("fetch")
                     .current_dir(&repo_path)
                     .arg("--depth=1")
                     .arg("origin")
                     .arg(&settings.git_ref)
                     .output()
+                    .unwrap();
+
+                if !output.status.success() {
+                    println!("{}", std::str::from_utf8(&output.stderr).unwrap());
+                }
+
+                // A fetch does not create any refs, only updates FETCH_HEAD.
+                // Make the local mirror of the ref we fetched point to the
+                // newly fetched HEAD
+                Command::new("git")
+                    .current_dir(&repo_path)
+                    .arg("update-ref")
+                    .arg(&settings.git_ref)
+                    .arg("FETCH_HEAD")
+                    .output()
                     .unwrap()
             };
-            if !output.status.success() {
-                println!("{}", std::str::from_utf8(&output.stderr).unwrap());
-            }
-            // A clone with `--revision` does not create any refs. Make the
-            // newly fetched HEAD point to the ref we fetched it from.
-            Command::new("git")
-                .current_dir(&repo_path)
-                .arg("update-ref")
-                .arg(&settings.git_ref)
-                .arg("HEAD")
-                .output()
-                .unwrap()
         }
     }
 }
