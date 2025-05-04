@@ -1,0 +1,36 @@
+[
+  {
+    "path": "android",
+    "nonfree": false,
+    "branch_settings": {
+      "lineage-22.2": {
+        "repo": {
+          "base_url": "https://github.com",
+          "name": "LineageOS/android"
+        },
+        "git_ref": "refs/heads/lineage-22.2",
+        "linkfiles": {},
+        "copyfiles": {},
+        "groups": []
+      }
+    }
+  },
+  {
+    "path": "device/sample",
+    "nonfree": false,
+    "branch_settings": {
+      "lineage-22.2": {
+        "repo": {
+          "base_url": "https://android.googlesource.com",
+          "name": "device/sample"
+        },
+        "git_ref": "refs/tags/android-15.0.0_r26",
+        "linkfiles": {},
+        "copyfiles": {},
+        "groups": [
+          "pdk"
+        ]
+      }
+    }
+  }
+]
