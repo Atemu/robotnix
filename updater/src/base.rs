@@ -139,6 +139,8 @@ pub fn nix_prefetch_git_repo(repo: &Repository, git_ref: &str, prev: Option<Fetc
             .output()
             .map_err(|e| NixPrefetchGitError::IOError(e))?;
 
+        println!("{:?}", output);
+
         Ok(serde_json::from_slice(&output.stdout).map_err(|e| NixPrefetchGitError::Parser(e))?)
     } else {
         Ok(prev.unwrap())
