@@ -5,6 +5,8 @@ use serde::{Serialize, Deserialize};
 use serde_json;
 use git2;
 
+use crate::get_mirrors_from_env;
+
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct FetchgitArgs {
     url: String,
@@ -87,7 +89,13 @@ pub fn get_rev_of_ref(repo: &Repository, git_ref: &str) -> Result<String, GetRev
         }
     };
 
-    let mut remote = git2::Remote::create_detached(repo.url())
+    let mirror_url = get_mirrors_from_env().get(&repo.base_url).unwrap().to_owned();
+    let mirror_repo = Repository {
+        base_url : mirror_url.as_path().to_str().unwrap().to_string(),
+        name : repo.name.to_owned(),
+    };
+
+    let mut remote = git2::Remote::create_detached(format!("{}.git", mirror_repo.url())) // HACK FIXME create_detached doesn't work with bare repos?
         .map_err(|e| GetRevOfBranchError::Libgit(e))?;
     remote.connect(git2::Direction::Fetch)
         .map_err(|e| GetRevOfBranchError::Libgit(e))?;
@@ -122,6 +130,8 @@ pub fn is_repo_excluded(repo: &RepoProject, excluded_paths: &[String]) -> bool {
 pub fn nix_prefetch_git_repo(repo: &Repository, git_ref: &str, prev: Option<FetchgitArgs>, use_mirrors: bool) -> Result<FetchgitArgs, NixPrefetchGitError> {
     let rev = get_rev_of_ref(repo, git_ref)
         .map_err(|e| NixPrefetchGitError::GetRevOfBranch(e))?;
+
+    println!("{:?}", rev);
     
     let fetch = if let Some(ref fetchgit_args) = prev {
         fetchgit_args.rev != rev
