@@ -181,8 +181,10 @@ pub enum GetDevicesError {
     Url(#[from] url::ParseError),
 }
 
+// TODO this should probably be a data type encapsulating this quirk
 pub fn hudson_to_device_repo_branch(branch: &str) -> String {
     match branch {
+        // For some god forsaken reason, this differs for LOS21
         "lineage-21.0" => "lineage-21",
         x => x,
     }.to_string()
