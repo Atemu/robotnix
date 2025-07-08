@@ -59,8 +59,7 @@ pub async fn fetch_hudson_devices() -> Result<BTreeMap<String, HudsonDeviceInfo>
         if line == "" || line.starts_with("#") {
             continue;
         }
-        let fields: Vec<_> = line.split(" ").collect();
-        match fields.as_slice() {
+        match line.split(" ").collect::<Vec<_>>().as_slice() {
             [name, build_type, branch, period] => {
                 devices.insert(name.to_string(), HudsonDeviceInfo {
                     build_type: build_type.to_string(),
@@ -108,8 +107,7 @@ pub async fn get_device_repos() -> Result<Vec<(String, String)>, GetDeviceReposE
                 .name
                 .strip_prefix("LineageOS/android_device_")
                 .and_then(|suffix| {
-                    let fields: Vec<_> = suffix.splitn(2, "_").collect();
-                    match fields.as_slice() {
+                    match suffix.splitn(2, "_").collect::<Vec<_>>().as_slice() {
                         [vendor, device] => Some((vendor.to_string(), device.to_string())),
                         _ => None,
                     }
