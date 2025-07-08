@@ -1,4 +1,4 @@
-use std::collections::{BTreeMap, HashMap};
+use std::collections::BTreeMap;
 use std::io;
 use std::str;
 use serde::{Serialize, Deserialize};
@@ -38,7 +38,7 @@ pub enum FetchHudsonDevicesError {
     Utf8(str::Utf8Error),
 }
 
-pub async fn fetch_hudson_devices() -> Result<HashMap<String, HudsonDeviceInfo>, FetchHudsonDevicesError>  {
+pub async fn fetch_hudson_devices() -> Result<BTreeMap<String, HudsonDeviceInfo>, FetchHudsonDevicesError>  {
     let hudson_fetch = nix_prefetch_git(
         &Url::parse("https://github.com/LineageOS/hudson").unwrap(),
         "refs/heads/main",
@@ -53,7 +53,7 @@ pub async fn fetch_hudson_devices() -> Result<HashMap<String, HudsonDeviceInfo>,
     let text = str::from_utf8(&bytes)
         .map_err(FetchHudsonDevicesError::Utf8)?;
 
-    let mut devices = HashMap::new();
+    let mut devices = BTreeMap::new();
     for line in text.split("\n") {
         let line = line.trim();
         if line == "" || line.starts_with("#") {
@@ -198,10 +198,9 @@ pub async fn get_devices(allowlist: &Option<Vec<String>>, blocklist: &Option<Vec
     let hudson_devices = fetch_hudson_devices()
         .await
         .map_err(GetDevicesError::Hudson)?;
-    let mut hudson_keys: Vec<_> = hudson_devices.keys().map(|x| x.clone()).collect();
-    hudson_keys.sort();
+    let hudson_keys = hudson_devices.keys().map(|x| x.clone());
 
-    for name in hudson_keys.iter() {
+    for ref name in hudson_keys {
         if allowlist.as_ref().map(|x| x.contains(name)).unwrap_or(true) && blocklist.as_ref().map(|x| !x.contains(name)).unwrap_or(true) {
             let hudson_data = hudson_devices.get(name).unwrap();
             let possible_vendors: Vec<_> = device_repos.iter().filter(|x| x.1 == *name).map(|x| x.0.clone()).collect();
