@@ -135,7 +135,7 @@ pub async fn get_repo_branches(repo: &str) -> Result<Vec<String>, GitLsRemoteErr
     }
 
     let output_str = std::str::from_utf8(&output.stdout).map_err(GitLsRemoteError::Utf8)?;
-    let branches: Vec<Result<String, GitLsRemoteError>> = output_str.split("\n").filter_map(|line| {
+    let branches: Vec<String> = output_str.split("\n").filter_map(|line| {
         if line != "" {
             let Some(refname) = line.split("\t").nth(1) else {
                 return Some(Err(GitLsRemoteError::Parse(line.to_owned())));
@@ -152,10 +152,9 @@ pub async fn get_repo_branches(repo: &str) -> Result<Vec<String>, GitLsRemoteErr
             }
         }
         None
-    }).collect();
-    let foo : Result<Vec<String>, GitLsRemoteError> = branches.into_iter().collect();
+    }).collect::<Result<_, GitLsRemoteError>>()?;
 
-    Ok(foo?)
+    Ok(branches)
 }
 
 #[derive(Serialize, Deserialize, Debug)]
