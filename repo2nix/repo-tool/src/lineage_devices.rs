@@ -135,22 +135,24 @@ pub async fn get_repo_branches(repo: &str) -> Result<Vec<String>, GitLsRemoteErr
     }
 
     let output_str = std::str::from_utf8(&output.stdout).map_err(GitLsRemoteError::Utf8)?;
-    let mut branches = vec![];
-    for line in output_str.split("\n") {
+    let branches: Result<Vec<Option<String>>, GitLsRemoteError> = output_str.split("\n").map(|line| {
         if line != "" {
             let refname = line.split("\t").nth(1).ok_or(GitLsRemoteError::Parse(line.to_owned()))?;
             match refname.strip_prefix("refs/heads/") {
                 Some(name) => {
                     if name.starts_with("lineage-") {
-                        branches.push(name.to_owned());
+                        return Ok(Some(name.to_owned()));
+                    } else {
+                        return Ok(None);
                     }
                 },
-                None => continue,
+                None => return Ok(None),
             }
         }
-    }
+        Ok(None)
+    }).collect();
 
-    Ok(branches)
+    Ok(branches?.iter().filter_map(|it| it.clone()).collect())
 }
 
 #[derive(Serialize, Deserialize, Debug)]
