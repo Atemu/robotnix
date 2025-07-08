@@ -196,11 +196,9 @@ pub async fn get_devices(allowlist: &Option<Vec<String>>, blocklist: &Option<Vec
     let hudson_devices = fetch_hudson_devices()
         .await
         .map_err(GetDevicesError::Hudson)?;
-    let hudson_keys = hudson_devices.keys().map(|x| x.clone());
 
-    for ref name in hudson_keys {
+    for (ref name, hudson_data) in hudson_devices {
         if allowlist.as_ref().map(|x| x.contains(name)).unwrap_or(true) && blocklist.as_ref().map(|x| !x.contains(name)).unwrap_or(true) {
-            let hudson_data = hudson_devices.get(name).unwrap();
             let possible_vendors: Vec<_> = device_repos.iter().filter(|x| x.1 == *name).map(|x| x.0.clone()).collect();
             let mut found = false;
             for vendor in possible_vendors {
