@@ -112,7 +112,9 @@ pub async fn git_ls_remote(url: &str, git_ref: &str) -> Result<String, GitLsRemo
     let output_str = std::str::from_utf8(&output.stdout).map_err(GitLsRemoteError::Utf8)?;
     for line in output_str.split("\n") {
         if line.ends_with(git_ref) {
-            let commit = line.split("\t").next().unwrap();
+            let Some(commit) = line.split("\t").next() else {
+                return Err(GitLsRemoteError::Parse(line.to_owned()));
+            };
             return Ok(commit.to_string());
         }
     }
