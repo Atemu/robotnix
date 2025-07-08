@@ -140,7 +140,7 @@ pub async fn get_repo_branches(repo: &str) -> Result<Vec<String>, GitLsRemoteErr
     let mut branches = vec![];
     for line in output_str.split("\n") {
         if line != "" {
-            let refname = line.split("\t").nth(1).ok_or(GitLsRemoteError::Parse)?;
+            let refname = line.split("\t").nth(1).ok_or(GitLsRemoteError::Parse(line.to_owned()))?;
             if refname.starts_with("refs/heads/lineage-") {
                 branches.push(refname.strip_prefix("refs/heads/").unwrap().to_string());
             }
