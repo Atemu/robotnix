@@ -135,25 +135,26 @@ pub async fn get_repo_branches(repo: &str) -> Result<Vec<String>, GitLsRemoteErr
     }
 
     let output_str = std::str::from_utf8(&output.stdout).map_err(GitLsRemoteError::Utf8)?;
-    fn parse_line(line: &str) -> Option<Result<String, GitLsRemoteError>> {
+    fn parse_line(line: &str) -> Result<Option<String>, GitLsRemoteError> {
         if line == "" {
-            return None;
+            return Ok(None);
         }
         match line.split("\t").nth(1) {
-            Some(refname) => refname.strip_prefix("refs/heads/").and_then(|name| {
+            Some(refname) => Ok(refname.strip_prefix("refs/heads/").and_then(|name| {
                 if name.starts_with("lineage-") {
-                    Some(Ok(name.to_owned()))
+                    Some(name.to_owned())
                 } else {
                     None
                 }
-            }),
-            _ => Some(Err(GitLsRemoteError::Parse(line.to_owned()))),
+            })),
+            _ => Err(GitLsRemoteError::Parse(line.to_owned())),
         }
     }
-    let branches: Vec<String> = output_str
+    let parsed_lines: Vec<Option<String>> = output_str
         .split("\n")
-        .filter_map(parse_line)
+        .map(parse_line)
         .collect::<Result<_, GitLsRemoteError>>()?;
+    let branches = parsed_lines.into_iter().filter_map(|it| it).collect();
 
     Ok(branches)
 }
