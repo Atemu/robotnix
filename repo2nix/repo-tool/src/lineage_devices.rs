@@ -150,13 +150,14 @@ pub async fn get_repo_branches(repo: &str) -> Result<Vec<String>, GitLsRemoteErr
             _ => Err(GitLsRemoteError::Parse(line.to_owned())),
         }
     }
-    let parsed_lines: Vec<Option<String>> = output_str
+    let parsed_lines: Result<Vec<Option<String>>, GitLsRemoteError> = output_str
         .split("\n")
         .map(parse_line)
-        .collect::<Result<_, GitLsRemoteError>>()?;
-    let branches = parsed_lines.into_iter().filter_map(|it| it).collect();
+        .collect::<Result<_, GitLsRemoteError>>();
+    let branches: Result<Vec<String>, GitLsRemoteError> =
+        parsed_lines.map(|it| it.into_iter().filter_map(|o| o).collect::<Vec<String>>());
 
-    Ok(branches)
+    branches
 }
 
 #[derive(Serialize, Deserialize, Debug)]
