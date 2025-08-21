@@ -45,9 +45,18 @@ LineageOS is a free and open-source operating system for various devices, based 
 LineageOS support may be enabled by setting `flavor = "lineageos";`.
 At the time of writing, this includes support for ~160 devices.
 
-Robotnix includes support for LineageOS 20.0 (some older releases are also present but unmaintained).
+Robotnix includes support for LineageOS 20.0 to 22.1 (some older releases are also present but unmaintained).
 By default, robotnix will select the latest supported version for the device specified in the configuration.
-This can be overridden by setting `androidVersion` to either 10, 11 or 12, for LineageOS 17.1, 18.1 and 19.1, respectively.
+This can be overridden by setting the corresponding `androidVersion`. Here is the correspondance table of the supported Robotnix version:
+
+`androidVersion` | LineageOS version
+--- | ---
+10 | 17.1
+11 | 18.1
+12 | 19.1
+13 | 20.0
+14 | 21.0
+15 | 22.1
 
 Since LineageOS does not produce tagged releases like vanilla AOSP or GrapheneOS,
 we periodically take snapshots of the upstream repositories and include metadata in robotnix which pins the source repositories to particular revisions.
@@ -62,6 +71,24 @@ Contributions and fixes from LineageOS users are especially welcome!
 For devices with "boot-as-recovery", the typical LineageOS flashing process involves first producing a `boot.img` and `ota`, flashing `boot.img` with fastboot, and then sideloading the `ota` in recovery mode.
 The `boot.img` and `ota` targets can be built using `nix-build ... -A bootImg` or `nix-build ... -A ota`, respectively.
 Check the upstream documentation for your particular device before following the above instructions.
+
+To add a support for a particular device, add its code to `./flavors/lineageos/supported_devices.toml`, then run `nix-shell`, then `./flavors/lineageos/update.sh -s <lineageos_branch>`.
+
+### Note on signing
+When you build a LineageOS image, the system image is cryptographically signed by default. There are three options concerning the keys the image can be signed with:
+
+- the official LineageOS keys (release-keys). We don't have access to them, so the only images signed with these keys are the official LineageOS builds. If you previously installed LineageOS from official sources, these are the keys you are currently using.
+- the test keys (test-keys). These keys are publicly available, and Robotnix uses them by default.
+- your own release keys. Please see [the relevant section in the Building page](../building.md#building-and-signing-releases).
+
+When you run LineageOS and install apps that save stuff to your phone, that data is "coupled" to the keys your LineageOS install was signed with. If you try to boot a LineageOS install with an image that was signed with different build keys than the ones your user data was coupled to, it will complain and not boot at best (or you'll loose all your data at worse).
+
+In that case, you have two options:
+
+- you can wipe your userdata partition and start over with the new keys
+- or you can migrate your userdata from the keys of your old install to your new install
+
+To do the latter, please see [the official documentation](https://wiki.lineageos.org/signing_builds#using-a-script).
 
 ## Anbox
 Anbox is a Free and open-source container-based approach at running Android on Linux systems.

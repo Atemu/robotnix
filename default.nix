@@ -9,6 +9,8 @@
 let
   inherit (lib) mkOption types;
 
+  finalPkgs = pkgs.appendOverlays config.nixpkgs.overlays;
+
   eval = (lib.evalModules {
     modules = [
       ({ config, ... }: {
@@ -20,7 +22,6 @@ let
 
         config = {
           _module.args = let
-            finalPkgs = pkgs.appendOverlays config.nixpkgs.overlays;
             apks = import ./apks { pkgs = finalPkgs; };
             robotnixlib = import ./lib lib;
           in {
@@ -30,31 +31,32 @@ let
         };
       })
       configuration
-      ./flavors/anbox
+      #./flavors/anbox
       ./flavors/grapheneos
-      ./flavors/grapheneos/kernel.nix
       ./flavors/lineageos
-      ./flavors/vanilla
-      ./flavors/vanilla/10
-      ./flavors/vanilla/11
-      ./flavors/vanilla/11/kernel
-      ./flavors/vanilla/12
-      ./flavors/waydroid
+      #./flavors/vanilla
+      #./flavors/vanilla/10
+      #./flavors/vanilla/11
+      #./flavors/vanilla/11/kernel
+      #./flavors/vanilla/12
+      #./flavors/waydroid
       ./modules/10
       ./modules/11
       ./modules/12
       ./modules/13
       ./modules/15
+      ./modules/16
       ./modules/9
+      ./modules/adevtool
       ./modules/apps/auditor.nix
       ./modules/apps/chromium.nix
       ./modules/apps/fdroid.nix
       ./modules/apps/prebuilt.nix
       ./modules/apps/seedvault.nix
       ./modules/apps/updater.nix
-      ./modules/apv
       ./modules/assertions.nix
       ./modules/base.nix
+      ./modules/bootanimation.nix
       ./modules/emulator.nix
       ./modules/envpackages.nix
       ./modules/etc.nix
@@ -82,7 +84,8 @@ let
     else lib.showWarnings eval.config.warnings eval.config;
 
 in {
-  inherit (eval) pkgs options;
+  inherit (eval) options;
+  inherit finalPkgs;
   inherit config;
 
   # Things that are nice to have at the top-level, since they might get moved
