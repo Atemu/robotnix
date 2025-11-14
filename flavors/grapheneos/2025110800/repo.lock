@@ -11,7 +11,7 @@
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/platform_art",
-          "revision": "1cc15f8b7cbe98134831858724d98de00eb060f6",
+          "revision": "c911d846641dc22ea0e8b0eb05bb54ae8358fefd",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -22,10 +22,10 @@
         "active": true
       },
       "lock": {
-        "commit": "1cc15f8b7cbe98134831858724d98de00eb060f6",
-        "nix_hash": "sha256-9mng1bJ/AqxmI8ctMs0fRGUCoo61Tj80obgbBeoeZ7A=",
-        "path": "/nix/store/caphp23qx36iqbpcfa0wx1q16h8sq65x-platform_art-1cc15f8",
-        "date": 1753029457
+        "commit": "c911d846641dc22ea0e8b0eb05bb54ae8358fefd",
+        "nix_hash": "sha256-Cby+WqauFQhpoWzBRgw8bStom6LcyGsMR85apXvtzdE=",
+        "path": "/nix/store/2f4l2qgmgn8cfdhas0hbf6izvqm9cfkn-platform_art-c911d84",
+        "date": 1756838675
       }
     },
     "bionic": {
@@ -289,7 +289,7 @@
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/platform_build",
-          "revision": "63e7727e7a40717922c55c287451e14185628718",
+          "revision": "42bbad7c962b15fd1b013dcd2c977e8c108699b5",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -300,10 +300,10 @@
         "active": true
       },
       "lock": {
-        "commit": "63e7727e7a40717922c55c287451e14185628718",
-        "nix_hash": "sha256-AIKV+MyjLZKGd0VvMdsOoH2dSWQv2KKt6IXzksNuOfc=",
-        "path": "/nix/store/lygmyxq33isq9bva0azlnfq1dp0as12v-platform_build-63e7727",
-        "date": 1752429519
+        "commit": "42bbad7c962b15fd1b013dcd2c977e8c108699b5",
+        "nix_hash": "sha256-rjFwVcDc7OAhsGxGv79darjWtiPqcxTvS8KdhWn2l2k=",
+        "path": "/nix/store/qhzvscww8a871m1kavi0svd72nhq2h4j-platform_build-42bbad7",
+        "date": 1761226991
       }
     },
     "build/pesto": {
@@ -345,7 +345,7 @@
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/platform_build_release",
-          "revision": "0340b0b70771e1273a792e029a809d4a62ad57d6",
+          "revision": "f1652a40106e906e7380631ea5160642108c49ee",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -356,10 +356,10 @@
         "active": true
       },
       "lock": {
-        "commit": "0340b0b70771e1273a792e029a809d4a62ad57d6",
-        "nix_hash": "sha256-ho17U5lQv7myrq/AqthYjiGaSHke0edjxPTItaUGlis=",
-        "path": "/nix/store/qpvgdiw8jjwacd4zkg84kjsb2kby592j-platform_build_release-0340b0b",
-        "date": 1754442988
+        "commit": "f1652a40106e906e7380631ea5160642108c49ee",
+        "nix_hash": "sha256-MLFPczot2StHSlBlNN2Kx0aP0SGZnV/7YxM4kM2VlDA=",
+        "path": "/nix/store/ydbfmwgialnhn2fkxj1yv99y3wfbkx5v-platform_build_release-f1652a4",
+        "date": 1762194437
       }
     },
     "build/soong": {
@@ -383,7 +383,7 @@
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/platform_build_soong",
-          "revision": "dd4c38cf6ea620da5264473c46d979cb4dc78517",
+          "revision": "658c3b1129047063d125cc8d36db265f8627c065",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -394,10 +394,10 @@
         "active": true
       },
       "lock": {
-        "commit": "dd4c38cf6ea620da5264473c46d979cb4dc78517",
-        "nix_hash": "sha256-bs6GEVHHxZ43jVMCV7ALGoH2KUzf8mWVMQVld7yQpBY=",
-        "path": "/nix/store/b7x9rp550r63c83rhirlm4g6dfbiqzj1-platform_build_soong-dd4c38c",
-        "date": 1751469492
+        "commit": "658c3b1129047063d125cc8d36db265f8627c065",
+        "nix_hash": "sha256-hF1rhHEmYJsZgUMdCgteBJ7TI72QoE3taYc3k71Syok=",
+        "path": "/nix/store/siq5ldnk4wdxihm0jziqg1lqp80j4yiy-platform_build_soong-658c3b1",
+        "date": 1754769777
       }
     },
     "cts": {
@@ -773,7 +773,7 @@
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/device_generic_goldfish",
-          "revision": "86aa5212be80d150a4cb449e492f7a89ad542c73",
+          "revision": "27253406fdfe8cd98f451441dba99d78f44c2f31",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -784,10 +784,10 @@
         "active": true
       },
       "lock": {
-        "commit": "86aa5212be80d150a4cb449e492f7a89ad542c73",
-        "nix_hash": "sha256-xdxmWb2YIIN6VvfN993qc4FmUezFdA94CPJglwYrwiY=",
-        "path": "/nix/store/krr3wq2gpxc9h3xk6s0x4n2lfbminlbx-device_generic_goldfish-86aa521",
-        "date": 1749739055
+        "commit": "27253406fdfe8cd98f451441dba99d78f44c2f31",
+        "nix_hash": "sha256-JHg4MUhK45hh2Et+9+kgxawwT/QygvEkdwPS9KEwS/M=",
+        "path": "/nix/store/zxr7mb9jhwiap33pixsx8y422yyj5lbw-device_generic_goldfish-2725340",
+        "date": 1760757846
       }
     },
     "device/generic/goldfish-opengl": {
@@ -901,15 +901,12 @@
     "device/google/akita": {
       "project": {
         "path": "device/google/akita",
-        "groups": [
-          "device",
-          "akita"
-        ],
+        "groups": [],
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/device_google_akita",
-          "revision": "9f857d8ff54d54ac0cb66a8c88395f611284d20b",
+          "revision": "33842e9485df77891df9bfe8d8ba0cb43fb53c37",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -920,24 +917,21 @@
         "active": true
       },
       "lock": {
-        "commit": "9f857d8ff54d54ac0cb66a8c88395f611284d20b",
-        "nix_hash": "sha256-M5oZgI9ovfaqxQverbGW1pJqgtZCU6z69FTM2DiS/Ao=",
-        "path": "/nix/store/9l8fi64yh1lqirw19vifq4xfpqlzwydc-device_google_akita-9f857d8",
-        "date": 1751818121
+        "commit": "33842e9485df77891df9bfe8d8ba0cb43fb53c37",
+        "nix_hash": "sha256-3yFzR86kRtaAbcSyNz0ldt+EP53f3jha7C9bl5v7T/s=",
+        "path": "/nix/store/fm74lf34fy49yp6lf9pvrcld92hir8vf-device_google_akita-33842e9",
+        "date": 1754769238
       }
     },
     "device/google/akita-kernels/6.1": {
       "project": {
         "path": "device/google/akita-kernels/6.1",
-        "groups": [
-          "device",
-          "akita"
-        ],
+        "groups": [],
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/device_google_akita-kernels_6.1",
-          "revision": "cd7d7da0c911784461f1a6cbc3f686cb562fcfe0",
+          "revision": "15ff8441251efe5ed843e46dc24ce24ad49e9cd0",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -948,19 +942,16 @@
         "active": true
       },
       "lock": {
-        "commit": "cd7d7da0c911784461f1a6cbc3f686cb562fcfe0",
-        "nix_hash": "sha256-Y4hfn/fCXf0YRwT3wRuENfz9nIuckav0lCA9bki0GVE=",
-        "path": "/nix/store/bqq7j605l3djyd5mz6wldsrjdic71f8p-device_google_akita-kernels_6.1-cd7d7da",
-        "date": 1754449661
+        "commit": "15ff8441251efe5ed843e46dc24ce24ad49e9cd0",
+        "nix_hash": "sha256-G4va78Nn0WC/n203UPse8aRI1FBjUA05UhORbb7rkA8=",
+        "path": "/nix/store/2dixkyab2zx4lisyazg4bnzxk3cvyn8y-device_google_akita-kernels_6.1-15ff844",
+        "date": 1762216387
       }
     },
     "device/google/akita-sepolicy": {
       "project": {
         "path": "device/google/akita-sepolicy",
-        "groups": [
-          "device",
-          "akita"
-        ],
+        "groups": [],
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
@@ -1015,10 +1006,7 @@
     "device/google/bluejay": {
       "project": {
         "path": "device/google/bluejay",
-        "groups": [
-          "device",
-          "bluejay"
-        ],
+        "groups": [],
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
@@ -1043,15 +1031,12 @@
     "device/google/bluejay-kernels/6.1": {
       "project": {
         "path": "device/google/bluejay-kernels/6.1",
-        "groups": [
-          "device",
-          "bluejay"
-        ],
+        "groups": [],
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/device_google_bluejay-kernels_6.1",
-          "revision": "70a4b3a1406ddccd015648ac7301d328a167c63a",
+          "revision": "f20a77a53cf3baea1f54fb78cdb12e6c396379c6",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -1062,19 +1047,16 @@
         "active": true
       },
       "lock": {
-        "commit": "70a4b3a1406ddccd015648ac7301d328a167c63a",
-        "nix_hash": "sha256-wSEosfRYQtTXhrUc4EQIlU7VXbSmdwVOYmp8NwBKlMY=",
-        "path": "/nix/store/rkqbkdcrbl64kij1m1wa9rhb28r2dxdw-device_google_bluejay-kernels_6.1-70a4b3a",
-        "date": 1754447643
+        "commit": "f20a77a53cf3baea1f54fb78cdb12e6c396379c6",
+        "nix_hash": "sha256-/onIKT1BgGRAYcvTpqdkk2E/obHMMMGtKY5RYps1kwU=",
+        "path": "/nix/store/4qkf2pkv16jzwlmcvzp01hzpi84ramgr-device_google_bluejay-kernels_6.1-f20a77a",
+        "date": 1762215297
       }
     },
     "device/google/bluejay-sepolicy": {
       "project": {
         "path": "device/google/bluejay-sepolicy",
-        "groups": [
-          "device",
-          "bluejay"
-        ],
+        "groups": [],
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
@@ -1099,10 +1081,7 @@
     "device/google/caimito": {
       "project": {
         "path": "device/google/caimito",
-        "groups": [
-          "device",
-          "caimito"
-        ],
+        "groups": [],
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
@@ -1127,15 +1106,12 @@
     "device/google/caimito-kernels/6.1": {
       "project": {
         "path": "device/google/caimito-kernels/6.1",
-        "groups": [
-          "device",
-          "caimito"
-        ],
+        "groups": [],
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/device_google_caimito-kernels_6.1",
-          "revision": "ad8d205031145259413f1115a5bcdb431dd547a1",
+          "revision": "66cab76b3b7260a9a483cb37688c6b88c295dfe7",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -1146,19 +1122,16 @@
         "active": true
       },
       "lock": {
-        "commit": "ad8d205031145259413f1115a5bcdb431dd547a1",
-        "nix_hash": "sha256-6jelU6KoOZNbpagnoyb8hj+RTjdvOJFTdfCpTCQx0EY=",
-        "path": "/nix/store/8903ag3gwlv32imvday701gd9fm5g44v-device_google_caimito-kernels_6.1-ad8d205",
-        "date": 1754450444
+        "commit": "66cab76b3b7260a9a483cb37688c6b88c295dfe7",
+        "nix_hash": "sha256-chOzPy7ilumYG2uJ4KklM6ZkJOyx24u9kMcnWGQ4Tp4=",
+        "path": "/nix/store/ccnx6awvjyxz2ij3scm7hlad6dwbk971-device_google_caimito-kernels_6.1-66cab76",
+        "date": 1762217140
       }
     },
     "device/google/caimito-sepolicy": {
       "project": {
         "path": "device/google/caimito-sepolicy",
-        "groups": [
-          "device",
-          "caimito"
-        ],
+        "groups": [],
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
@@ -1183,10 +1156,7 @@
     "device/google/comet": {
       "project": {
         "path": "device/google/comet",
-        "groups": [
-          "device",
-          "comet"
-        ],
+        "groups": [],
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
@@ -1211,15 +1181,12 @@
     "device/google/comet-kernels/6.1": {
       "project": {
         "path": "device/google/comet-kernels/6.1",
-        "groups": [
-          "device",
-          "comet"
-        ],
+        "groups": [],
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/device_google_comet-kernels_6.1",
-          "revision": "cf96435c4c087e38a3c278bd123da65339ab8436",
+          "revision": "46019594a1138b0fc26d56200959d20f9c9e939a",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -1230,19 +1197,16 @@
         "active": true
       },
       "lock": {
-        "commit": "cf96435c4c087e38a3c278bd123da65339ab8436",
-        "nix_hash": "sha256-9pRdMyyJYrS48lHOhcnh/MDLUlL4Xkf+8JvlGpOXObs=",
-        "path": "/nix/store/5kggg9i8vqf4cilm0id19nm0mj34ir0w-device_google_comet-kernels_6.1-cf96435",
-        "date": 1754450447
+        "commit": "46019594a1138b0fc26d56200959d20f9c9e939a",
+        "nix_hash": "sha256-h+SEquCiL2oJ6UvAO6YNKQJpfigt5i+Hu4paY2pOwqc=",
+        "path": "/nix/store/msybl6m528slrk2x45f3cc3g6vm0z4vb-device_google_comet-kernels_6.1-4601959",
+        "date": 1762217144
       }
     },
     "device/google/comet-sepolicy": {
       "project": {
         "path": "device/google/comet-sepolicy",
-        "groups": [
-          "device",
-          "comet"
-        ],
+        "groups": [],
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
@@ -1406,10 +1370,7 @@
     "device/google/felix": {
       "project": {
         "path": "device/google/felix",
-        "groups": [
-          "device",
-          "felix"
-        ],
+        "groups": [],
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
@@ -1434,15 +1395,12 @@
     "device/google/felix-kernels/6.1": {
       "project": {
         "path": "device/google/felix-kernels/6.1",
-        "groups": [
-          "device",
-          "felix"
-        ],
+        "groups": [],
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/device_google_felix-kernels_6.1",
-          "revision": "2d152ed4deae33718bee9f7d3e68b77c64fd55ff",
+          "revision": "38052eefc26fe061af7c67c92d0e6fb9801df8db",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -1453,19 +1411,16 @@
         "active": true
       },
       "lock": {
-        "commit": "2d152ed4deae33718bee9f7d3e68b77c64fd55ff",
-        "nix_hash": "sha256-8B66d7YPVsa2iuRQz3Se+T/5ze/lABv4MRHZ5ESIv24=",
-        "path": "/nix/store/wlv8hfrg5n07iyisw977sr3wp1qmjf6r-device_google_felix-kernels_6.1-2d152ed",
-        "date": 1754449665
+        "commit": "38052eefc26fe061af7c67c92d0e6fb9801df8db",
+        "nix_hash": "sha256-T+q3n+bWBJg6hPLxMOXCtroWodC5SlzoJOzF+FwYOgA=",
+        "path": "/nix/store/p8vlghajf1d333b7gdv412g6sib7g3qk-device_google_felix-kernels_6.1-38052ee",
+        "date": 1762216379
       }
     },
     "device/google/felix-sepolicy": {
       "project": {
         "path": "device/google/felix-sepolicy",
-        "groups": [
-          "device",
-          "felix"
-        ],
+        "groups": [],
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
@@ -1490,15 +1445,7 @@
     "device/google/gs-common": {
       "project": {
         "path": "device/google/gs-common",
-        "groups": [
-          "device",
-          "slider",
-          "bluejay",
-          "cloudripper",
-          "pdk-gs-arm",
-          "pdk-cw-tvc",
-          "pdk-gs-imgtec"
-        ],
+        "groups": [],
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
@@ -1523,17 +1470,12 @@
     "device/google/gs101": {
       "project": {
         "path": "device/google/gs101",
-        "groups": [
-          "device",
-          "slider",
-          "bluejay",
-          "pdk-gs-arm"
-        ],
+        "groups": [],
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/device_google_gs101",
-          "revision": "c7e5d9f7c0e531fb7b1aa5f34e2265c8d740e4f9",
+          "revision": "538be3538bfbdc56da62fe5fec0c93849f57e95a",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -1544,21 +1486,16 @@
         "active": true
       },
       "lock": {
-        "commit": "c7e5d9f7c0e531fb7b1aa5f34e2265c8d740e4f9",
-        "nix_hash": "sha256-/PxxQyoaWdRdi362MppFSRFsACFGq1h/BuRmf51cs6c=",
-        "path": "/nix/store/21n0drk7fwz462blav0i321m3i05p9jd-device_google_gs101-c7e5d9f",
-        "date": 1752327838
+        "commit": "538be3538bfbdc56da62fe5fec0c93849f57e95a",
+        "nix_hash": "sha256-S1O5yw3vprcIl2StH+P9amCzqfvVy4habrfVystyDM4=",
+        "path": "/nix/store/yyfccaq4jjimrmqnfb8hcbyxgjf1y7dn-device_google_gs101-538be35",
+        "date": 1757521015
       }
     },
     "device/google/gs101-sepolicy": {
       "project": {
         "path": "device/google/gs101-sepolicy",
-        "groups": [
-          "device",
-          "slider",
-          "bluejay",
-          "pdk-gs-arm"
-        ],
+        "groups": [],
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
@@ -1583,16 +1520,12 @@
     "device/google/gs201": {
       "project": {
         "path": "device/google/gs201",
-        "groups": [
-          "device",
-          "cloudripper",
-          "pdk-gs-arm"
-        ],
+        "groups": [],
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/device_google_gs201",
-          "revision": "b6144adc53f58b4d19000eebdf5689a170307f64",
+          "revision": "76d29dcfba80ad48dee631fc8b5c6efaf9c1e825",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -1603,20 +1536,16 @@
         "active": true
       },
       "lock": {
-        "commit": "b6144adc53f58b4d19000eebdf5689a170307f64",
-        "nix_hash": "sha256-JlI2REAXel6YKPOv3mxPuwvaDqd11l8uoLZKtSmlR6M=",
-        "path": "/nix/store/8zmaaxkpbkil06662k40w884jcwn896y-device_google_gs201-b6144ad",
-        "date": 1752327897
+        "commit": "76d29dcfba80ad48dee631fc8b5c6efaf9c1e825",
+        "nix_hash": "sha256-sVC1S2PpL5arPGpe6cJ9anwU7f/Gsy8yLu3O68hrxMQ=",
+        "path": "/nix/store/wspad7lq6g2a2rh746sgiv2gpn5gbrrp-device_google_gs201-76d29dc",
+        "date": 1757521012
       }
     },
     "device/google/gs201-sepolicy": {
       "project": {
         "path": "device/google/gs201-sepolicy",
-        "groups": [
-          "device",
-          "cloudripper",
-          "pdk-gs-arm"
-        ],
+        "groups": [],
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
@@ -1641,10 +1570,7 @@
     "device/google/lynx": {
       "project": {
         "path": "device/google/lynx",
-        "groups": [
-          "device",
-          "lynx"
-        ],
+        "groups": [],
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
@@ -1669,15 +1595,12 @@
     "device/google/lynx-kernels/6.1": {
       "project": {
         "path": "device/google/lynx-kernels/6.1",
-        "groups": [
-          "device",
-          "lynx"
-        ],
+        "groups": [],
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/device_google_lynx-kernels_6.1",
-          "revision": "17e9cecc2a4a482df529ce63c7c808f11910b3c2",
+          "revision": "695aa9a04a9ea99e925b4dfdf3bd56d4db5b4b48",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -1688,19 +1611,16 @@
         "active": true
       },
       "lock": {
-        "commit": "17e9cecc2a4a482df529ce63c7c808f11910b3c2",
-        "nix_hash": "sha256-Y8PQMDCuxxWn+jZPrOV70Sl9PC09XCTenFvK3ORQ3HY=",
-        "path": "/nix/store/ygw5n8zrwl32rmi0y0miv9c1wgq3viqd-device_google_lynx-kernels_6.1-17e9cec",
-        "date": 1754448840
+        "commit": "695aa9a04a9ea99e925b4dfdf3bd56d4db5b4b48",
+        "nix_hash": "sha256-Z3hV/H4Pdi/u4N4XFg2OOCCC7kBXhkYwH7C755fAesE=",
+        "path": "/nix/store/fc43v4ig5r8ziqfcrjx0pfgng9r1hzyp-device_google_lynx-kernels_6.1-695aa9a",
+        "date": 1762215324
       }
     },
     "device/google/lynx-sepolicy": {
       "project": {
         "path": "device/google/lynx-sepolicy",
-        "groups": [
-          "device",
-          "lynx"
-        ],
+        "groups": [],
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
@@ -1725,11 +1645,7 @@
     "device/google/pantah": {
       "project": {
         "path": "device/google/pantah",
-        "groups": [
-          "device",
-          "cloudripper",
-          "pdk-gs-arm"
-        ],
+        "groups": [],
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
@@ -1754,15 +1670,12 @@
     "device/google/pantah-kernels/6.1": {
       "project": {
         "path": "device/google/pantah-kernels/6.1",
-        "groups": [
-          "device",
-          "cloudripper"
-        ],
+        "groups": [],
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/device_google_pantah-kernels_6.1",
-          "revision": "84ddf70346e08a8fd56a493b12eeb5554c7abf64",
+          "revision": "168615c9550ac00ed3a0ab70c93679fab204d09d",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -1773,20 +1686,16 @@
         "active": true
       },
       "lock": {
-        "commit": "84ddf70346e08a8fd56a493b12eeb5554c7abf64",
-        "nix_hash": "sha256-gFpZ8G1SvuzRvL9moPwNyvftn6lJWhU881aYDKy2Diw=",
-        "path": "/nix/store/gwgijaxf2s9ccwrkm7g8lckw265f7y4m-device_google_pantah-kernels_6.1-84ddf70",
-        "date": 1754448836
+        "commit": "168615c9550ac00ed3a0ab70c93679fab204d09d",
+        "nix_hash": "sha256-+DbQB1FOs8ytrAoNFDlWwdoA9kZAAD4R9QZx7dcN/lw=",
+        "path": "/nix/store/0m5ylhmwxqhrmk17p95q1mprnan3a49q-device_google_pantah-kernels_6.1-168615c",
+        "date": 1762215308
       }
     },
     "device/google/pantah-sepolicy": {
       "project": {
         "path": "device/google/pantah-sepolicy",
-        "groups": [
-          "device",
-          "cloudripper",
-          "pdk-gs-arm"
-        ],
+        "groups": [],
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
@@ -1811,11 +1720,7 @@
     "device/google/raviole": {
       "project": {
         "path": "device/google/raviole",
-        "groups": [
-          "device",
-          "slider",
-          "pdk-gs-arm"
-        ],
+        "groups": [],
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
@@ -1840,15 +1745,12 @@
     "device/google/raviole-kernels/6.1": {
       "project": {
         "path": "device/google/raviole-kernels/6.1",
-        "groups": [
-          "device",
-          "slider"
-        ],
+        "groups": [],
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/device_google_raviole-kernels_6.1",
-          "revision": "953a377a7fe24f16649330abf378bea091ed0b10",
+          "revision": "db5023fb231f4e8cf4720e47bb998ca67ccee861",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -1859,20 +1761,16 @@
         "active": true
       },
       "lock": {
-        "commit": "953a377a7fe24f16649330abf378bea091ed0b10",
-        "nix_hash": "sha256-23TJLa2LTUXp94/Z2J9FrfhHdFdVWFAXgfog5n/FIUU=",
-        "path": "/nix/store/ig1byq1g40b213vrl5lmw3wn4i2gcdcf-device_google_raviole-kernels_6.1-953a377",
-        "date": 1754447639
+        "commit": "db5023fb231f4e8cf4720e47bb998ca67ccee861",
+        "nix_hash": "sha256-ywJ/LE3PGDw/O36Q/71xyBs8lEQ2G8ZBfpGCyZS7Wc4=",
+        "path": "/nix/store/mk7jw463krw37kpphccmfrrv28znrh7s-device_google_raviole-kernels_6.1-db5023f",
+        "date": 1762215289
       }
     },
     "device/google/shusky": {
       "project": {
         "path": "device/google/shusky",
-        "groups": [
-          "device",
-          "ripcurrent",
-          "pdk-gs-arm"
-        ],
+        "groups": [],
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
@@ -1897,15 +1795,12 @@
     "device/google/shusky-kernels/6.1": {
       "project": {
         "path": "device/google/shusky-kernels/6.1",
-        "groups": [
-          "device",
-          "ripcurrent"
-        ],
+        "groups": [],
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/device_google_shusky-kernels_6.1",
-          "revision": "793efcafcdaceba9ec54f15002681ca2ebeb3c37",
+          "revision": "38d91f3aef62b1a330e0e8a5cba7c52ab7e5c657",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -1916,20 +1811,16 @@
         "active": true
       },
       "lock": {
-        "commit": "793efcafcdaceba9ec54f15002681ca2ebeb3c37",
-        "nix_hash": "sha256-fE+NvJZn0dTLTWXC2PB8m+WcAPhOwInsV//4jmC7L3I=",
-        "path": "/nix/store/c2sz0r288bghhd3fxrhg8yvvwyykzrs3-device_google_shusky-kernels_6.1-793efca",
-        "date": 1754449664
+        "commit": "38d91f3aef62b1a330e0e8a5cba7c52ab7e5c657",
+        "nix_hash": "sha256-Mt2hGt8mgjKxevm/SMGYSRnB7fwQZkOjuOkYIejVHng=",
+        "path": "/nix/store/6cnqfhayihbfpgcb4npflrl5gvvj6yjs-device_google_shusky-kernels_6.1-38d91f3",
+        "date": 1762216380
       }
     },
     "device/google/shusky-sepolicy": {
       "project": {
         "path": "device/google/shusky-sepolicy",
-        "groups": [
-          "device",
-          "ripcurrent",
-          "pdk-gs-arm"
-        ],
+        "groups": [],
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
@@ -1954,10 +1845,7 @@
     "device/google/tangorpro": {
       "project": {
         "path": "device/google/tangorpro",
-        "groups": [
-          "device",
-          "tangorpro"
-        ],
+        "groups": [],
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
@@ -1982,15 +1870,12 @@
     "device/google/tangorpro-kernels/6.1": {
       "project": {
         "path": "device/google/tangorpro-kernels/6.1",
-        "groups": [
-          "device",
-          "tangorpro"
-        ],
+        "groups": [],
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/device_google_tangorpro-kernels_6.1",
-          "revision": "cab628f53420cd39b449f9b42e1f4921d24a261d",
+          "revision": "e5aa1e539e1dd59c4f07468ccec333c08becba88",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -2001,19 +1886,16 @@
         "active": true
       },
       "lock": {
-        "commit": "cab628f53420cd39b449f9b42e1f4921d24a261d",
-        "nix_hash": "sha256-AsvLKUsidlkGf7XIK+3AM51ndS9ECsgL6F0TEcNzkaw=",
-        "path": "/nix/store/2fwwij6zjdqpl00h466ra0n48n59ld06-device_google_tangorpro-kernels_6.1-cab628f",
-        "date": 1754448843
+        "commit": "e5aa1e539e1dd59c4f07468ccec333c08becba88",
+        "nix_hash": "sha256-DtTswZ9qOwEcZIj3I8UWxNYuh4S8LlT6PVOl4jIwdbU=",
+        "path": "/nix/store/pbr07ygqbkf6pp66l666p04hn4izi6mr-device_google_tangorpro-kernels_6.1-e5aa1e5",
+        "date": 1762216372
       }
     },
     "device/google/tangorpro-sepolicy": {
       "project": {
         "path": "device/google/tangorpro-sepolicy",
-        "groups": [
-          "device",
-          "tangorpro"
-        ],
+        "groups": [],
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
@@ -2038,10 +1920,7 @@
     "device/google/tegu": {
       "project": {
         "path": "device/google/tegu",
-        "groups": [
-          "device",
-          "tegu"
-        ],
+        "groups": [],
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
@@ -2066,15 +1945,12 @@
     "device/google/tegu-kernels/6.1": {
       "project": {
         "path": "device/google/tegu-kernels/6.1",
-        "groups": [
-          "device",
-          "tegu"
-        ],
+        "groups": [],
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/device_google_tegu-kernels_6.1",
-          "revision": "8dad7a41fed9f9b57fbeddb49c3b8e36b092f4c6",
+          "revision": "a684cb71862a1583eefd7d2baa574da4b196d7e4",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -2085,19 +1961,16 @@
         "active": true
       },
       "lock": {
-        "commit": "8dad7a41fed9f9b57fbeddb49c3b8e36b092f4c6",
-        "nix_hash": "sha256-BeWgI6LAGoMMf2BU7ylaMf0v+1DPUvPokLTdvueqc3g=",
-        "path": "/nix/store/is17mmd1aw4vjn16wsmvc4ja5341k1vz-device_google_tegu-kernels_6.1-8dad7a4",
-        "date": 1754447645
+        "commit": "a684cb71862a1583eefd7d2baa574da4b196d7e4",
+        "nix_hash": "sha256-aHznSvJP6eEQMhjSzADYMXNVB+HVoS6NGJXsZd2SxQo=",
+        "path": "/nix/store/vrhf45mdcwc1izn6rh8akbdm0ahv5h0b-device_google_tegu-kernels_6.1-a684cb7",
+        "date": 1762217147
       }
     },
     "device/google/tegu-sepolicy": {
       "project": {
         "path": "device/google/tegu-sepolicy",
-        "groups": [
-          "device",
-          "tegu"
-        ],
+        "groups": [],
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
@@ -2150,16 +2023,12 @@
     "device/google/zuma": {
       "project": {
         "path": "device/google/zuma",
-        "groups": [
-          "device",
-          "ripcurrent",
-          "pdk-gs-arm"
-        ],
+        "groups": [],
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/device_google_zuma",
-          "revision": "7958d5062c45fbb8ff3c3bc444ca6bffe1baa7ee",
+          "revision": "2aa72443cf6d5691c187bc393cc2ed3bc2f68818",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -2170,20 +2039,16 @@
         "active": true
       },
       "lock": {
-        "commit": "7958d5062c45fbb8ff3c3bc444ca6bffe1baa7ee",
-        "nix_hash": "sha256-AVtr+PEkoQA24b3pIwsn7KqZPzSvb8PfwhCat51gZoQ=",
-        "path": "/nix/store/pi6zn9y9gf08vy0364c4h36lfwjrs6iq-device_google_zuma-7958d50",
-        "date": 1752327934
+        "commit": "2aa72443cf6d5691c187bc393cc2ed3bc2f68818",
+        "nix_hash": "sha256-13VVIMasqjAdzdWu5QeKXKCIR2Tz7TOpcona3D4htQ4=",
+        "path": "/nix/store/yibvkhx2ws5ql7zh3fjvfv0vb9yp1dpx-device_google_zuma-2aa7244",
+        "date": 1757521009
       }
     },
     "device/google/zuma-sepolicy": {
       "project": {
         "path": "device/google/zuma-sepolicy",
-        "groups": [
-          "device",
-          "ripcurrent",
-          "pdk-gs-arm"
-        ],
+        "groups": [],
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
@@ -2208,15 +2073,12 @@
     "device/google/zumapro": {
       "project": {
         "path": "device/google/zumapro",
-        "groups": [
-          "device",
-          "ripcurrentpro"
-        ],
+        "groups": [],
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/device_google_zumapro",
-          "revision": "a2ba77a46ce7326ab80e6ef47ca9655371a22032",
+          "revision": "d623ec5115ded4e41d1dff9de933889a89f45b92",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -2227,19 +2089,16 @@
         "active": true
       },
       "lock": {
-        "commit": "a2ba77a46ce7326ab80e6ef47ca9655371a22032",
-        "nix_hash": "sha256-3zbamAzFZ8oDsURHXxS5Fnvtx/ctV9ZMpIZvD3VOXJI=",
-        "path": "/nix/store/lncxwb6a8pvfwylps1lf51cbb23gb110-device_google_zumapro-a2ba77a",
-        "date": 1752327981
+        "commit": "d623ec5115ded4e41d1dff9de933889a89f45b92",
+        "nix_hash": "sha256-lt6rtGaTyWT5vpImuutaru39/z+E8b8ThkE/Sl56/vg=",
+        "path": "/nix/store/nxyrdbdm9kyb5bgh7igv4v85rp5n4y7y-device_google_zumapro-d623ec5",
+        "date": 1757520788
       }
     },
     "device/google/zumapro-sepolicy": {
       "project": {
         "path": "device/google/zumapro-sepolicy",
-        "groups": [
-          "device",
-          "ripcurrentpro"
-        ],
+        "groups": [],
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
@@ -2493,7 +2352,7 @@
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/platform_external_AppStore",
-          "revision": "e4c1c9f3ed0c6d83fe3816d032d05aa66f3459b0",
+          "revision": "bfbb0828d8ae09f8e96de15da48d56cfb9a8eed5",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -2504,10 +2363,10 @@
         "active": true
       },
       "lock": {
-        "commit": "e4c1c9f3ed0c6d83fe3816d032d05aa66f3459b0",
-        "nix_hash": "sha256-BmX/04/88iEBPXaQ923ApJGvmxMtVDMECSB7s0A4Gkw=",
-        "path": "/nix/store/4pmknx5izb7ksk5pmh06rxhzfc1j8vh9-platform_external_AppStore-e4c1c9f",
-        "date": 1744488583
+        "commit": "bfbb0828d8ae09f8e96de15da48d56cfb9a8eed5",
+        "nix_hash": "sha256-7kflDSGGBcOED60ZNGxh2/UoTeZCPYVelAj+U4cnP5Q=",
+        "path": "/nix/store/v63ls7ph4alb3riv2b8silhvlz4irfhy-platform_external_AppStore-bfbb082",
+        "date": 1757112832
       }
     },
     "external/Auditor": {
@@ -2543,7 +2402,7 @@
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/platform_external_Camera",
-          "revision": "ff676fa3f732aac4049032f3842e6bcaf1b0cdbf",
+          "revision": "80a4cbb19f5f6f6efb5c46deb7d5f4e1bde74a07",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -2554,10 +2413,10 @@
         "active": true
       },
       "lock": {
-        "commit": "ff676fa3f732aac4049032f3842e6bcaf1b0cdbf",
-        "nix_hash": "sha256-n4+vt5i7VOLrxyxDcj3J9AVCXJvu4XwcjFZ/cK1q8ws=",
-        "path": "/nix/store/apqdwz02n8w59d7lr72lfic2vpi81gmg-platform_external_Camera-ff676fa",
-        "date": 1741808539
+        "commit": "80a4cbb19f5f6f6efb5c46deb7d5f4e1bde74a07",
+        "nix_hash": "sha256-1WfRjopy4oYCsVmm2xK2iEk3nvsv/7+AMbdQlNcKw14=",
+        "path": "/nix/store/khg5l761l504wkx0j51q90bd7w9xwx6g-platform_external_Camera-80a4cbb",
+        "date": 1759510362
       }
     },
     "external/ComputeLibrary": {
@@ -2652,7 +2511,7 @@
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/platform_external_GmsCompatConfig",
-          "revision": "1b8bf044566129cf33a38c06061bd7540ab4ed7b",
+          "revision": "84adf666124c9e147fd9feb32de2a85bb448b290",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -2663,10 +2522,10 @@
         "active": true
       },
       "lock": {
-        "commit": "1b8bf044566129cf33a38c06061bd7540ab4ed7b",
-        "nix_hash": "sha256-3PVDevUGL1g+sTut/SzfERsL8kYcwCdoKOf9/NseQnQ=",
-        "path": "/nix/store/j75gmrxsa6d15slz3p9clw21ygnywlrb-platform_external_GmsCompatConfig-1b8bf04",
-        "date": 1753507866
+        "commit": "84adf666124c9e147fd9feb32de2a85bb448b290",
+        "nix_hash": "sha256-+2daWF40MHGABzGz6aZ6A9SnsFX7D5hs8ab6Bn0C0W8=",
+        "path": "/nix/store/7ynyx0h1yqc2zvb3ianwjaah8chrlsiq-platform_external_GmsCompatConfig-84adf66",
+        "date": 1759533151
       }
     },
     "external/Info": {
@@ -2679,7 +2538,7 @@
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/platform_external_Info",
-          "revision": "9d9768035b3a87f8c34b9fbaf9e507f82875aa6d",
+          "revision": "028fd7965cda7ab999f7de2c1ec01f9745c71b4b",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -2690,10 +2549,10 @@
         "active": true
       },
       "lock": {
-        "commit": "9d9768035b3a87f8c34b9fbaf9e507f82875aa6d",
-        "nix_hash": "sha256-snVk4uaa5nJ2AKbWr+xwHbX46MjOWIBJn4ukYOQJ0gc=",
-        "path": "/nix/store/hskxlbg3nwpj14ma2n1a8sh02m15f8wc-platform_external_Info-9d97680",
-        "date": 1730147683
+        "commit": "028fd7965cda7ab999f7de2c1ec01f9745c71b4b",
+        "nix_hash": "sha256-9Ifj/9U578sDPiL4Y6jUHLkQlHtmMs8vB/5aFMDv3m4=",
+        "path": "/nix/store/8fjfs3pygl2aclikfx1hd94l7m285nly-platform_external_Info-028fd79",
+        "date": 1754530128
       }
     },
     "external/MPAndroidChart": {
@@ -2883,7 +2742,7 @@
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/platform_external_PdfViewer",
-          "revision": "45116415e02b1695bad820f45b60e4b22d5db353",
+          "revision": "8e8275a62133f2abafdf2f8b1dec96a2bd574c13",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -2894,10 +2753,10 @@
         "active": true
       },
       "lock": {
-        "commit": "45116415e02b1695bad820f45b60e4b22d5db353",
-        "nix_hash": "sha256-mpIQcCtio1HR8/rpF/VFI1dduC6lLafeRqbwLcymkJc=",
-        "path": "/nix/store/fmm7ihwvx8kr81rnwpvwqv86zjm4kcz0-platform_external_PdfViewer-4511641",
-        "date": 1746104730
+        "commit": "8e8275a62133f2abafdf2f8b1dec96a2bd574c13",
+        "nix_hash": "sha256-981euBg8JMUeZvxoAX4OFHYfe/nlJRMJ/neO8kntmt4=",
+        "path": "/nix/store/j1r1wh3hmp1ny15lw6pk7ngm7mxgy9v6-platform_external_PdfViewer-8e8275a",
+        "date": 1756676235
       }
     },
     "external/TestParameterInjector": {
@@ -7462,7 +7321,7 @@
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/hardened_malloc",
-          "revision": "7481c8857faf5c6ed8666548d9e92837693de91b",
+          "revision": "5cb0ff9f4d53498a8e19e8714d0f921336788420",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -7473,10 +7332,10 @@
         "active": true
       },
       "lock": {
-        "commit": "7481c8857faf5c6ed8666548d9e92837693de91b",
-        "nix_hash": "sha256-HCuH5SUiw/+3T1dv+IKKsQEC1GbuG0Se376bw2fG5u8=",
-        "path": "/nix/store/4ngan6rkvjilliifcmg1zwq5p6pkcv62-hardened_malloc-7481c88",
-        "date": 1743873198
+        "commit": "5cb0ff9f4d53498a8e19e8714d0f921336788420",
+        "nix_hash": "sha256-HYXkIwy2a56lfjGL7NnOEnZSoH0LEolXbi5RVRfgpM8=",
+        "path": "/nix/store/fvzikb20asfm6p59rp23ygs4vwmnfy8y-hardened_malloc-5cb0ff9",
+        "date": 1761769598
       }
     },
     "external/harfbuzz_ng": {
@@ -14918,8 +14777,8 @@
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
-          "repo_url": "https://android.googlesource.com/platform/external/sqlite",
-          "revision": "f696549905d99b79c505532e2bf7fc17a64a9671",
+          "repo_url": "https://github.com/GrapheneOS/platform_external_sqlite",
+          "revision": "95b397a74ab6450ceaf47134da49c045a2625285",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -14930,10 +14789,10 @@
         "active": true
       },
       "lock": {
-        "commit": "f696549905d99b79c505532e2bf7fc17a64a9671",
-        "nix_hash": "sha256-ai6+/5zwqT6zPIxjHJLcBSE2+6vPlzdUdGrG56SUYpk=",
-        "path": "/nix/store/9182riqlf6gi7y14md3zznahfaf6x66r-sqlite-f696549",
-        "date": 1742001381
+        "commit": "95b397a74ab6450ceaf47134da49c045a2625285",
+        "nix_hash": "sha256-EV2RTk7CO39JvFQUejzVAnXDhOm/ZnJPqKP/B69RMk8=",
+        "path": "/nix/store/filrpwr1rnwfm8bgvngp2zkvkqj0zlgm-platform_external_sqlite-95b397a",
+        "date": 1759418454
       }
     },
     "external/squashfs-tools": {
@@ -15998,8 +15857,8 @@
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
-          "repo_url": "https://gitlab.com/grapheneos/platform_external_vanadium.git",
-          "revision": "82a20b6bb6e73b0e970b460745f038f81b7aa602",
+          "repo_url": "https://gitlab.com/grapheneos/platform_external_vanadium",
+          "revision": "e94b20b256ccfeef4b6be2d226fe2e68674c0f36",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -16010,10 +15869,10 @@
         "active": true
       },
       "lock": {
-        "commit": "82a20b6bb6e73b0e970b460745f038f81b7aa602",
-        "nix_hash": "sha256-HrqwZj9ZdxZOMQJWi0b8df6iAz4APE7v+FOVDOsPcyc=",
-        "path": "/nix/store/gk42wyskjmp913qlp25n9558hqs63bzf-platform_external_vanadium-82a20b6",
-        "date": 1754163164
+        "commit": "e94b20b256ccfeef4b6be2d226fe2e68674c0f36",
+        "nix_hash": "sha256-qE4w5AK6ZkQGawkkF+sPW/s38D8fFC1PXAPEfpes6j0=",
+        "path": "/nix/store/1yrlkpiii95g8laq2qzzaiad53mc06z9-platform_external_vanadium-e94b20b",
+        "date": 1762573590
       }
     },
     "external/vboot_reference": {
@@ -16762,7 +16621,7 @@
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/platform_frameworks_base",
-          "revision": "00ac2952edaed1843df7d66576d76a362c1c1a28",
+          "revision": "d697c573a824058f1067fc4b317a560d71ce937c",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -16773,10 +16632,10 @@
         "active": true
       },
       "lock": {
-        "commit": "00ac2952edaed1843df7d66576d76a362c1c1a28",
-        "nix_hash": "sha256-Sv2ev+f/4yogHKI/8F03rQ6SzzjZVGHyLglPfHrb7sA=",
-        "path": "/nix/store/0bbzp3ffw09m842l7yknxdfy0ah93hq8-platform_frameworks_base-00ac295",
-        "date": 1754335671
+        "commit": "d697c573a824058f1067fc4b317a560d71ce937c",
+        "nix_hash": "sha256-JwMSx/5a/fF5UGae2vuy3yhKS9rKYDct7RUGOckilsU=",
+        "path": "/nix/store/kxvqwp6dvjda7hbazfgc4shknsg48d24-platform_frameworks_base-d697c57",
+        "date": 1761057922
       }
     },
     "frameworks/compile/libbcc": {
@@ -17176,7 +17035,7 @@
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/platform_frameworks_native",
-          "revision": "e151915501b0bcf0c75d6e49fa97785017da9c64",
+          "revision": "805439ea0ea79835097330e2d0b04a9c883ac010",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -17187,10 +17046,10 @@
         "active": true
       },
       "lock": {
-        "commit": "e151915501b0bcf0c75d6e49fa97785017da9c64",
-        "nix_hash": "sha256-wYD6HLJRFXNeUjn6k1qtKH9r8oeDxffmr/OiD0ifHBQ=",
-        "path": "/nix/store/8l967q27f4461sfvc88ij1mpyvxibncz-platform_frameworks_native-e151915",
-        "date": 1751560722
+        "commit": "805439ea0ea79835097330e2d0b04a9c883ac010",
+        "nix_hash": "sha256-F8Zvu/FAHvPkijftynxkbNuzvFOS7GogKLX8IhI8o5A=",
+        "path": "/nix/store/kp34a7birmgcd8fgc965i3fhh2jsgmln-platform_frameworks_native-805439e",
+        "date": 1759954751
       }
     },
     "frameworks/opt/bitmap": {
@@ -17536,7 +17395,7 @@
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/platform_frameworks_opt_telephony",
-          "revision": "aef51245bb4dea85b45274f151c9efd524261059",
+          "revision": "8cf53b6941fc8e670ef555a8ac1f5dd9e0e94f1a",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -17547,10 +17406,10 @@
         "active": true
       },
       "lock": {
-        "commit": "aef51245bb4dea85b45274f151c9efd524261059",
-        "nix_hash": "sha256-OEPFTdXrH/KRfgD/y8jEf3MvG1WTWROO7kymnAPCrQI=",
-        "path": "/nix/store/icq00fw5d9vcf5kiaaa5kbryhvg5vb9n-platform_frameworks_opt_telephony-aef5124",
-        "date": 1749680829
+        "commit": "8cf53b6941fc8e670ef555a8ac1f5dd9e0e94f1a",
+        "nix_hash": "sha256-tVcTffEyyvCTwLiVTTT/I7w93bmzActTaUROTryQUlA=",
+        "path": "/nix/store/q07kmsj83qi3kyj40b3g28sw6vw98z87-platform_frameworks_opt_telephony-8cf53b6",
+        "date": 1759446205
       }
     },
     "frameworks/opt/timezonepicker": {
@@ -19065,7 +18924,7 @@
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/platform_packages_apps_AppCompatConfig",
-          "revision": "5e615196c6214773f64dccdec3722f652a52ac7a",
+          "revision": "d29de817435ab55e416580c639e29bbbd7fb9b4f",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -19076,10 +18935,10 @@
         "active": true
       },
       "lock": {
-        "commit": "5e615196c6214773f64dccdec3722f652a52ac7a",
-        "nix_hash": "sha256-qQFW3KR8gfKIZd3hIl4L3+sViiV9sOBk1aYZF7p8FRg=",
-        "path": "/nix/store/rigjwwvynsmik18glsl9vpds8rgix2sy-platform_packages_apps_AppCompatConfig-5e61519",
-        "date": 1754417985
+        "commit": "d29de817435ab55e416580c639e29bbbd7fb9b4f",
+        "nix_hash": "sha256-9n33d3zeS+Qv3RCt66/NSDQPn7TRI0hdXMFIoW1GYiE=",
+        "path": "/nix/store/gblcd4q4vm5nmhdaw1829gl1mn5hpqzi-platform_packages_apps_AppCompatConfig-d29de81",
+        "date": 1759360347
       }
     },
     "packages/apps/AvatarPicker": {
@@ -19965,7 +19824,7 @@
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/platform_packages_apps_Contacts",
-          "revision": "fc2fdcb990340eeb16c3b27a7c451f1c1fb4c765",
+          "revision": "0128aa7b480054282ba58b7a560821b14e28d302",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -19976,10 +19835,10 @@
         "active": true
       },
       "lock": {
-        "commit": "fc2fdcb990340eeb16c3b27a7c451f1c1fb4c765",
-        "nix_hash": "sha256-MwNLysMpAwblEIDs9zNV398e0uWKY2xAoP/WExk8M2A=",
-        "path": "/nix/store/0dcdxvq5sbizdkv4jp9cmnfwzrh1m3gb-platform_packages_apps_Contacts-fc2fdcb",
-        "date": 1749680851
+        "commit": "0128aa7b480054282ba58b7a560821b14e28d302",
+        "nix_hash": "sha256-XKt4yaZdInGqanyjiTK7tMdb9RLATP2gCErr/xqf4+E=",
+        "path": "/nix/store/2j95bb5l4g6r6kcr76zrhb8ysyq1mfn8-platform_packages_apps_Contacts-0128aa7",
+        "date": 1756838723
       }
     },
     "packages/apps/DeskClock": {
@@ -20073,7 +19932,7 @@
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/platform_packages_apps_Dialer",
-          "revision": "f6afe06bdc10f1d5c8a04afd4543671d42754c43",
+          "revision": "838c14e8f4eea5b9dda93479b5161acd7f51b83a",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -20084,10 +19943,10 @@
         "active": true
       },
       "lock": {
-        "commit": "f6afe06bdc10f1d5c8a04afd4543671d42754c43",
-        "nix_hash": "sha256-xNaKzTWMQ0LrdI3k25o+pvAd/B4q9v4F6kbS9xI0FFk=",
-        "path": "/nix/store/3yi88n9fb32v7bk45251k4jn47kfb4iw-platform_packages_apps_Dialer-f6afe06",
-        "date": 1752760026
+        "commit": "838c14e8f4eea5b9dda93479b5161acd7f51b83a",
+        "nix_hash": "sha256-MdQEvCjxpccu2EdmgiX0BEshMtm0L5VNKsKz0BsRbK0=",
+        "path": "/nix/store/j35v9a1pq0g3pharky40lwxg0rlxkmkq-platform_packages_apps_Dialer-838c14e",
+        "date": 1756845871
       }
     },
     "packages/apps/DocumentsUI": {
@@ -20101,7 +19960,7 @@
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/platform_packages_apps_DocumentsUI",
-          "revision": "4b8d9e0fac8bcd9fbabb8cfa99ce66ec0df10958",
+          "revision": "2b4d2767c24af3aa0316bcd7771b1844b44f81fb",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -20112,10 +19971,10 @@
         "active": true
       },
       "lock": {
-        "commit": "4b8d9e0fac8bcd9fbabb8cfa99ce66ec0df10958",
-        "nix_hash": "sha256-i4mvGKL1lzy6vgwGVzHawBVbYJHY9TaO/P5HFhdTZtY=",
-        "path": "/nix/store/dw9lpkgybj9nhgy9r57dv96f2032h1r6-platform_packages_apps_DocumentsUI-4b8d9e0",
-        "date": 1749930319
+        "commit": "2b4d2767c24af3aa0316bcd7771b1844b44f81fb",
+        "nix_hash": "sha256-KdQp51FltOfNay/3Us62zijTBsyCBg6zdM0iC5cKRZM=",
+        "path": "/nix/store/m9jqlqcs4m4nr4mw2m21fi2ww2jhmzpf-platform_packages_apps_DocumentsUI-2b4d276",
+        "date": 1756838730
       }
     },
     "packages/apps/EmergencyInfo": {
@@ -20207,7 +20066,7 @@
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/platform_packages_apps_GmsCompat",
-          "revision": "cd1da4ce24ede234189608d3f10f6e3aa2723abc",
+          "revision": "c360d9e7b52f3c30d7b6d94d954e5d5f26865a67",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -20218,10 +20077,10 @@
         "active": true
       },
       "lock": {
-        "commit": "cd1da4ce24ede234189608d3f10f6e3aa2723abc",
-        "nix_hash": "sha256-yLXPBqdrFiqNumYZ9NYLziRnRKbMVzsVB1IHgNhFwqY=",
-        "path": "/nix/store/3igha5h8cbfp2krbqnfrnlllldknhfs6-platform_packages_apps_GmsCompat-cd1da4c",
-        "date": 1754418124
+        "commit": "c360d9e7b52f3c30d7b6d94d954e5d5f26865a67",
+        "nix_hash": "sha256-Oxj9Bj+kKzNabO63D/IuGaHA7Qrh9j2gQJ6K9fqb35k=",
+        "path": "/nix/store/21aa17yj9fy5gknf8zmryphx47zk4b02-platform_packages_apps_GmsCompat-c360d9e",
+        "date": 1761682723
       }
     },
     "packages/apps/HTMLViewer": {
@@ -20479,7 +20338,7 @@
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/platform_packages_apps_NetworkLocation",
-          "revision": "9e7aeede77c59302b54664276e593ece51646e28",
+          "revision": "f898b68801e0552ec96be8fcbcccf27d8b5c83dc",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -20490,10 +20349,10 @@
         "active": true
       },
       "lock": {
-        "commit": "9e7aeede77c59302b54664276e593ece51646e28",
-        "nix_hash": "sha256-HSYoQMDxlJ1pPdOwi+EGNgL8x/WNybLxJORgYW3Mlxo=",
-        "path": "/nix/store/12s0ipv17qdrhbpnfhbvql7hfly2swp9-platform_packages_apps_NetworkLocation-9e7aeed",
-        "date": 1754343244
+        "commit": "f898b68801e0552ec96be8fcbcccf27d8b5c83dc",
+        "nix_hash": "sha256-Si2n20X/18hlQJBKPlprHPbpWPYjFwUNgCmqPqaN+xw=",
+        "path": "/nix/store/bvxf3qx568a5hs0g5l6hvj29vcmidpfj-platform_packages_apps_NetworkLocation-f898b68",
+        "date": 1759424394
       }
     },
     "packages/apps/OnDeviceAppPrediction": {
@@ -20750,7 +20609,7 @@
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/platform_packages_apps_Seedvault",
-          "revision": "e37d10775716bb62d48db2ef857f8e4dcae8df5a",
+          "revision": "0e26899907bd84ee22f3f08197a08f16db9ec50e",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -20761,10 +20620,10 @@
         "active": true
       },
       "lock": {
-        "commit": "e37d10775716bb62d48db2ef857f8e4dcae8df5a",
-        "nix_hash": "sha256-q91OlWxKZQK0MBH9rMHnkPEPFOynsiUEzygytnFnafE=",
-        "path": "/nix/store/h83ra8ykl7lk57706ivxdqbwgifjwzcm-platform_packages_apps_Seedvault-e37d107",
-        "date": 1752881013
+        "commit": "0e26899907bd84ee22f3f08197a08f16db9ec50e",
+        "nix_hash": "sha256-vzqCFjEiAinQHdJnZ5f6Bbr+7QxQ5D8xJSqVe6RbzkE=",
+        "path": "/nix/store/nqb9kd779kj2zmgs43g4v6hl9vy75ilg-platform_packages_apps_Seedvault-0e26899",
+        "date": 1759360374
       }
     },
     "packages/apps/Settings": {
@@ -20779,7 +20638,7 @@
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/platform_packages_apps_Settings",
-          "revision": "778fd375b9ae5a81aed147adf3309850fbf0119d",
+          "revision": "94720d8b7373cabfcae2e8760d80029e812d3866",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -20790,10 +20649,10 @@
         "active": true
       },
       "lock": {
-        "commit": "778fd375b9ae5a81aed147adf3309850fbf0119d",
-        "nix_hash": "sha256-W0GjQ4dT15BCbE22I5HA6vX/XKqCmELpDbOBHvtsAPU=",
-        "path": "/nix/store/zpxqyn5yf8jgccwxk0xj5hcgy0fg7c40-platform_packages_apps_Settings-778fd37",
-        "date": 1754317079
+        "commit": "94720d8b7373cabfcae2e8760d80029e812d3866",
+        "nix_hash": "sha256-5vvXU/EbC5ys9oZGnyJipx9JKHQWx0Wgcgwb1IM+8xQ=",
+        "path": "/nix/store/l7jsxambp8s2xdqqwfaw4kd9ws13yhq6-platform_packages_apps_Settings-94720d8",
+        "date": 1762454967
       }
     },
     "packages/apps/SettingsIntelligence": {
@@ -20831,7 +20690,7 @@
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/platform_packages_apps_SetupWizard2",
-          "revision": "11dcfc4fe90b6914bb8d73d9b2dd9a2047eefbe8",
+          "revision": "1ad06004fb0ecdc18f4cb7e8a899e6148ef05811",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -20842,10 +20701,10 @@
         "active": true
       },
       "lock": {
-        "commit": "11dcfc4fe90b6914bb8d73d9b2dd9a2047eefbe8",
-        "nix_hash": "sha256-ZdVRQSUTgK8XcBXRRbvfqH6HohBjr6mnTXamcmrvpy8=",
-        "path": "/nix/store/qh55ilzlwpvxdc37ld0d7rl7vqqx11bq-platform_packages_apps_SetupWizard2-11dcfc4",
-        "date": 1745531199
+        "commit": "1ad06004fb0ecdc18f4cb7e8a899e6148ef05811",
+        "nix_hash": "sha256-r/TGU3dSNpLvIn1OK0Sc7amMl8IImO9LcIa9pTKesRE=",
+        "path": "/nix/store/996hm4ns5alxk97h0mz3m0xzim74nynb-platform_packages_apps_SetupWizard2-1ad0600",
+        "date": 1759952326
       }
     },
     "packages/apps/SpareParts": {
@@ -21049,7 +20908,7 @@
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/platform_packages_apps_ThemePicker",
-          "revision": "f4ee85eb046cf6408e58bcd16210a2fab79c8690",
+          "revision": "4fddd1520a02fe9ddba11aec228412bcaff0c175",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -21060,10 +20919,10 @@
         "active": true
       },
       "lock": {
-        "commit": "f4ee85eb046cf6408e58bcd16210a2fab79c8690",
-        "nix_hash": "sha256-wK/QJ6PRcQXTfape9zkTaiIw/z6M/p1a0GxsF9dI5mQ=",
-        "path": "/nix/store/3rg1san37804bzrckj9v4g0svpy4ajg1-platform_packages_apps_ThemePicker-f4ee85e",
-        "date": 1749838336
+        "commit": "4fddd1520a02fe9ddba11aec228412bcaff0c175",
+        "nix_hash": "sha256-Oq3HIrJU5+gXVMLcsTR4eNRuO21WOPTsp0edAYLudm8=",
+        "path": "/nix/store/1fbydfq6c87lrhrcyxq66z2pdb4d9f6v-platform_packages_apps_ThemePicker-4fddd15",
+        "date": 1756472629
       }
     },
     "packages/apps/Traceur": {
@@ -21210,7 +21069,7 @@
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/platform_packages_apps_Updater",
-          "revision": "4c5852992b6597ccdaa0347ae601f50e37043309",
+          "revision": "8de980cf52920cbeb524d9372bcd785ec56083f7",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -21221,10 +21080,10 @@
         "active": true
       },
       "lock": {
-        "commit": "4c5852992b6597ccdaa0347ae601f50e37043309",
-        "nix_hash": "sha256-IgmtkRJ7HWrgmDK+gEl1ZB2/TsQYMPmr/GK0cuLQbaM=",
-        "path": "/nix/store/3h4xd91ds6c94cfzy742w0iah9zvxhj6-platform_packages_apps_Updater-4c58529",
-        "date": 1753820361
+        "commit": "8de980cf52920cbeb524d9372bcd785ec56083f7",
+        "nix_hash": "sha256-1g0Dy1vFIIRTb8n+9wlcuSopLDGwIMkLj+ovHB8uFWc=",
+        "path": "/nix/store/z4k49aw7m88kc471p8qvq8ag54s26kba-platform_packages_apps_Updater-8de980c",
+        "date": 1760756511
       }
     },
     "packages/apps/WallpaperPicker2": {
@@ -21402,7 +21261,7 @@
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/platform_packages_modules_Bluetooth",
-          "revision": "1403a1b7f41c4469ee21e904e89655e23391d881",
+          "revision": "456fc9eea5d50b44b621b3bd3083856800653492",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -21413,10 +21272,10 @@
         "active": true
       },
       "lock": {
-        "commit": "1403a1b7f41c4469ee21e904e89655e23391d881",
-        "nix_hash": "sha256-JPAPTwzk1kS5APVYlMc9Ul9V1ceuGampyq/ogV16gw4=",
-        "path": "/nix/store/qafa2fa8h3lm4a788jg1nbx3w5vkjnz2-platform_packages_modules_Bluetooth-1403a1b",
-        "date": 1753906564
+        "commit": "456fc9eea5d50b44b621b3bd3083856800653492",
+        "nix_hash": "sha256-yxtSEXceESJLzVxL1QBOS+59rNMl1wLTjSOHwr7uEig=",
+        "path": "/nix/store/n4kqiwfd6szbyl6qk99w9wsqyf06i9c0-platform_packages_modules_Bluetooth-456fc9e",
+        "date": 1756838912
       }
     },
     "packages/modules/CaptivePortalLogin": {
@@ -21513,7 +21372,7 @@
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/platform_packages_modules_Connectivity",
-          "revision": "02bb4d942427b9b50ab2565e8fe710dd4a9618ff",
+          "revision": "e6a9fba7fa3442facabf00538aa7af8c54272941",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -21524,10 +21383,10 @@
         "active": true
       },
       "lock": {
-        "commit": "02bb4d942427b9b50ab2565e8fe710dd4a9618ff",
+        "commit": "e6a9fba7fa3442facabf00538aa7af8c54272941",
         "nix_hash": "sha256-yGN3q1HJ0Keu54iHiHwH+viHyM5TcyLsHXWI5Tpc1RM=",
-        "path": "/nix/store/rhcndn00djj0jb6ki9jvaxwkxbkxnmyy-platform_packages_modules_Connectivity-02bb4d9",
-        "date": 1754229777
+        "path": "/nix/store/14kr78ca5c6fd32raf16izsf1pxczpvl-platform_packages_modules_Connectivity-e6a9fba",
+        "date": 1756745485
       }
     },
     "packages/modules/CrashRecovery": {
@@ -21790,8 +21649,8 @@
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
-          "repo_url": "https://android.googlesource.com/platform/packages/modules/IntentResolver",
-          "revision": "074ffbce68e68930418c938c3c62a0d2984efa5e",
+          "repo_url": "https://github.com/GrapheneOS/platform_packages_modules_IntentResolver",
+          "revision": "d03df19c12b95143f38b2c376f98d6365ef5d249",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -21802,10 +21661,10 @@
         "active": true
       },
       "lock": {
-        "commit": "074ffbce68e68930418c938c3c62a0d2984efa5e",
-        "nix_hash": "sha256-4NpcRBzLxdf+wAA2CT4d0EwqtWUrfhuRYrMyKP/QKww=",
-        "path": "/nix/store/0chpvm2h1m2zwn9h2j23bkppshi54waq-IntentResolver-074ffbc",
-        "date": 1743648583
+        "commit": "d03df19c12b95143f38b2c376f98d6365ef5d249",
+        "nix_hash": "sha256-f/mId5H9Kf8+lQlLEAfkSeufTXRzVXCblQSSTJOpygI=",
+        "path": "/nix/store/psy6x3cxgp3k3z4pacqc11nr71mpndsc-platform_packages_modules_IntentResolver-d03df19",
+        "date": 1756838886
       }
     },
     "packages/modules/Media": {
@@ -21985,7 +21844,7 @@
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/platform_packages_modules_Permission",
-          "revision": "1409177e5fc4c4ce5c7ec0da941d828643a60713",
+          "revision": "4ad8c5eb36a125a6b180bced97c2337c81da0ac5",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -21996,10 +21855,10 @@
         "active": true
       },
       "lock": {
-        "commit": "1409177e5fc4c4ce5c7ec0da941d828643a60713",
-        "nix_hash": "sha256-QR/g+rEkW5FKporfqU1ob7hOP6II6sSgV1xnPe/NNK0=",
-        "path": "/nix/store/jcvqy1zja7pc48hp9x761w9048vyx41x-platform_packages_modules_Permission-1409177",
-        "date": 1749747581
+        "commit": "4ad8c5eb36a125a6b180bced97c2337c81da0ac5",
+        "nix_hash": "sha256-aybYaj0GknDF/KV6q5KYEXWlhKCHrKl5+5GYf3o165A=",
+        "path": "/nix/store/ryn1yfh47zyr2h03ky9nkq6sjcjc9qj0-platform_packages_modules_Permission-4ad8c5e",
+        "date": 1756835715
       }
     },
     "packages/modules/Profiling": {
@@ -22291,7 +22150,7 @@
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/platform_packages_modules_Virtualization",
-          "revision": "7be219625d7928513d221cfb8e93f7a35d5a5836",
+          "revision": "c16f4d9ca76b9940dbf3a6c2748b8de4f05f5657",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -22302,10 +22161,10 @@
         "active": true
       },
       "lock": {
-        "commit": "7be219625d7928513d221cfb8e93f7a35d5a5836",
-        "nix_hash": "sha256-j8qfbZTJHmfmBJyeIAsYCQND10XFnqi0zoGBQwEco6U=",
-        "path": "/nix/store/j8xcb2zhzlmki2ckj0jid4hnl7z0236p-platform_packages_modules_Virtualization-7be2196",
-        "date": 1754008559
+        "commit": "c16f4d9ca76b9940dbf3a6c2748b8de4f05f5657",
+        "nix_hash": "sha256-pZmochrkP74i2wYwZIIXI5jE7pcZwlH1jhtPI8PnI3s=",
+        "path": "/nix/store/6nr7rrsdhmlqrann41lxlhx388g6ibc3-platform_packages_modules_Virtualization-c16f4d9",
+        "date": 1762213822
       }
     },
     "packages/modules/Wifi": {
@@ -22320,7 +22179,7 @@
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/platform_packages_modules_Wifi",
-          "revision": "3f68b8923dce6ce8bee5832bce8342be20adce70",
+          "revision": "7207ea5e680241754e2080e189bbde25b2be5a15",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -22331,10 +22190,10 @@
         "active": true
       },
       "lock": {
-        "commit": "3f68b8923dce6ce8bee5832bce8342be20adce70",
-        "nix_hash": "sha256-C7q1IjACzMY+sqYuC7JxQnk95r55DgIUkj+4f7TP0l8=",
-        "path": "/nix/store/0nj8mbwaxbf3fhgsx3015j2pmrfybraj-platform_packages_modules_Wifi-3f68b89",
-        "date": 1749680906
+        "commit": "7207ea5e680241754e2080e189bbde25b2be5a15",
+        "nix_hash": "sha256-qI3gDcuvOsZuZhlJUzuD4zSP/oFj4d7xmFoAbDjZJ28=",
+        "path": "/nix/store/3i78nbv2av07l0ykn1s1ck2pfy4rz4bf-platform_packages_modules_Wifi-7207ea5",
+        "date": 1756838077
       }
     },
     "packages/modules/adb": {
@@ -22652,7 +22511,7 @@
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/platform_packages_providers_MediaProvider",
-          "revision": "383f9f520322c5fe7bb46e69cd7796fbb2c53428",
+          "revision": "22359957b96230621abf415802328409bcf0c16e",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -22663,10 +22522,10 @@
         "active": true
       },
       "lock": {
-        "commit": "383f9f520322c5fe7bb46e69cd7796fbb2c53428",
-        "nix_hash": "sha256-ZvvYHguQDukfjanoyKz8VozSS0l1DR48jRH4YNxaTkU=",
-        "path": "/nix/store/b2167w52kxdgk3qmhzxrikkvfk01f55l-platform_packages_providers_MediaProvider-383f9f5",
-        "date": 1751691543
+        "commit": "22359957b96230621abf415802328409bcf0c16e",
+        "nix_hash": "sha256-IIlr6021Jy7/vcIo/btcmqEWoGiky4GGCDgmks0R+Yk=",
+        "path": "/nix/store/s8pykanmjxbarpppajfwbz0q4xfbliw1-platform_packages_providers_MediaProvider-2235995",
+        "date": 1756834981
       }
     },
     "packages/providers/PartnerBookmarksProvider": {
@@ -22706,8 +22565,8 @@
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
-          "repo_url": "https://android.googlesource.com/platform/packages/providers/TelephonyProvider",
-          "revision": "b746776f3b77c369c69e62a857e63dad5eeeccab",
+          "repo_url": "https://github.com/GrapheneOS/platform_packages_providers_TelephonyProvider",
+          "revision": "bb6f2bc2008ed7dab6ea05ca53c393090081a690",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -22718,10 +22577,10 @@
         "active": true
       },
       "lock": {
-        "commit": "b746776f3b77c369c69e62a857e63dad5eeeccab",
-        "nix_hash": "sha256-c4cC1k3HL2rLsIkIO/0WWcz9MVG5p3dGeZFHUWIx4ks=",
-        "path": "/nix/store/9h2rxg9fbxyhmwhbmv38sgwhc4gkdzyb-TelephonyProvider-b746776",
-        "date": 1742513652
+        "commit": "bb6f2bc2008ed7dab6ea05ca53c393090081a690",
+        "nix_hash": "sha256-cM+BlLAXFGrAqS/dpwyA17sMWmh+QInOnkrTyf0cTDE=",
+        "path": "/nix/store/kn1ika5xkndmsv1zj0460z30h8djygvv-platform_packages_providers_TelephonyProvider-bb6f2bc",
+        "date": 1759523742
       }
     },
     "packages/providers/TvProvider": {
@@ -23068,7 +22927,7 @@
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/platform_packages_services_Telephony",
-          "revision": "859bdd11030f7e1f313c0f62a4d76fa431844696",
+          "revision": "8e0526174555f8e4a700b46cef361185f460958e",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -23079,10 +22938,10 @@
         "active": true
       },
       "lock": {
-        "commit": "859bdd11030f7e1f313c0f62a4d76fa431844696",
-        "nix_hash": "sha256-sAuyale7azTqAqPQ1D0e8/B0rWKBiMNihAvk84MuuJg=",
-        "path": "/nix/store/mygdksm7wnjmbifvr8zxzk3jrskjzqxp-platform_packages_services_Telephony-859bdd1",
-        "date": 1749680909
+        "commit": "8e0526174555f8e4a700b46cef361185f460958e",
+        "nix_hash": "sha256-Io8QuKR2mV8GzkNzrMe8i+YAvLc1EyR0plzlHRnFPik=",
+        "path": "/nix/store/qlp2dj6x54g68ria8rpkfma341yzdg1z-platform_packages_services_Telephony-8e05261",
+        "date": 1759446169
       }
     },
     "packages/wallpapers/LivePicker": {
@@ -24549,7 +24408,7 @@
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/platform_prebuilts_qemu-kernel",
-          "revision": "3b418388eaa7d1cc34bf799b38bdeb7e2ef2ba24",
+          "revision": "a3c9c5ab9eb753144ffb9068e5ef79bfb5ec5216",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -24560,10 +24419,10 @@
         "active": true
       },
       "lock": {
-        "commit": "3b418388eaa7d1cc34bf799b38bdeb7e2ef2ba24",
-        "nix_hash": "sha256-DWew3QhTQqPiD5sLDiZ/wLoaB5k3+we4OQuEm68r+70=",
-        "path": "/nix/store/1qnlzmh7yhhfb67g9i98iw67rj29xmv4-platform_prebuilts_qemu-kernel-3b41838",
-        "date": 1754008645
+        "commit": "a3c9c5ab9eb753144ffb9068e5ef79bfb5ec5216",
+        "nix_hash": "sha256-SaBUuqgRtp/3yasyk1+6VQg+UF8am8VYtOKCedd5KMw=",
+        "path": "/nix/store/8yvx0xq5ry1a26jiwiyrmvcvrxqwyl71-platform_prebuilts_qemu-kernel-a3c9c5a",
+        "date": 1762213837
       }
     },
     "prebuilts/r8": {
@@ -24875,7 +24734,7 @@
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/script",
-          "revision": "0f28ca8a658d419773ccb1e8c993a8b4710342b5",
+          "revision": "2b1e08dd71fc34023b9999c24988027aa98ba7f6",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -24886,10 +24745,10 @@
         "active": true
       },
       "lock": {
-        "commit": "0f28ca8a658d419773ccb1e8c993a8b4710342b5",
-        "nix_hash": "sha256-faDXrt97PuxiHJ+Cd1DAMqx0FMQiDqf12dPANmNXuZI=",
-        "path": "/nix/store/dvj275wr0y2dwbm2093ggkwra279nzc4-script-0f28ca8",
-        "date": 1751941860
+        "commit": "2b1e08dd71fc34023b9999c24988027aa98ba7f6",
+        "nix_hash": "sha256-PqhYlhbrnjHWk2fOIusamiIAKCSycwRsghIrDorLXkw=",
+        "path": "/nix/store/7wks45jfmy1b0j4a5y2m30ad08q02jyn-script-2b1e08d",
+        "date": 1761166038
       }
     },
     "sdk": {
@@ -24929,8 +24788,8 @@
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
-          "repo_url": "https://android.googlesource.com/platform/system/apex",
-          "revision": "9921a73777f97def1d8851dd0a1529f1c45bcc72",
+          "repo_url": "https://github.com/GrapheneOS/platform_system_apex",
+          "revision": "74c9a6afea6cf0eb3b8e0b6c8bcfdff36c96c9ad",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -24941,10 +24800,10 @@
         "active": true
       },
       "lock": {
-        "commit": "9921a73777f97def1d8851dd0a1529f1c45bcc72",
-        "nix_hash": "sha256-XlHQ3y/+kLx1N9wNUXoPuv//7pukkGjt2t/DSC4732U=",
-        "path": "/nix/store/m87ag1p6ghmq0q0lkrzf79v20agdj9in-apex-9921a73",
-        "date": 1742867129
+        "commit": "74c9a6afea6cf0eb3b8e0b6c8bcfdff36c96c9ad",
+        "nix_hash": "sha256-ptJPV26IyX0uoekXlcfZ1YhxyIpfskCfZ/l13cqUVTU=",
+        "path": "/nix/store/af4slp97igfb9dbx5jvpxx1hkskynny8-platform_system_apex-74c9a6a",
+        "date": 1756838777
       }
     },
     "system/authgraph": {
@@ -25119,7 +24978,7 @@
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/platform_system_core",
-          "revision": "07c6c5e430e2f03fbedc78ae5fe9bdc51f6ca4ec",
+          "revision": "eca5faf52f9f1b3333b9db16c50dafb43bcbf266",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -25130,10 +24989,10 @@
         "active": true
       },
       "lock": {
-        "commit": "07c6c5e430e2f03fbedc78ae5fe9bdc51f6ca4ec",
+        "commit": "eca5faf52f9f1b3333b9db16c50dafb43bcbf266",
         "nix_hash": "sha256-Kh0phkeCPHuHXtge9Ie1QCWWAiuqikMwRx9R9wl7e8E=",
-        "path": "/nix/store/091qh98hjyk4mc2vhxlnnzcy8la57i5z-platform_system_core-07c6c5e",
-        "date": 1750688551
+        "path": "/nix/store/r9s8rgdfsbqqwbkm79z84v01shzv18bl-platform_system_core-eca5faf",
+        "date": 1756745810
       }
     },
     "system/cros-codecs": {
@@ -26335,8 +26194,8 @@
         "linkfiles": [],
         "copyfiles": [],
         "repo_ref": {
-          "repo_url": "https://android.googlesource.com/platform/system/tools/aidl",
-          "revision": "5bde6fcffe8e3ac6feca449f7bc3502eed5fc0f5",
+          "repo_url": "https://github.com/GrapheneOS/platform_system_tools_aidl",
+          "revision": "7dc5f0b280b7193b0048142ebc155de2cf683432",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -26347,10 +26206,10 @@
         "active": true
       },
       "lock": {
-        "commit": "5bde6fcffe8e3ac6feca449f7bc3502eed5fc0f5",
-        "nix_hash": "sha256-1NTbYp/RAC6bCcOiw7LK33rLoNirjgw68EKc1MS06SE=",
-        "path": "/nix/store/l35fr6ipzh6smwnmqygi36q6zhji38d6-aidl-5bde6fc",
-        "date": 1742513825
+        "commit": "7dc5f0b280b7193b0048142ebc155de2cf683432",
+        "nix_hash": "sha256-/wFr9uQh3ITRT56rbs61Mj1oCsSz69VFniZjtrdYIKI=",
+        "path": "/nix/store/p8sn4ffrvanw0r6rpqwdlcq7kmqcqhx0-platform_system_tools_aidl-7dc5f0b",
+        "date": 1761057945
       }
     },
     "system/tools/hidl": {
@@ -27217,7 +27076,7 @@
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/platform_tools_arsclib",
-          "revision": "fbafcdd480de9d17e20d6c28fcf52368abdda92c",
+          "revision": "8da7c4be5af0e71372f616bf5952eaa205420371",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -27228,10 +27087,10 @@
         "active": true
       },
       "lock": {
-        "commit": "fbafcdd480de9d17e20d6c28fcf52368abdda92c",
-        "nix_hash": "sha256-sJ60M34B0/JbrSXISY5AApr+d6y3M2koh1MxikefUms=",
-        "path": "/nix/store/qsjnwr6wqfhw3npybbx95v5pxcm9h4sc-platform_tools_arsclib-fbafcdd",
-        "date": 1752346493
+        "commit": "8da7c4be5af0e71372f616bf5952eaa205420371",
+        "nix_hash": "sha256-yaIt6VRKOT1Y7UnuZAfnQW1RJ8GK8K6XF9tduN+kFCk=",
+        "path": "/nix/store/c0lm6ij7h3a63xdpg6k10dj5bkjrnpyg-platform_tools_arsclib-8da7c4b",
+        "date": 1755456776
       }
     },
     "tools/asuite": {
@@ -28577,7 +28436,7 @@
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/adevtool",
-          "revision": "15671582c53111c45b56501be6e347b7043a5ab2",
+          "revision": "a0cc64b11ce78e40ea89031c2c89b228972c99aa",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -28588,10 +28447,10 @@
         "active": true
       },
       "lock": {
-        "commit": "15671582c53111c45b56501be6e347b7043a5ab2",
-        "nix_hash": "sha256-tcE7AY02w2Z1Mz7a1a/q61XPKwnMhy9foquwV2xYY1g=",
-        "path": "/nix/store/5likm58q18m2qn2k8lq5b35jha72cmck-adevtool-1567158",
-        "date": 1754443854
+        "commit": "a0cc64b11ce78e40ea89031c2c89b228972c99aa",
+        "nix_hash": "sha256-m+om/zs7H4lCLzOACf4972eQWPi/HWaR7nhea+mkTs4=",
+        "path": "/nix/store/a1420rwljvq0p0hbacfs1jrh3z2xyhh4-adevtool-a0cc64b",
+        "date": 1762638153
       }
     },
     "vendor/state": {
@@ -28602,7 +28461,7 @@
         "copyfiles": [],
         "repo_ref": {
           "repo_url": "https://github.com/GrapheneOS/vendor_state",
-          "revision": "0c4b719bbbd8a0923fcca3c0e08d613c2de0a733",
+          "revision": "c6ca349e5ed3f4723bd92c9f341ea2d7702b78a8",
           "fetch_lfs": true,
           "fetch_submodules": false
         },
@@ -28613,10 +28472,10 @@
         "active": true
       },
       "lock": {
-        "commit": "0c4b719bbbd8a0923fcca3c0e08d613c2de0a733",
-        "nix_hash": "sha256-/tJ05hMBgbi0AIXPOE7OQ/KveatS7LlpeqJumtTmdik=",
-        "path": "/nix/store/jvj00glfjifxv2ygalwwwfdyxfjwd3z0-vendor_state-0c4b719",
-        "date": 1752593556
+        "commit": "c6ca349e5ed3f4723bd92c9f341ea2d7702b78a8",
+        "nix_hash": "sha256-hq4+I2GaYybyp4nfkwInNFaF9u9l9Du+q7R56BvRUVc=",
+        "path": "/nix/store/754kkmr4h1jpjkkxvx3jrn5qxy3iixbw-vendor_state-c6ca349",
+        "date": 1755459030
       }
     }
   }

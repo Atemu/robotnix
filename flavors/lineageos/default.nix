@@ -19,6 +19,7 @@ let
     "22.0" = 15;
     "22.1" = 15;
     "22.2" = 15;
+    "23.0" = 16;
   };
   deviceMetadata = lib.importJSON ./devices.json;
   supportedDevices = attrNames deviceMetadata;
@@ -61,10 +62,11 @@ in mkIf (config.flavor == "lineageos") {
        then ./0001-Remove-LineageOS-keys-20.patch
        else ./0001-Remove-LineageOS-keys-19.patch)
 
-      (pkgs.substituteAll {
-        src = (if lib.versionAtLeast (toString config.androidVersion) "14"
+      (pkgs.replaceVars (if lib.versionAtLeast config.flavorVersion "22.2"
+        then ./0002-bootanimation-Reproducibility-fix-22_2.patch
+        else if lib.versionAtLeast config.flavorVersion "21.1"
         then ./0002-bootanimation-Reproducibility-fix-21.patch else
-        ./0002-bootanimation-Reproducibility-fix.patch);
+        ./0002-bootanimation-Reproducibility-fix.patch) {
         inherit (pkgs) imagemagick;
       })
 
@@ -74,16 +76,20 @@ in mkIf (config.flavor == "lineageos") {
        then ./0003-kernel-Set-constant-kernel-timestamp-20.patch
        else ./0003-kernel-Set-constant-kernel-timestamp-19.patch)
       
-    ] ++ lib.optionals (lib.versionAtLeast (toString config.androidVersion) "12") [
-      ./dont-run-repo-during-build.patch
+    ] ++ lib.optionals (lib.versionAtLeast config.flavorVersion "19.0") [
+      (if lib.versionAtLeast config.flavorVersion "22.2"
+      then ./0004-dont-run-repo-during-build-22_2.patch
+      else ./0004-dont-run-repo-during-build.patch)
     ];
     "system/extras".patches = [
       # pkgutil.get_data() not working, probably because we don't use their compiled python
-      (pkgs.fetchpatch {
+      (if lib.versionAtLeast config.flavorVersion "23.0"
+      then ./0005-Revert-mkuserimg_mke2fs.py-Package-mke2fs.conf.patch
+      else (pkgs.fetchpatch {
         url = "https://github.com/LineageOS/android_system_extras/commit/7da4b29321eb7ebce9eb9a43d0fbd85d0aa1e870.patch";
         sha256 = "0pv56lypdpsn66s7ffcps5ykyfx0hjkazml89flj7p1px12zjhy1";
         revert = true;
-      })
+      }))
     ];
 
     # LineageOS will sometimes force-push to this repo, and the older revisions are garbage collected.
@@ -99,7 +105,6 @@ in mkIf (config.flavor == "lineageos") {
     apk = config.source.dirs."external/chromium-webview/prebuilt/${config.arch}".src + "/webview.apk";
     availableByDefault = mkDefault true;
   };
-  apps.prebuilt.prebuiltwebview.usesOptionalLibraries = lib.mkIf (lib.versionAtLeast config.flavorVersion "22.2") (lib.mkAfter [ "com.android.extensions.xr" ]);
   removedProductPackages = [ "webview" ];
 
   apps.updater.flavor = mkDefault "lineageos";

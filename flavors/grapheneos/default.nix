@@ -47,7 +47,7 @@
       (mkIf ((config.grapheneos.channel != null) && (config.device != null) && (builtins.hasAttr config.device channelInfo.device_info."${config.grapheneos.channel}")) (
     let
       deviceInfo = channelInfo.device_info.${config.grapheneos.channel}.${config.device};
-      buildID = buildIDs."${deviceInfo.git_tag}.lock";
+      buildID = buildIDs."${deviceInfo.git_tag}/repo.lock";
     in {
       assertions = [
         {
@@ -65,7 +65,6 @@
 
       grapheneos.release = mkDefault deviceInfo.git_tag;
       buildDateTime = mkDefault deviceInfo.build_time;
-      adevtool.buildID = mkDefault buildID;
       androidVersion = mkDefault buildIDCodenameInitialToPlatformRelease.${builtins.substring 0 1 buildID};
     }))
     {
@@ -81,25 +80,26 @@
       };
 
       adevtool = let
-        vendorImgMetadata = lib.importJSON (./. + "/vendor_img_metadata_${config.grapheneos.release}.json");
+        vendorImgMetadata = lib.importJSON (./. + "/${config.grapheneos.release}/vendor_img_metadata.json");
         vendorBuildID = vendorImgMetadata.vendor_build_id;
         imgFields = lib.splitString " " vendorImgMetadata."${config.device}".build_index_props.factory;
         imgSha256 = builtins.elemAt imgFields 0;
         imgFilename = builtins.elemAt imgFields 1;
       in mkIf (elem config.device phoneDevices) {
         enable = true;
-        yarnHash = (lib.importJSON ./yarn_hashes.json)."${config.grapheneos.release}.lock";
-        img = pkgs.fetchurl {
-          url = "https://dl.google.com/dl/android/aosp/${imgFilename}";
-          sha256 = imgSha256;
-        };
-        inherit imgFilename;
+        yarnHash = (lib.importJSON ./yarn_hashes.json).${config.grapheneos.release};
+        devices = [ config.device ];
+        vendorImgs = lib.importJSON ./${config.grapheneos.release}/vendor_imgs/${config.device}.json;
       };
 
       source.manifest = {
         enable = true;
-        lockfile = mkDefault (./. + "/${config.grapheneos.release}.lock");
+        lockfile = mkDefault (./. + "/${config.grapheneos.release}/repo.lock");
       };
+
+      source.dirs."vendor/adevtool".patches = lib.optional (!lib.versionAtLeast config.grapheneos.release "2025090300") (
+        ./adevtool-ignore-EINVAL-upon-chown.patch
+      );
 
       warnings = (optional ((config.device != null) && !(elem config.device supportedDevices))
         "${config.device} is not a supported device for GrapheneOS")
@@ -109,11 +109,29 @@
       apps.seedvault.includedInFlavor = mkDefault true;
       apps.updater.includedInFlavor = mkDefault true;
 
-      # GrapheneOS just disables apex updating wholesale
-      signing.apex.enable = false;
+      source.dirs."packages/apps/Updater".patches = [
+        ./dont-show-security-preview-channel-notification.patch
+      ];
 
-      # Extra packages that should use releasekey
-      signing.signTargetFilesArgs = [ "--extra_apks OsuLogin.apk,ServiceWifiResources.apk=$KEYSDIR/${config.device}/releasekey" ];
+      # GrapheneOS used to disable APEX completely.
+      # It was enabled for all devices sometime during Android 13.
+      # https://grapheneos.org/releases#2023051600
+      # https://github.com/GrapheneOS/script/blob/6072d9d75c3a22f6cbc33c9ba85129513306ca00/release.sh#L68
+      signing = {
+        apex.enable = config.androidVersion >= 13;
+
+        # Key for GmsCompatLib.apk
+        # https://grapheneos.org/releases#2025102300
+        keyMappings = lib.mkIf (lib.versionAtLeast config.grapheneos.release "2025102300") {
+          "build/make/target/product/security/gmscompat_lib" = "${config.device}/gmscompat_lib";
+        };
+
+        # Extra packages that should use releasekey
+        extraApks = {
+          "OsuLogin.apk" = "${config.device}/releasekey";
+          "ServiceWifiResources.apk" = "${config.device}/releasekey";
+        };
+      };
 
       # Leave the existing auditor in the build--just in case the user wants to
       # audit devices running the official upstream build

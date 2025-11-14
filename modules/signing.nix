@@ -11,20 +11,8 @@ let
   # TODO: Find a better way to do this?
   putInStore = path: if (lib.hasPrefix builtins.storeDir path) then path else (/. + path);
 
-  keysToGenerate = lib.unique (lib.flatten (
-                    map (key: "${config.device}/${key}") [ "releasekey" "platform" "shared" "media" ]
-                    ++ (lib.optional (config.signing.avb.mode == "verity_only") "${config.device}/verity")
-                    ++ (lib.optionals (config.androidVersion >= 10) [ "${config.device}/networkstack" ])
-                    ++ (lib.optionals (config.androidVersion >= 11) [ "com.android.hotspot2.osulogin" "com.android.wifi.resources" ])
-                    ++ (lib.optionals (config.androidVersion >= 12) [ "com.android.connectivity.resources" ])
-                    ++ (lib.optionals (config.androidVersion >= 13)
-                        [ "com.android.adservices.api" "com.android.safetycenter.resources" "com.android.nearby.halfsheet"
-                          "com.android.uwb.resources" "com.android.wifi.dialog" ])
-                    ++ (lib.optional config.signing.apex.enable config.signing.apex.packageNames)
-                    ++ (lib.mapAttrsToList
-                        (name: prebuilt: prebuilt.certificate)
-                        (lib.filterAttrs (name: prebuilt: prebuilt.enable && prebuilt.certificate != "PRESIGNED") config.apps.prebuilt))
-                    ));
+  algorithm = "SHA256_RSA${builtins.toString cfg.avb.size}";
+  keysToGenerate = lib.unique ((builtins.attrValues cfg.keyMappings) ++ (builtins.attrValues cfg.extraApks));
 in
 {
   options = {
@@ -35,10 +23,74 @@ in
         description = "Whether to sign build using user-provided keys. Otherwise, build will be signed using insecure test-keys.";
       };
 
+      avbFlags = mkOption {
+        default = [];
+        type = types.listOf types.str;
+        internal = true;
+        description = ''
+          The AVB-related flags to pass to sign_target_files_apks.
+        '';
+      };
+
+      keyMappings = mkOption {
+        default = {};
+        type = types.attrsOf types.str;
+        internal = true;
+        description = ''
+          The --key_mapping options to pass to sign_target_files_apks.
+        '';
+      };
+
+      extraApks = mkOption {
+        default = {};
+        type = types.attrsOf types.str;
+        internal = true;
+        description = ''
+          The --extra_apks options to pass to sign_target_files_apks.
+        '';
+      };
+
+      extraApexPayloadKeys = mkOption {
+        default = {};
+        type = types.attrsOf types.str;
+        internal = true;
+        description = ''
+          The --extra_apex_payload_key options to pass to sign_target_files_apks.
+        '';
+      };
+
+      apkFlags = mkOption {
+        default = [];
+        type = types.listOf types.str;
+        internal = true;
+        description = ''
+          The APK-related flags to pass to sign_target_files_apks.
+        '';
+      };
+
+      apexFlags = mkOption {
+        default = [];
+        type = types.listOf types.str;
+        description = ''
+          The APEX-related flags to pass to sign_target_files_apks.
+        '';
+      };
+
+      extraFlags = mkOption {
+        default = [];
+        type = types.listOf types.str;
+        description = ''
+          Additional non-APK-nor-APEX-related flags to pass to sign_target_files_apks.
+        '';
+      };
+
       signTargetFilesArgs = mkOption {
         default = [];
         type = types.listOf types.str;
         internal = true;
+        description = ''
+          The arguments to pass to sign_target_files_apks.
+        '';
       };
 
       prebuiltImages = mkOption {
@@ -69,6 +121,12 @@ in
         verityCert = mkOption {
           type = types.path;
           description = "Verity certificate for AVB. e.g. in x509 DER format.x509.pem. Only needed if signing.avb.mode = \"verity_only\"";
+        };
+
+        size = mkOption {
+          type = types.number;
+          default = 2048;
+          description = "Size of the SHA256 RSA keys";
         };
       };
 
@@ -144,10 +202,14 @@ in
         "hardware.cas"
       ] ++ lib.optionals (config.androidVersion >= 15) [
         "nfcservices" "profiling"
+      ] ++ lib.optionals (config.androidVersion >= 16) [
+        "bt" "crashrecovery" "uprobestats"
+        "hardware.biometrics.face.virtual"
+        "hardware.biometrics.fingerprint.virtual"
       ]
     );
 
-    signing.signTargetFilesArgs = let
+    signing = {
       avbFlags = {
         verity_only = [
           "--replace_verity_public_key $KEYSDIR/${config.device}/verity_key.pub"
@@ -155,22 +217,23 @@ in
           "--replace_verity_keyid $KEYSDIR/${config.device}/verity.x509.pem"
         ];
         vbmeta_simple = [
-          "--avb_vbmeta_key $KEYSDIR/${config.device}/avb.pem" "--avb_vbmeta_algorithm SHA256_RSA2048"
+          "--avb_vbmeta_key $KEYSDIR/${config.device}/avb.pem" "--avb_vbmeta_algorithm ${algorithm}"
         ];
         vbmeta_chained = [
-          "--avb_vbmeta_key $KEYSDIR/${config.device}/avb.pem" "--avb_vbmeta_algorithm SHA256_RSA2048"
-          "--avb_system_key $KEYSDIR/${config.device}/avb.pem" "--avb_system_algorithm SHA256_RSA2048"
+          "--avb_vbmeta_key $KEYSDIR/${config.device}/avb.pem" "--avb_vbmeta_algorithm ${algorithm}"
+          "--avb_system_key $KEYSDIR/${config.device}/avb.pem" "--avb_system_algorithm ${algorithm}"
         ];
         vbmeta_chained_v2 = [
-          "--avb_vbmeta_key $KEYSDIR/${config.device}/avb.pem" "--avb_vbmeta_algorithm SHA256_RSA2048"
-          "--avb_system_key $KEYSDIR/${config.device}/avb.pem" "--avb_system_algorithm SHA256_RSA2048"
-          "--avb_vbmeta_system_key $KEYSDIR/${config.device}/avb.pem" "--avb_vbmeta_system_algorithm SHA256_RSA2048"
+          "--avb_vbmeta_key $KEYSDIR/${config.device}/avb.pem" "--avb_vbmeta_algorithm ${algorithm}"
+          "--avb_system_key $KEYSDIR/${config.device}/avb.pem" "--avb_system_algorithm ${algorithm}"
+          "--avb_vbmeta_system_key $KEYSDIR/${config.device}/avb.pem" "--avb_vbmeta_system_algorithm ${algorithm}"
         ];
       }.${cfg.avb.mode}
       ++ lib.optionals ((config.androidVersion >= 10) && (cfg.avb.mode != "verity_only")) [
         "--avb_system_other_key $KEYSDIR/${config.device}/avb.pem"
-        "--avb_system_other_algorithm SHA256_RSA2048"
+        "--avb_system_other_algorithm ${algorithm}"
       ];
+
       keyMappings = {
          # Default key mappings from sign_target_files_apks.py
         "build/make/target/product/security/devkey" = "${config.device}/releasekey";
@@ -199,16 +262,29 @@ in
         "packages/modules/Uwb/service/ServiceUwbResources/resources-certs/com.android.uwb.resources" = "com.android.uwb.resources";
         "packages/modules/Wifi/WifiDialog/certs/com.android.wifi.dialog" = "com.android.wifi.dialog";
       }
-
       # App-specific keys
       // lib.mapAttrs'
         (name: prebuilt: lib.nameValuePair "robotnix/prebuilt/${prebuilt.name}/${prebuilt.certificate}" prebuilt.certificate)
-        config.apps.prebuilt;
-    in
-      lib.mapAttrsToList (from: to: "--key_mapping ${from}=$KEYSDIR/${to}") keyMappings
-      ++ lib.optionals cfg.avb.enable avbFlags
-      ++ lib.optionals cfg.apex.enable (map (k: "--extra_apks ${k}.apex=$KEYSDIR/${k} --extra_apex_payload_key ${k}.apex=$KEYSDIR/${k}.pem") cfg.apex.packageNames)
-      ++ lib.optionals (builtins.length cfg.prebuiltImages != 0) (map (image: "--prebuilt_image ${image}") cfg.prebuiltImages);
+        (lib.filterAttrs (_: acfg: acfg.enable && acfg.certificate != "PRESIGNED") config.apps.prebuilt);
+
+      extraApks = builtins.listToAttrs (map (name: {
+        name = "${name}.apex";
+        value = name;
+      }) cfg.apex.packageNames);
+      extraApexPayloadKeys = builtins.listToAttrs (map (name: {
+        name = "${name}.apex";
+        value = "${name}.pem";
+      }) cfg.apex.packageNames);
+
+      apkFlags =
+        (lib.mapAttrsToList (from: to: "--key_mapping ${from}=$KEYSDIR/${to}") cfg.keyMappings)
+        ++ (lib.mapAttrsToList (apk: key: "--extra_apks ${apk}=$KEYSDIR/${key}") cfg.extraApks);
+      apexFlags = lib.mapAttrsToList (apex: key: "--extra_apex_payload_key ${apex}=$KEYSDIR/${key}") cfg.extraApexPayloadKeys;
+
+      extraFlags = map (image: "--prebuilt_image ${image}") cfg.prebuiltImages;
+
+      signTargetFilesArgs = cfg.avbFlags ++ cfg.apkFlags ++ cfg.apexFlags ++ cfg.extraFlags;
+    };
 
     otaArgs =
       if config.signing.enable
@@ -292,9 +368,8 @@ in
 
       ${lib.optionalString (config.signing.avb.mode != "verity_only") ''
       if [[ ! -e "${config.device}/avb.pem" ]]; then
-        # TODO: Maybe switch to 4096 bit avb key to match apex? Any device-specific problems with doing that?
         echo "Generating Device AVB key"
-        openssl genrsa -out ${config.device}/avb.pem 2048
+        openssl genrsa -out ${config.device}/avb.pem ${builtins.toString cfg.avb.size}
         avbtool extract_public_key --key ${config.device}/avb.pem --output ${config.device}/avb_pkmd.bin
       else
         echo "Skipping generating device AVB key since it is already exists"
