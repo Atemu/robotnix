@@ -372,17 +372,13 @@ in
             # our actual phone target.
             ${lib.optionalString config.adevtool.enable ''
               lunch sdk_phone64_x86_64 cur user
-              m arsclib
               mkdir -p /tmp/vendor_imgs
               export ADEVTOOL_IMG_DOWNLOAD_DIR=/tmp/vendor_imgs
-              ${lib.concatStringsSep "\n" (builtins.map (imgMetadata: let
-                img = pkgs.fetchurl {
-                  inherit (imgMetadata) url sha256;
-                };
-              in ''
-                ln -s ${img} /tmp/vendor_imgs/${imgMetadata.fileName}
+              ${lib.concatStringsSep "\n" (lib.mapAttrsToList (filename: img:
+              ''
+                ln -s ${img} /tmp/vendor_imgs/${filename}
               '') config.adevtool.vendorImgs)}
-              PATH=${fakeGit config.source.dirs."vendor/adevtool".rev}/bin:$PATH vendor/adevtool/bin/run generate-all -d ${lib.concatStringsSep " " config.adevtool.devices}
+              PATH=${fakeGit config.source.dirs."vendor/adevtool".rev}/bin:$PATH vendor/adevtool/bin/run generate-all --noVerify -d ${lib.concatStringsSep " " config.adevtool.devices}
 
               # Rename the vendor RROs. This is necessary such that they don't
               # conflict with our own RROs (such as the one automatically
@@ -393,7 +389,7 @@ in
                 ${pkgs.gnused}/bin/sed -i s/auto_generated_rro/auto_generated_vendor_rro/g $rroBP
               done
               # ...and the makefile in which they are being added to PRODUCT_PACKAGES:
-              ${pkgs.gnused}/bin/sed -i s/auto_generated_rro/auto_generated_vendor_rro/g vendor/google_devices/${config.device}/proprietary/device-vendor.mk
+              ${pkgs.gnused}/bin/sed -i s/auto_generated_rro/auto_generated_vendor_rro/g vendor/google_devices/${config.device}/${config.device}.mk
             ''}
 
             '' + (if config.flavor == "lineageos" then ''
