@@ -1,8 +1,8 @@
 { inputs }:
 self: super: {
-  android-emulator = super.callPackage ./android-emulator {};
+  android-emulator = super.callPackage ./android-emulator { };
 
-  bundletool = super.callPackage ./bundletool {};
+  bundletool = super.callPackage ./bundletool { };
 
   # FIXME: Broken by upstream changes, not sure if it's still necessary?
   # diffoscope = (super.diffoscope.overrideAttrs (attrs: rec {
@@ -22,15 +22,19 @@ self: super: {
   #   enableBloat = true;
   # };
 
-  cipd = super.callPackage ./cipd {};
-  fetchcipd = super.callPackage ./cipd/fetchcipd.nix {};
+  nix-prefetch-git-patched = super.callPackage ./fetchgit/nix-prefetch-git.nix { };
 
-  fetchgerritpatchset = super.callPackage ./fetchgerritpatchset {};
+  cipd = super.callPackage ./cipd { };
+  fetchcipd = super.callPackage ./cipd/fetchcipd.nix { };
+
+  fetchgerritpatchset = super.callPackage ./fetchgerritpatchset { };
 
   # TODO cleanup once fetchgit is overridable upstream
-  fetchgit = args: ((super.lib.makeOverridable super.fetchgit) args).overrideAttrs (old: {
-    impureEnvVars = old.impureEnvVars or [ ] ++ [ "ROBOTNIX_GIT_MIRRORS" ];
-  });
+  fetchgit =
+    args:
+    ((super.lib.makeOverridable super.fetchgit) args).overrideAttrs (old: {
+      impureEnvVars = old.impureEnvVars or [ ] ++ [ "ROBOTNIX_GIT_MIRRORS" ];
+    });
 
   gitRepo = super.callPackage ./gitRepo {
     inherit (super) gitRepo;
@@ -39,7 +43,9 @@ self: super: {
   ###
 
   # Robotnix helper derivations
-  robotnix = super.callPackage ./robotnix {};
+  robotnix = super.callPackage ./robotnix { };
 
-  signing-validator = super.callPackage ./signing-validator {};
+  repo2nix = super.callPackage ./repo2nix { };
+
+  signing-validator = super.callPackage ./signing-validator { };
 }
