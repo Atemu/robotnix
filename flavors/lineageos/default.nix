@@ -38,14 +38,11 @@ let
     ;
 
   lineageBranchToAndroidVersion = {
-    "19.0" = 12;
-    "19.1" = 12;
     "20.0" = 13;
     "21.0" = 14;
-    "22.0" = 15;
-    "22.1" = 15;
     "22.2" = 15;
     "23.0" = 16;
+    "23.2" = 16;
   };
   deviceMetadata = lib.importJSON ./devices.json;
   supportedDevices = attrNames deviceMetadata;
@@ -161,7 +158,6 @@ mkIf (config.flavor == "lineageos") {
   apps.updater.flavor = mkDefault "lineageos";
   apps.updater.includedInFlavor = mkDefault true;
   apps.seedvault.includedInFlavor = mkDefault true;
-  pixel.activeEdge.includedInFlavor = mkDefault true;
 
   # Needed by included kernel build for some devices (pioneer at least)
   envPackages =

@@ -270,6 +270,12 @@ in
       default = { };
       type = types.attrs;
     };
+
+    otatoolsOutPath = mkOption {
+      internal = true;
+      default = "$ANDROID_PRODUCT_OUT/otatools.zip";
+      type = types.str;
+    };
   };
 
   config = mkMerge [
@@ -413,6 +419,12 @@ in
 
               # TODO: Clean this stuff up. unshare / robotnix-build could probably be combined into a single utility.
               builder = pkgs.writeShellScript "builder.sh" ''
+                ${lib.optionalString config.ccache.enable ''
+                  # Check if we have access to the ccache dir to fail fast in
+                  # case of permission issues
+                  touch /var/cache/ccache/robotnix-test || ( echo 'The ccache Nix sandbox exception has not been properly set up. Either `extra-sandbox-paths` has not been set, or the `nixbld` group cannot access the cache dir outside of the sandbox.' && exit 1 )
+                  rm /var/cache/ccache/robotnix-test
+                ''}
                 export SAVED_UID=$(${pkgs.coreutils}/bin/id -u)
                 export SAVED_GID=$(${pkgs.coreutils}/bin/id -g)
 
@@ -507,6 +519,7 @@ in
                   ${lib.optionalString (makeTargets != [ ]) "m ${toString makeTargets} | cat"}
                   ${postBuild}
                   echo $ANDROID_PRODUCT_OUT > ANDROID_PRODUCT_OUT
+                  echo $ANDROID_HOST_OUT > ANDROID_HOST_OUT
 
                   EOF2
                 '';
@@ -514,6 +527,7 @@ in
               installPhase =
                 ''
                   export ANDROID_PRODUCT_OUT=$(cat ANDROID_PRODUCT_OUT)
+                  export ANDROID_HOST_OUT=$(cat ANDROID_HOST_OUT)
                 ''
                 + installPhase;
 
@@ -532,7 +546,7 @@ in
           # Note that $ANDROID_PRODUCT_OUT is set by lunch above
           installPhase = ''
             mkdir -p $out
-            cp --reflink=auto $ANDROID_PRODUCT_OUT/otatools.zip $out/
+            cp --reflink=auto ${config.otatoolsOutPath} $out/otatools.zip
             cp --reflink=auto $ANDROID_PRODUCT_OUT/obj/PACKAGING/target_files_intermediates/${config.targetFilesName} $out/
           '';
         };
@@ -601,13 +615,13 @@ in
         # is just for debugging. We save significant time for a full build by
         # normally building target-files-package and otatools-package
         # simultaneously
-        otaToolsQuick = fixOtaTools (mkAndroid {
+        otaToolsQuick = fixOtaTools mkAndroid {
           name = "otatools.zip";
           makeTargets = [ "otatools-package" ];
           installPhase = ''
-            cp --reflink=auto $ANDROID_PRODUCT_OUT/otatools.zip $out
+            cp --reflink=auto ${config.otatoolsOutPath} $out
           '';
-        });
+        };
 
         fixOtaTools =
           src:

@@ -47,9 +47,6 @@ let
         #./flavors/vanilla/11/kernel
         #./flavors/vanilla/12
         #./flavors/waydroid
-        ./modules/10
-        ./modules/11
-        ./modules/12
         ./modules/13
         ./modules/15
         ./modules/16
@@ -72,13 +69,12 @@ let
         ./modules/security-pki.nix
         ./modules/kernel.nix
         ./modules/microg.nix
-        ./modules/pixel
-        ./modules/pixel/active-edge.nix
-        ./modules/pixel/driver-binaries.nix
         ./modules/release.nix
         ./modules/resources.nix
         ./modules/signing.nix
+        ./modules/legacy-key-mappings.nix
         ./modules/source.nix
+        ./modules/state-version.nix
         ./modules/webview.nix
       ];
     }

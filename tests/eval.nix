@@ -24,6 +24,8 @@ lib.runTests {
         (lib.mapAttrs (name: dir: dir.postPatch))
           (robotnixSystem {
             source.dirs = lib.genAttrs dirs (dir: { });
+
+            stateVersion = "3";
           }).config.source.dirs
       );
     expected = {

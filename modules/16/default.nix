@@ -16,4 +16,9 @@ lib.mkIf (config.androidVersion == 16) {
       ./avbtool-set-perms.patch
     ];
   };
+
+  # In https://android.googlesource.com/platform/build/+/322b51b245bc70bcbbd5538d40dd47c45565b67f,
+  # AOSP switched over to using Soong for otatools.zip.
+  otatoolsOutPath = "$ANDROID_HOST_OUT/obj/ETC/otatools-packagelinux_glibc_x86_64_intermediates/otatools-packagelinux_glibc_x86_64";
+
 }
