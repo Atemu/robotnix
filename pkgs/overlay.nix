@@ -29,13 +29,6 @@ self: super: {
 
   fetchgerritpatchset = super.callPackage ./fetchgerritpatchset { };
 
-  # TODO cleanup once fetchgit is overridable upstream
-  fetchgit =
-    args:
-    ((super.lib.makeOverridable super.fetchgit) args).overrideAttrs (old: {
-      impureEnvVars = old.impureEnvVars or [ ] ++ [ "ROBOTNIX_GIT_MIRRORS" ];
-    });
-
   gitRepo = super.callPackage ./gitRepo {
     inherit (super) gitRepo;
   };
@@ -46,6 +39,4 @@ self: super: {
   robotnix = super.callPackage ./robotnix { };
 
   repo2nix = super.callPackage ./repo2nix { };
-
-  signing-validator = super.callPackage ./signing-validator { };
 }

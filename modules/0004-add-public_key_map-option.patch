@@ -1,0 +1,122 @@
+From f2727a5839f79f76e4b56b2d806286022693cef5 Mon Sep 17 00:00:00 2001
+From: cyclopentane <cyclopentane@aidoskyneen.eu>
+Date: Fri, 13 Mar 2026 20:27:05 +0100
+Subject: [PATCH 4/5] add public_key_map option
+
+---
+ tools/releasetools/common.py                 | 16 ++++++++++++----
+ tools/releasetools/sign_target_files_apks.py | 15 ++++++++++-----
+ 2 files changed, 22 insertions(+), 9 deletions(-)
+
+diff --git a/tools/releasetools/common.py b/tools/releasetools/common.py
+index a03fc115d6..fba1f0d1bf 100644
+--- a/tools/releasetools/common.py
++++ b/tools/releasetools/common.py
+@@ -81,6 +81,7 @@ class Options(object):
+         self.search_path = os.environ["ANDROID_HOST_OUT"]
+     self.apksigner_path = "framework/apksigner.jar"  # Relative to search_path
+     self.signapk_shared_library_path = "lib64"   # Relative to search_path
++    self.public_key_map = {}
+     self.extra_signapk_args = []
+     self.extra_apksigner_args = []
+     self.pkcs11_mode = False
+@@ -2596,9 +2597,13 @@ def SignFile(input_name, output_name, key, password, min_api_level=None,
+       cmd.extend(["--ks-key-alias", key])
+     cmd.extend(["--out", output_name, input_name])
+   else:
+-    cmd.extend([key + OPTIONS.public_key_suffix,
+-                key + OPTIONS.private_key_suffix,
+-                input_name, output_name])
++    public_key = OPTIONS.public_key_map.get(key, key)
++    cmd.append(public_key + OPTIONS.public_key_suffix)
++    if not OPTIONS.pkcs11_mode:
++      cmd.append(key + OPTIONS.private_key_suffix)
++    else:
++      cmd.append(key)
++    cmd.extend([input_name, output_name])
+ 
+   proc = Run(cmd, stdin=subprocess.PIPE)
+   if password is not None:
+@@ -2798,7 +2803,7 @@ def ParseOptions(argv,
+          "java_path=", "java_args=", "android_jar_path=", "public_key_suffix=",
+          "private_key_suffix=", "boot_signer_path=", "boot_signer_args=",
+          "verity_signer_path=", "verity_signer_args=", "device_specific=",
+-         "extra=", "logfile=", "extra_apksigner_args=", "pkcs11_mode"
++         "extra=", "logfile=", "extra_apksigner_args=", "pkcs11_mode", "public_key_mapping=",
+          ] + list(extra_long_opts))
+   except getopt.GetoptError as err:
+     Usage(docstring)
+@@ -2817,6 +2822,9 @@ def ParseOptions(argv,
+       OPTIONS.signapk_path = a
+     elif o in ("--signapk_shared_library_path",):
+       OPTIONS.signapk_shared_library_path = a
++    elif o == "--public_key_mapping":
++      xs = a.split("=", 1)
++      OPTIONS.public_key_map[xs[0]] = xs[1]
+     elif o in ("--extra_signapk_args",):
+       OPTIONS.extra_signapk_args = shlex.split(a)
+     elif o in ("--extra_apksigner_args",):
+diff --git a/tools/releasetools/sign_target_files_apks.py b/tools/releasetools/sign_target_files_apks.py
+index d8e20bd1e2..07e2981d67 100755
+--- a/tools/releasetools/sign_target_files_apks.py
++++ b/tools/releasetools/sign_target_files_apks.py
+@@ -45,6 +45,10 @@ Usage:  sign_target_files_apks [flags] input_target_files output_target_files
+       (dest_key).  Option may be repeated to give multiple key
+       mappings.
+ 
++  --public_key_mapping <priv_key=pub_key>
++      The public key file names (without suffix) corresponding to the private
++      key names. Useful for PKCS#11 signing
++
+   -d  (--default_key_mappings)  <dir>
+       Set up the following key mappings:
+ 
+@@ -1185,7 +1189,8 @@ def ReplaceCerts(data):
+   Raises:
+     AssertionError: On finding duplicate entries.
+   """
+-  for old, new in OPTIONS.key_map.items():
++  for old, new_private_key in OPTIONS.key_map.items():
++    new = OPTIONS.public_key_map.get(new_private_key, new_private_key)
+     if OPTIONS.verbose:
+       print("    Replacing %s.x509.pem with %s.x509.pem" % (old, new))
+ 
+@@ -1313,7 +1318,7 @@ def ReplaceOtaKeys(input_tf_zip: zipfile.ZipFile, output_tf_zip, misc_info):
+ 
+   extra_ota_keys_info = misc_info.get("extra_ota_keys")
+   if extra_ota_keys_info:
+-    extra_ota_keys = [OPTIONS.key_map.get(k, k) + ".x509.pem"
++    extra_ota_keys = [OPTIONS.public_key_map.get(OPTIONS.key_map.get(k, k), OPTIONS.key_map.get(k, k)) + ".x509.pem"
+                       for k in extra_ota_keys_info.split()]
+     print("extra ota key(s): " + ", ".join(extra_ota_keys))
+   else:
+@@ -1324,7 +1329,7 @@ def ReplaceOtaKeys(input_tf_zip: zipfile.ZipFile, output_tf_zip, misc_info):
+ 
+   extra_recovery_keys_info = misc_info.get("extra_recovery_keys")
+   if extra_recovery_keys_info:
+-    extra_recovery_keys = [OPTIONS.key_map.get(k, k) + ".x509.pem"
++    extra_recovery_keys = [OPTIONS.public_key_map.get(OPTIONS.key_map.get(k, k), OPTIONS.key_map.get(k, k)) + ".x509.pem"
+                            for k in extra_recovery_keys_info.split()]
+     print("extra recovery-only key(s): " + ", ".join(extra_recovery_keys))
+   else:
+@@ -1340,7 +1345,7 @@ def ReplaceOtaKeys(input_tf_zip: zipfile.ZipFile, output_tf_zip, misc_info):
+       raise common.ExternalError(
+           "can't parse \"%s\" from META/otakeys.txt" % (k,))
+     k = m.group(1)
+-    mapped_keys.append(OPTIONS.key_map.get(k, k) + ".x509.pem")
++    mapped_keys.append(OPTIONS.public_key_map.get(OPTIONS.key_map.get(k, k), OPTIONS.key_map.get(k, k)) + ".x509.pem")
+ 
+   if mapped_keys:
+     print("using:\n   ", "\n   ".join(mapped_keys))
+@@ -1348,7 +1353,7 @@ def ReplaceOtaKeys(input_tf_zip: zipfile.ZipFile, output_tf_zip, misc_info):
+   else:
+     devkey = misc_info.get("default_system_dev_certificate",
+                            "build/make/target/product/security/testkey")
+-    mapped_devkey = OPTIONS.key_map.get(devkey, devkey)
++    mapped_devkey = OPTIONS.public_key_map.get(OPTIONS.key_map.get(devkey, devkey), OPTIONS.key_map.get(devkey, devkey))
+     if mapped_devkey != devkey:
+       misc_info["default_system_dev_certificate"] = mapped_devkey
+     mapped_keys.append(mapped_devkey + ".x509.pem")
+-- 
+2.53.0
+

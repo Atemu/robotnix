@@ -1,0 +1,59 @@
+From fa287908045ddbdfb1d801fc35b1b4e8ee9c586c Mon Sep 17 00:00:00 2001
+From: cyclopentane <cyclopentane@aidoskyneen.eu>
+Date: Wed, 25 Mar 2026 00:30:00 +0100
+Subject: [PATCH 3/5] releasetools: add pkcs11_mode cli flag
+
+---
+ tools/releasetools/common.py | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
+
+diff --git a/tools/releasetools/common.py b/tools/releasetools/common.py
+index 6b452af3b0..a03fc115d6 100644
+--- a/tools/releasetools/common.py
++++ b/tools/releasetools/common.py
+@@ -83,6 +83,7 @@ class Options(object):
+     self.signapk_shared_library_path = "lib64"   # Relative to search_path
+     self.extra_signapk_args = []
+     self.extra_apksigner_args = []
++    self.pkcs11_mode = False
+     self.aapt2_path = "aapt2"
+     self.java_path = "java"  # Use the one on the path by default.
+     self.java_args = ["-Xmx4096m"]  # The default JVM args.
+@@ -2588,10 +2589,12 @@ def SignFile(input_name, output_name, key, password, min_api_level=None,
+     cmd.extend(["--min-sdk-version", str(min_sdk_version)])
+ 
+   if use_apksigner:
+-    cmd.extend(["--key", key + OPTIONS.private_key_suffix,
+-                "--cert", key + OPTIONS.public_key_suffix,
+-                "--out", output_name,
+-                input_name])
++    if not OPTIONS.pkcs11_mode:
++      cmd.extend(["--key", key + OPTIONS.private_key_suffix,
++                  "--cert", key + OPTIONS.public_key_suffix])
++    else:
++      cmd.extend(["--ks-key-alias", key])
++    cmd.extend(["--out", output_name, input_name])
+   else:
+     cmd.extend([key + OPTIONS.public_key_suffix,
+                 key + OPTIONS.private_key_suffix,
+@@ -2795,7 +2798,7 @@ def ParseOptions(argv,
+          "java_path=", "java_args=", "android_jar_path=", "public_key_suffix=",
+          "private_key_suffix=", "boot_signer_path=", "boot_signer_args=",
+          "verity_signer_path=", "verity_signer_args=", "device_specific=",
+-         "extra=", "logfile=", "extra_apksigner_args=",
++         "extra=", "logfile=", "extra_apksigner_args=", "pkcs11_mode"
+          ] + list(extra_long_opts))
+   except getopt.GetoptError as err:
+     Usage(docstring)
+@@ -2818,6 +2821,8 @@ def ParseOptions(argv,
+       OPTIONS.extra_signapk_args = shlex.split(a)
+     elif o in ("--extra_apksigner_args",):
+       OPTIONS.extra_apksigner_args = shlex.split(a)
++    elif o in ("--pkcs11_mode",):
++      OPTIONS.pkcs11_mode = True
+     elif o in ("--aapt2_path",):
+       OPTIONS.aapt2_path = a
+     elif o in ("--java_path",):
+-- 
+2.53.0
+

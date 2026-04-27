@@ -23,6 +23,7 @@ lib.runTests {
       lib.filterAttrs (n: v: lib.elem n dirs) (
         (lib.mapAttrs (name: dir: dir.postPatch))
           (robotnixSystem {
+            androidVersion = 16;
             source.dirs = lib.genAttrs dirs (dir: { });
 
             stateVersion = "3";

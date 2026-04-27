@@ -13,6 +13,7 @@
   - [Source Directories](modules/source.md)
   - [Other Modules](modules/other.md)
 - [Building](building.md)
+- [Signing](signing.md)
 - [Installation / Updating](installation.md)
 - [Development](development.md)
 - [Reference]()

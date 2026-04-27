@@ -35,7 +35,7 @@ lib.mkIf (!lib.versionAtLeast config.stateVersion "3") {
       "packages/modules/Wifi/WifiDialog/certs/com.android.wifi.dialog" = "com.android.wifi.dialog";
     };
 
-  # Extra packages that should use releasekey
+  # Extra packages
   # we're filtering for grapheneos for legacy reasons.
   signing.extraApks = lib.mkIf (config.flavor == "grapheneos") {
     "OsuLogin.apk" = "${config.device}/releasekey";
@@ -44,5 +44,6 @@ lib.mkIf (!lib.versionAtLeast config.stateVersion "3") {
     "HealthConnectBackupRestore.apk" = "${config.device}/releasekey";
     "HealthConnectController.apk" = "${config.device}/releasekey";
     "FederatedCompute.apk" = "${config.device}/releasekey";
+    "Bluetooth.apk" = "${config.device}/bluetooth";
   };
 }

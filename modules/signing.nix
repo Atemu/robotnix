@@ -25,14 +25,47 @@ let
   # TODO: Find a better way to do this?
   putInStore = path: if (lib.hasPrefix builtins.storeDir path) then path else (/. + path);
 
-  algorithm = "SHA256_RSA${builtins.toString cfg.avb.size}";
+  avbAlgorithm = "SHA256_RSA${builtins.toString cfg.avb.size}";
   keysToGenerate = lib.unique (
     (builtins.attrValues cfg.keyMappings) ++ (builtins.attrValues cfg.extraApks)
   );
+
+  signapkKeyNameMap =
+    if config.signing.pkcs11.enable then
+      (x: config.signing.pkcs11.certificateLabels.${x})
+    else
+      (x: "$KEYSDIR/${x}");
+
+  avbtoolKeyMap =
+    if config.signing.pkcs11.enable then
+      # This is somewhat of a hack - avbtool unconditionally tries to call
+      # openssl on the key parameter, without any PKCS#11 related arguments.
+      # Fortunately, the function used (RSAPublicKey.__init__) also checks if
+      # the argument is a public key by calling `openssl rsa -in` with and
+      # without `-pubin` in succession, so we're fine if we pass the
+      # public key instead. We override the key argument with the PKCS#11 key
+      # label in the signing helper anyway.
+      (x: "$KEYSDIR/${x}.pub")
+    else
+      (x: "$KEYSDIR/${x}.pem");
 in
 {
   options = {
     signing = {
+      # Currently, make_key hardcodes a key size of 4096 bits.
+      # This might change in the future and wreak havoc to our PKCS#11 signing,
+      # so we future-proof it by checking in verifyKeysScript that the key size
+      # is, indeed, still 4096 bit.
+      # TODO generate APK keys directly with openssl + sane Nix abstractions
+      apkKeySize = mkOption {
+        type = types.enum [
+          2048
+          4096
+        ];
+        internal = true;
+        description = '''';
+      };
+
       avbFlags = mkOption {
         default = [ ];
         type = types.listOf types.str;
@@ -135,6 +168,14 @@ in
           description = "Mode of AVB signing to use.";
         };
 
+        # TODO this is still hardcoded in a number of places.
+        key = mkOption {
+          type = types.str;
+          default = "${config.device}/avb";
+          defaultText = "\${config.device}/avb";
+          description = "The identifier of the AVB key to use.";
+        };
+
         size = mkOption {
           type = types.number;
           default = 4096;
@@ -150,6 +191,12 @@ in
           type = types.listOf types.str;
           description = "APEX packages which need to be signed";
         };
+      };
+
+      otaFlags = mkOption {
+        default = [ ];
+        type = types.listOf types.str;
+        internal = true;
       };
     };
   };
@@ -167,6 +214,36 @@ in
         '';
       }
     ];
+
+    # We unconditionally apply the PKCS#11-related patches, such that users
+    # won't have to rebuild when toggling PKCS#11 signing.
+    source.dirs = {
+      "build/make".patches = lib.mkMerge [
+        (lib.mkIf (config.flavor != "grapheneos") [
+          ./0001-sign_target_files_apks-guard-against-usage-of-test-A.patch
+        ])
+        (lib.mkIf (config.androidVersion >= 16) [
+          ./0001-sign_target_files_apks-Add-pkmd-CLI-args.patch
+          ./0002-releasetools-Use-apksigner-for-most-APK-and-APEX-sig.patch
+          ./0003-releasetools-add-pkcs11_mode-cli-flag.patch
+          ./0004-add-public_key_map-option.patch
+          ./0005-signapk-add-keyStorePinFile-option.patch
+        ])
+      ];
+      "tools/apksig".patches = lib.mkIf (config.androidVersion >= 16) [
+        # Add alignment override option like signapk
+        (pkgs.fetchpatch {
+          url = "https://gitlab.com/CalyxOS/platform_tools_apksig/-/commit/5275610e05b5010c9f8bc07d0b65b99dbf130942.patch";
+          hash = "sha256-02A2+puqSkA//Y9crU6HgGUKwa5UOxmfMO+iEWL/QBE=";
+        })
+
+        # Log out of SunPKCS11 on exit
+        (pkgs.fetchpatch {
+          url = "https://gitlab.com/CalyxOS/platform_tools_apksig/-/commit/12a329fefe23b4abe5879a5078311e9fb00b48b9.patch";
+          hash = "sha256-ob/f107mw8N2sEE+6miWYkwcbeJJLxND+0ho8VFFq68=";
+        })
+      ];
+    };
 
     signing.apex.enable = mkIf (config.androidVersion >= 10) (mkDefault true);
     # TODO: Some of these apex packages share the same underlying keys. We should try to match that. See META/apexkeys.txt from  target-files
@@ -247,33 +324,38 @@ in
     );
 
     signing = {
+      # Do not override - this only changes the value in verifyKeysScript, but
+      # not the hardcoded value in make_key.
+      # TODO saner Nix abstractions
+      apkKeySize = lib.mkForce (if config.flavor == "grapheneos" then 4096 else 2048);
+
       avbFlags =
         {
           vbmeta_simple = [
-            "--avb_vbmeta_key $KEYSDIR/${config.device}/avb.pem"
-            "--avb_vbmeta_algorithm ${algorithm}"
+            ''--avb_vbmeta_key "${avbtoolKeyMap cfg.avb.key}"''
+            "--avb_vbmeta_algorithm ${avbAlgorithm}"
           ];
           vbmeta_chained = [
-            "--avb_vbmeta_key $KEYSDIR/${config.device}/avb.pem"
-            "--avb_vbmeta_algorithm ${algorithm}"
-            "--avb_system_key $KEYSDIR/${config.device}/avb.pem"
-            "--avb_system_algorithm ${algorithm}"
+            ''--avb_vbmeta_key "${avbtoolKeyMap cfg.avb.key}"''
+            ''--avb_vbmeta_algorithm ${avbAlgorithm}''
+            ''--avb_system_key "${avbtoolKeyMap cfg.avb.key}"''
+            ''--avb_system_algorithm ${avbAlgorithm}''
           ];
           vbmeta_chained_v2 = [
-            "--avb_vbmeta_key $KEYSDIR/${config.device}/avb.pem"
-            "--avb_vbmeta_algorithm ${algorithm}"
-            "--avb_system_key $KEYSDIR/${config.device}/avb.pem"
-            "--avb_system_algorithm ${algorithm}"
-            "--avb_vbmeta_system_key $KEYSDIR/${config.device}/avb.pem"
-            "--avb_vbmeta_system_algorithm ${algorithm}"
+            ''--avb_vbmeta_key "${avbtoolKeyMap cfg.avb.key}"''
+            ''--avb_vbmeta_algorithm ${avbAlgorithm}''
+            ''--avb_system_key "${avbtoolKeyMap cfg.avb.key}"''
+            ''--avb_system_algorithm ${avbAlgorithm}''
+            ''--avb_vbmeta_system_key "${avbtoolKeyMap cfg.avb.key}"''
+            ''--avb_vbmeta_system_algorithm ${avbAlgorithm}''
           ];
         }
         .${cfg.avb.mode}
         ++ lib.optionals
           ((config.androidVersion >= 10) && (cfg.avb.mode != "verity_only") && config.stateVersion == "1")
           [
-            "--avb_system_other_key $KEYSDIR/${config.device}/avb.pem"
-            "--avb_system_other_algorithm ${algorithm}"
+            ''--avb_system_other_key "${avbtoolKeyMap cfg.avb.key}"''
+            ''--avb_system_other_algorithm ${avbAlgorithm}''
           ];
 
       keyMappings =
@@ -284,6 +366,7 @@ in
           "build/make/target/product/security/media" = "${config.device}/media";
           "build/make/target/product/security/shared" = "${config.device}/shared";
           "build/make/target/product/security/platform" = "${config.device}/platform";
+          "build/make/target/product/security/bluetooth" = "${config.device}/bluetooth";
           "build/make/target/product/security/sdk_sandbox" = "${config.device}/sdk_sandbox";
           "build/make/target/product/security/nfc" = "${config.device}/nfc";
           "build/make/target/product/security/networkstack" = "${config.device}/networkstack";
@@ -314,25 +397,31 @@ in
           "OsuLogin.apk" = "${config.device}/releasekey";
           "ServiceWifiResources.apk" = "${config.device}/releasekey";
           "WifiDialog.apk" = "${config.device}/releasekey";
+          "Bluetooth.apk" = "${config.device}/bluetooth";
         });
       extraApexPayloadKeys = builtins.listToAttrs (
         map (name: {
           name = "${name}.apex";
-          value =
-            if lib.versionAtLeast config.stateVersion "3" then "${config.device}/avb.pem" else "${name}.pem";
+          value = if lib.versionAtLeast config.stateVersion "3" then "${config.device}/avb" else "${name}";
         }) cfg.apex.packageNames
       );
 
       apkFlags =
-        (lib.mapAttrsToList (from: to: "--key_mapping ${from}=$KEYSDIR/${to}") cfg.keyMappings)
-        ++ (lib.mapAttrsToList (apk: key: "--extra_apks ${apk}=$KEYSDIR/${key}") cfg.extraApks);
+        (lib.mapAttrsToList (from: to: "--key_mapping ${from}=\"${signapkKeyNameMap to}\"") cfg.keyMappings)
+        ++ (lib.mapAttrsToList (
+          apk: key: "--extra_apks ${apk}=\"${signapkKeyNameMap key}\""
+        ) cfg.extraApks);
       apexFlags = lib.mapAttrsToList (
-        apex: key: "--extra_apex_payload_key ${apex}=$KEYSDIR/${key}"
+        apex: key: "--extra_apex_payload_key ${apex}=\"${avbtoolKeyMap key}\""
       ) cfg.extraApexPayloadKeys;
 
       extraFlags = map (image: "--prebuilt_image ${image}") cfg.prebuiltImages;
 
       signTargetFilesArgs = cfg.avbFlags ++ cfg.apkFlags ++ cfg.apexFlags ++ cfg.extraFlags;
+
+      otaFlags = lib.mkIf (!cfg.pkcs11.enable) [
+        "-k \"$KEYSDIR/${config.device}/releasekey\""
+      ];
     };
 
     build.generateKeysScript =
@@ -411,12 +500,26 @@ in
           done
         ''}
 
-        if [[ ! -e "${config.device}/avb.pem" ]]; then
+        if [[ ! -e "${cfg.avb.key}.pem" ]]; then
           echo "Generating Device AVB key"
-          openssl genrsa -out ${config.device}/avb.pem ${builtins.toString cfg.avb.size}
-          avbtool extract_public_key --key ${config.device}/avb.pem --output ${config.device}/avb_pkmd.bin
+          openssl genrsa -out ${cfg.avb.key}.pem ${builtins.toString cfg.avb.size}
+          avbtool extract_public_key --key ${cfg.avb.key}.pem --output ${cfg.avb.key}_pkmd.bin
         else
           echo "Skipping generating device AVB key since it is already exists"
+        fi
+
+        if [[ ! -e "${cfg.avb.key}.x509.pem" ]]; then
+          echo "Generating Device AVB certificate"
+          openssl req -key ${cfg.avb.key}.pem -x509 -days 3650 -subj "/CN=Robotnix avb/" -out ${cfg.avb.key}.x509.pem
+        else
+          echo "Skipping generating device AVB certificate since it is already exists"
+        fi
+
+        if [[ ! -e "${cfg.avb.key}.pub" ]]; then
+          echo "Extracting Device AVB public key"
+          openssl x509 -in ${cfg.avb.key}.x509.pem -pubkey -noout > ${cfg.avb.key}.pub
+        else
+          echo "Skipping extracting device AVB public key since it is already exists"
         fi
       '';
 
@@ -424,6 +527,17 @@ in
     # TODO: Remove code duplicated with generate_keys.sh
     build.verifyKeysScript = pkgs.writeShellScript "verify_keys.sh" ''
       set -euo pipefail
+      PATH=${
+        lib.makeBinPath (
+          with pkgs;
+          [
+            coreutils
+            openssl
+            gnugrep
+            gawk
+          ]
+        )
+      }
 
       if [[ "$#" -ne 1 ]]; then
         echo "Usage: $0 <keysdir>"
@@ -441,9 +555,14 @@ in
       MISSING_KEYS=0
 
       for key in "''${KEYS[@]}"; do
-        if [[ ! -e "$key".pk8 ]]; then
-          echo "Missing $key key"
+        if [[ ! -e "$key".x509.pem ]]; then
+          echo "Missing $key certificate"
           MISSING_KEYS=1
+        fi
+        KEYSIZE=$(openssl x509 -in "$key.x509.pem" -text -noout | grep "Public-Key" | tr -d '(' | awk '{ print $2 }')
+        if [ "$KEYSIZE" != ${toString config.signing.apkKeySize} ]; then
+          echo "APK certificate $key has wrong size ($KEYSIZE bits), but ${toString config.signing.apkKeySize} were expected."
+          RETVAL=1
         fi
       done
 
@@ -456,14 +575,14 @@ in
         done
       ''}
 
-      if [[ ! -e "${config.device}/avb.pem" ]]; then
-        echo "Missing Device AVB key"
+      if [[ ! -e "${config.device}/avb.x509.pem" ]]; then
+        echo "Missing device AVB certificate"
         MISSING_KEYS=1
       else
-        KEYSIZE=$(${lib.getExe pkgs.openssl} rsa -in "${config.device}/avb.pem" -text 2>/dev/null | grep -E "Private-Key: \(([0-9]+) bit, 2 primes\)" | tr -d "(" | awk '{ print $2 }')
+        KEYSIZE=$(openssl x509 -in "${config.device}/avb.x509.pem" -noout -text | grep "Public-Key" | tr -d "(" | awk '{ print $2 }')
         if [[ "$KEYSIZE" -ne ${toString config.signing.avb.size} ]]; then
-          echo "Device AVB key in $1 has wrong size ($KEYSIZE bits), but ${toString config.signing.avb.size} bits were expected."
-          echo "Either rotate your AVB signing key, or set \`signing.avb.size = $KEYSIZE;\`."
+          echo "Device AVB certificate in $1 has wrong size ($KEYSIZE bits), but ${toString config.signing.avb.size} bits were expected."
+          echo "Either rotate your AVB certificate, or set \`signing.avb.size = $KEYSIZE;\`."
           RETVAL=1
         fi
       fi
@@ -472,7 +591,7 @@ in
         echo Certain keys were missing from KEYSDIR. Have you run generateKeysScript?
         echo Additionally, some robotnix configuration options require that you re-run
         echo generateKeysScript to create additional new keys.  This should not overwrite
-        echo existing keys.
+        echo any existing keys.
         exit 1
       fi
       exit $RETVAL

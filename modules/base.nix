@@ -163,7 +163,6 @@ in
     };
 
     androidVersion = mkOption {
-      default = 12;
       type = types.int;
       description = "Used to select which Android version to use";
     };
@@ -469,6 +468,9 @@ in
                   ## loads bash functions for building, such as "breakfast" or "lunch"
                   source build/envsetup.sh
 
+                  # stop soong_ui in adevtool and in the main build from messing up the Nix build logs with ANSI escape sequences
+                  export TERM=dumb
+
                   # in GrapheneOS, <product name> and aosp_<product name> are two
                   # separate targets - the former has its product makefiles located in
                   # device/google, and the latter in vendor/google_devices. Therefore,
@@ -615,13 +617,13 @@ in
         # is just for debugging. We save significant time for a full build by
         # normally building target-files-package and otatools-package
         # simultaneously
-        otaToolsQuick = fixOtaTools mkAndroid {
+        otaToolsQuick = fixOtaTools (mkAndroid {
           name = "otatools.zip";
           makeTargets = [ "otatools-package" ];
           installPhase = ''
             cp --reflink=auto ${config.otatoolsOutPath} $out
           '';
-        };
+        });
 
         fixOtaTools =
           src:

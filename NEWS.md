@@ -3,10 +3,14 @@ SPDX-FileCopyrightText: 2021 Daniel Fullmer and robotnix contributors
 SPDX-License-Identifier: MIT
 -->
 
-Updates are added to this file approximately monthly, or whenever significant
-changes occur which require user intervention / configuration changes.  These
-are highlights since the last update, and are not meant to be an exhaustive
-listing of changes. See the git commit log for additional details.
+Updates are added to this file whenever significant changes occur which require
+user intervention / configuration changes.  These are highlights since the last
+update, and are not meant to be an exhaustive listing of changes. See the git
+commit log for additional details.
+
+# 2026-03-26
+
+- A module for PKCS#11 (e.g. YubiKey) release signing was added.
 
 # 2026-02-05
 

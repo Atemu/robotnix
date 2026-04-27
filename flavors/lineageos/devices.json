@@ -14,6 +14,63 @@
     "default_branch": "lineage-22.2",
     "period": "W"
   },
+  "DRG": {
+    "name": "DRG",
+    "vendor": "nokia",
+    "build_type": "userdebug",
+    "branches": {
+      "lineage-17.1": {
+        "repo_url": "https://github.com/LineageOS/android_device_nokia_DRG",
+        "revision": "refs/heads/lineage-17.1",
+        "fetch_lfs": true,
+        "fetch_submodules": false
+      },
+      "lineage-18.1": {
+        "repo_url": "https://github.com/LineageOS/android_device_nokia_DRG",
+        "revision": "refs/heads/lineage-18.1",
+        "fetch_lfs": true,
+        "fetch_submodules": false
+      },
+      "lineage-19.1": {
+        "repo_url": "https://github.com/LineageOS/android_device_nokia_DRG",
+        "revision": "refs/heads/lineage-19.1",
+        "fetch_lfs": true,
+        "fetch_submodules": false
+      },
+      "lineage-20": {
+        "repo_url": "https://github.com/LineageOS/android_device_nokia_DRG",
+        "revision": "refs/heads/lineage-20",
+        "fetch_lfs": true,
+        "fetch_submodules": false
+      },
+      "lineage-21": {
+        "repo_url": "https://github.com/LineageOS/android_device_nokia_DRG",
+        "revision": "refs/heads/lineage-21",
+        "fetch_lfs": true,
+        "fetch_submodules": false
+      },
+      "lineage-22.0": {
+        "repo_url": "https://github.com/LineageOS/android_device_nokia_DRG",
+        "revision": "refs/heads/lineage-22.0",
+        "fetch_lfs": true,
+        "fetch_submodules": false
+      },
+      "lineage-22.1": {
+        "repo_url": "https://github.com/LineageOS/android_device_nokia_DRG",
+        "revision": "refs/heads/lineage-22.1",
+        "fetch_lfs": true,
+        "fetch_submodules": false
+      },
+      "lineage-22.2": {
+        "repo_url": "https://github.com/LineageOS/android_device_nokia_DRG",
+        "revision": "refs/heads/lineage-22.2",
+        "fetch_lfs": true,
+        "fetch_submodules": false
+      }
+    },
+    "default_branch": "lineage-22.2",
+    "period": "W"
+  },
   "FP3": {
     "name": "FP3",
     "vendor": "fairphone",
@@ -1289,7 +1346,7 @@
         "fetch_submodules": false
       }
     },
-    "default_branch": "lineage-22.2",
+    "default_branch": "lineage-23.2",
     "period": "W"
   },
   "aston": {
@@ -1620,6 +1677,21 @@
       }
     },
     "default_branch": "lineage-22.2",
+    "period": "W"
+  },
+  "bale": {
+    "name": "bale",
+    "vendor": "realme",
+    "build_type": "userdebug",
+    "branches": {
+      "lineage-23.2": {
+        "repo_url": "https://github.com/LineageOS/android_device_realme_bale",
+        "revision": "refs/heads/lineage-23.2",
+        "fetch_lfs": true,
+        "fetch_submodules": false
+      }
+    },
+    "default_branch": "lineage-23.2",
     "period": "W"
   },
   "bangkk": {
@@ -4359,6 +4431,21 @@
       },
       "lineage-23.2": {
         "repo_url": "https://github.com/LineageOS/android_device_xiaomi_diting",
+        "revision": "refs/heads/lineage-23.2",
+        "fetch_lfs": true,
+        "fetch_submodules": false
+      }
+    },
+    "default_branch": "lineage-23.2",
+    "period": "W"
+  },
+  "dm1q": {
+    "name": "dm1q",
+    "vendor": "samsung",
+    "build_type": "userdebug",
+    "branches": {
+      "lineage-23.2": {
+        "repo_url": "https://github.com/LineageOS/android_device_samsung_dm1q",
         "revision": "refs/heads/lineage-23.2",
         "fetch_lfs": true,
         "fetch_submodules": false
@@ -7976,39 +8063,6 @@
     "default_branch": "lineage-23.2",
     "period": "W"
   },
-  "laurel_sprout": {
-    "name": "laurel_sprout",
-    "vendor": "xiaomi",
-    "build_type": "userdebug",
-    "branches": {
-      "lineage-22.2": {
-        "repo_url": "https://github.com/LineageOS/android_device_xiaomi_laurel_sprout",
-        "revision": "refs/heads/lineage-22.2",
-        "fetch_lfs": true,
-        "fetch_submodules": false
-      },
-      "lineage-23.0": {
-        "repo_url": "https://github.com/LineageOS/android_device_xiaomi_laurel_sprout",
-        "revision": "refs/heads/lineage-23.0",
-        "fetch_lfs": true,
-        "fetch_submodules": false
-      },
-      "lineage-23.1": {
-        "repo_url": "https://github.com/LineageOS/android_device_xiaomi_laurel_sprout",
-        "revision": "refs/heads/lineage-23.1",
-        "fetch_lfs": true,
-        "fetch_submodules": false
-      },
-      "lineage-23.2": {
-        "repo_url": "https://github.com/LineageOS/android_device_xiaomi_laurel_sprout",
-        "revision": "refs/heads/lineage-23.2",
-        "fetch_lfs": true,
-        "fetch_submodules": false
-      }
-    },
-    "default_branch": "lineage-23.0",
-    "period": "W"
-  },
   "lemonade": {
     "name": "lemonade",
     "vendor": "oneplus",
@@ -8342,7 +8396,7 @@
         "fetch_submodules": false
       }
     },
-    "default_branch": "lineage-22.2",
+    "default_branch": "lineage-23.2",
     "period": "W"
   },
   "luigi": {
@@ -8876,7 +8930,7 @@
         "fetch_submodules": false
       }
     },
-    "default_branch": "lineage-23.0",
+    "default_branch": "lineage-23.2",
     "period": "W"
   },
   "mermaid": {
@@ -9191,7 +9245,7 @@
         "fetch_submodules": false
       }
     },
-    "default_branch": "lineage-22.2",
+    "default_branch": "lineage-23.2",
     "period": "W"
   },
   "nairo": {
@@ -10733,6 +10787,51 @@
     "default_branch": "lineage-23.2",
     "period": "W"
   },
+  "pdx245": {
+    "name": "pdx245",
+    "vendor": "sony",
+    "build_type": "userdebug",
+    "branches": {
+      "lineage-23.2": {
+        "repo_url": "https://github.com/LineageOS/android_device_sony_pdx245",
+        "revision": "refs/heads/lineage-23.2",
+        "fetch_lfs": true,
+        "fetch_submodules": false
+      }
+    },
+    "default_branch": "lineage-23.2",
+    "period": "W"
+  },
+  "pdx257": {
+    "name": "pdx257",
+    "vendor": "sony",
+    "build_type": "userdebug",
+    "branches": {
+      "lineage-23.2": {
+        "repo_url": "https://github.com/LineageOS/android_device_sony_pdx257",
+        "revision": "refs/heads/lineage-23.2",
+        "fetch_lfs": true,
+        "fetch_submodules": false
+      }
+    },
+    "default_branch": "lineage-23.2",
+    "period": "W"
+  },
+  "peridot": {
+    "name": "peridot",
+    "vendor": "xiaomi",
+    "build_type": "userdebug",
+    "branches": {
+      "lineage-23.2": {
+        "repo_url": "https://github.com/LineageOS/android_device_xiaomi_peridot",
+        "revision": "refs/heads/lineage-23.2",
+        "fetch_lfs": true,
+        "fetch_submodules": false
+      }
+    },
+    "default_branch": "lineage-23.2",
+    "period": "W"
+  },
   "perseus": {
     "name": "perseus",
     "vendor": "xiaomi",
@@ -11343,6 +11442,21 @@
       },
       "lineage-23.2": {
         "repo_url": "https://github.com/LineageOS/android_device_motorola_pstar",
+        "revision": "refs/heads/lineage-23.2",
+        "fetch_lfs": true,
+        "fetch_submodules": false
+      }
+    },
+    "default_branch": "lineage-23.2",
+    "period": "W"
+  },
+  "pyrite": {
+    "name": "pyrite",
+    "vendor": "osom",
+    "build_type": "userdebug",
+    "branches": {
+      "lineage-23.2": {
+        "repo_url": "https://github.com/LineageOS/android_device_osom_pyrite",
         "revision": "refs/heads/lineage-23.2",
         "fetch_lfs": true,
         "fetch_submodules": false
@@ -12146,7 +12260,7 @@
         "fetch_submodules": false
       }
     },
-    "default_branch": "lineage-23.0",
+    "default_branch": "lineage-23.2",
     "period": "W"
   },
   "rtwo": {
@@ -13337,7 +13451,7 @@
         "fetch_submodules": false
       }
     },
-    "default_branch": "lineage-22.2",
+    "default_branch": "lineage-23.2",
     "period": "W"
   },
   "timelm": {
@@ -13364,7 +13478,7 @@
         "fetch_submodules": false
       }
     },
-    "default_branch": "lineage-23.0",
+    "default_branch": "lineage-23.2",
     "period": "W"
   },
   "tokay": {
@@ -13410,6 +13524,21 @@
       }
     },
     "default_branch": "lineage-23.2",
+    "period": "W"
+  },
+  "trident": {
+    "name": "trident",
+    "vendor": "smartisan",
+    "build_type": "userdebug",
+    "branches": {
+      "lineage-22.2": {
+        "repo_url": "https://github.com/LineageOS/android_device_smartisan_trident",
+        "revision": "refs/heads/lineage-22.2",
+        "fetch_lfs": true,
+        "fetch_submodules": false
+      }
+    },
+    "default_branch": "lineage-22.2",
     "period": "W"
   },
   "troika": {

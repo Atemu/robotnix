@@ -162,13 +162,10 @@
             (lib.mkIf (lib.versionAtLeast config.grapheneos.release "2025102300") {
               "build/make/target/product/security/gmscompat_lib" = "${config.device}/gmscompat_lib";
             })
-            (lib.mkIf (lib.versionAtLeast config.grapheneos.release "2026021200") {
-              "build/make/target/product/security/bluetooth" = "${config.device}/bluetooth";
-            })
           ];
 
-          extraApks = {
-            "Bluetooth.apk" = "${config.device}/bluetooth";
+          pkcs11.presets.yubikey-piv.slotMap = lib.mkOptionDefault {
+            "${config.device}/gmscompat_lib" = "8a";
           };
         };
 
